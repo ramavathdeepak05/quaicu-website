@@ -137,16 +137,17 @@
               <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
               <div class="field full">
                 <label>What's this about?</label>
+                <p class="muted" style="font-size: 12px; margin: -4px 0 8px 0;">All product engagements begin with the diagnostic. Pick the vertical so we can scope it for you.</p>
                 <select id="contact-reason" name="reason" required>
                   <option value="general">General inquiry</option>
-                  <option value="pilot-alis">Pilot request &middot; Education (ALIS)</option>
-                  <option value="pilot-rico">Pilot request &middot; Healthcare (RICO)</option>
-                  <option value="pilot-fero">Pilot request &middot; Hospitality (FERO)</option>
-                  <option value="pilot-polo">Pilot request &middot; Real Estate (POLO)</option>
-                  <option value="pilot-lemo">Pilot request &middot; Legal (LEMO)</option>
-                  <option value="pilot-ciro">Pilot request &middot; Banking &amp; Finance (CIRO)</option>
+                  <option value="diagnostic-alis">Diagnostic &middot; Education (ALIS)</option>
+                  <option value="diagnostic-rico">Diagnostic &middot; Healthcare (RICO)</option>
+                  <option value="diagnostic-fero">Diagnostic &middot; Hospitality (FERO)</option>
+                  <option value="diagnostic-polo">Diagnostic &middot; Real Estate (POLO)</option>
+                  <option value="diagnostic-lemo">Diagnostic &middot; Legal (LEMO)</option>
+                  <option value="diagnostic-ciro">Diagnostic &middot; Banking &amp; Finance (CIRO)</option>
+                  <option value="diagnostic-other">Diagnostic &middot; Vertical not listed</option>
                   <option value="kernel">Governance Kernel licensing</option>
-                  <option value="diagnostic">Diagnostic engagement</option>
                   <option value="advisor">Advisory partnership</option>
                   <option value="careers">Careers / job application</option>
                   <option value="press">Press / media</option>
@@ -205,7 +206,7 @@
         <div class="col-9">
           <div class="eyebrow"><span class="dot"></span>11 GET IN TOUCH</div>
           <h2 class="h2" style="margin-top: 24px;">One form.<br/><span class="muted">We route from there.</span></h2>
-          <p class="lead" style="margin-top: 32px;">Tell us what's on your mind. Pilots, the diagnostic, advisory partnerships, kernel licensing, careers, or a general question — all go through the same form. We respond within two business days.</p>
+          <p class="lead" style="margin-top: 32px;">Tell us what's on your mind. Pilots, the diagnostic, advisory partnerships, kernel licensing, careers, or a general question. All go through the same form. We respond within two business days.</p>
         </div>
       </div>
     </div>
@@ -217,9 +218,9 @@
     // on the right category.
     (function () {
       var map = {
-        '#pilot': 'pilot-alis',
+        '#pilot': 'diagnostic-other',
         '#advisor': 'advisor',
-        '#diagnostic': 'diagnostic',
+        '#diagnostic': 'diagnostic-other',
         '#careers': 'careers',
         '#contact': 'general'
       };

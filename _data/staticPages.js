@@ -6,6 +6,7 @@ module.exports = [
   { url: "/products.html", changefreq: "monthly", priority: 0.9 },
   { url: "/architecture.html", changefreq: "monthly", priority: 0.8 },
   { url: "/diagnostic.html", changefreq: "monthly", priority: 0.9 },
+  { url: "/engagement.html", changefreq: "monthly", priority: 0.8 },
   { url: "/solutions.html", changefreq: "monthly", priority: 0.8 },
   { url: "/company.html", changefreq: "monthly", priority: 0.7 },
   { url: "/partnerships.html", changefreq: "monthly", priority: 0.7 },

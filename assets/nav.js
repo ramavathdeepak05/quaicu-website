@@ -18,8 +18,8 @@
         <a href="/careers.html" data-page="careers">Careers</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn--ghost" href="/diagnostic.html">Diagnostic</a>
-        <a class="btn btn--primary" href="/contact.html">Request a Pilot</a>
+        <a class="btn btn--ghost" href="/engagement.html">How we engage</a>
+        <a class="btn btn--primary" href="/diagnostic.html">Book the Diagnostic</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
         <span></span><span></span><span></span>
@@ -40,8 +40,8 @@
       <a href="/careers.html" data-page="careers">Careers</a>
     </nav>
     <div class="nav-mobile-cta">
-      <a class="btn btn--ghost btn--lg" href="/diagnostic.html">Diagnostic<span class="arrow"></span></a>
-      <a class="btn btn--primary btn--lg" href="/contact.html">Request a Pilot<span class="arrow"></span></a>
+      <a class="btn btn--ghost btn--lg" href="/engagement.html">How we engage<span class="arrow"></span></a>
+      <a class="btn btn--primary btn--lg" href="/diagnostic.html">Book the Diagnostic<span class="arrow"></span></a>
     </div>
   </div>`;
 
@@ -93,9 +93,9 @@
         <div class="foot-col">
           <h4>Engage</h4>
           <ul>
+            <li><a href="/diagnostic.html">Book the Diagnostic</a></li>
+            <li><a href="/engagement.html">How we engage</a></li>
             <li><a href="/contact.html">Contact</a></li>
-            <li><a href="/contact.html#pilot">Request a Pilot</a></li>
-            <li><a href="/contact.html#diagnostic">Diagnostic Brief</a></li>
             <li><a href="/legal.html">Legal</a></li>
           </ul>
         </div>
