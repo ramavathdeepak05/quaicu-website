@@ -137,3 +137,23 @@ ELEVENTY_INCLUDE_DRAFTS=1 npm run dev    # preview drafts too
 ```
 
 You can write posts as Markdown files directly in `content/blog/*.md` and skip the CMS entirely. Same result.
+
+---
+
+## 10 · Invite collaborators
+
+To give someone else the ability to write posts, add them as a collaborator on GitHub:
+
+1. Go to **https://github.com/ramavathdeepak05/quaicu-website/settings/access**
+2. Click **Add people**
+3. Enter their **GitHub username** or **email address**
+4. Select role: **Write** (minimum needed to publish)
+5. Click **Add [name] to quaicu-website**
+
+They'll receive an email invitation. Once they accept:
+
+1. They visit **https://quaicu.org/admin/**
+2. Click **Login with GitHub** → authorize with their GitHub account
+3. They see **Blog Posts** in the sidebar and can start writing
+
+**Important:** Collaborators have write access to the entire repo, not just the blog. For external guest writers who shouldn't have repo access, have them email you a Markdown file and you publish on their behalf.
