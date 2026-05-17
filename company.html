@@ -58,41 +58,7 @@
       font-size: 10px;
       letter-spacing: 0.12em;
     }
-    /* LinkedIn badge — photo only */
-    .founder-portrait--li {
-      padding: 0;
-      overflow: hidden;
-    }
-    .founder-portrait--li .badge-base {
-      width: 100% !important;
-      height: 100% !important;
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      display: block !important;
-    }
-    .founder-portrait--li .badge-base__card {
-      width: 100%;
-      height: 100%;
-      padding: 0;
-      margin: 0;
-      display: block;
-    }
-    .founder-portrait--li .badge-base__info,
-    .founder-portrait--li .badge-base__cta,
-    .founder-portrait--li .badge-base__label,
-    .founder-portrait--li .badge-base__headline,
-    .founder-portrait--li .badge-base__name-link {
-      display: none !important;
-    }
-    .founder-portrait--li .badge-base__link {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-    .founder-portrait--li .badge-base__photo {
+    .founder-portrait img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -186,10 +152,8 @@
       <div class="grid-12" style="row-gap: 24px;">
         <div class="col-6">
           <div class="founder">
-            <div class="founder-portrait founder-portrait--li">
-              <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="deepak--rathod" data-version="v1">
-                <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/deepak--rathod?trk=profile-badge">Deepak Rathod</a>
-              </div>
+            <div class="founder-portrait" style="padding: 0;">
+              <img src="/uploads/founder-deepak.jpg" alt="Deepak Rathod" />
             </div>
             <div>
               <h3>Deepak Rathod</h3>
@@ -204,10 +168,8 @@
         </div>
         <div class="col-6">
           <div class="founder">
-            <div class="founder-portrait founder-portrait--li">
-              <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="xavier-borah-1099a4247" data-version="v1">
-                <a class="badge-base__link LI-simple-link" href="https://www.linkedin.com/in/xavier-borah-1099a4247?trk=profile-badge">Xavier Borah</a>
-              </div>
+            <div class="founder-portrait" style="padding: 0;">
+              <img src="/uploads/founder-xavier.jpg" alt="Xavier Borah" />
             </div>
             <div>
               <h3>Xavier Borah</h3>
@@ -260,6 +222,5 @@
   <div data-foot-slot></div>
   <script src="assets/nav.js"></script>
   <script src="assets/site.js"></script>
-  <script src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
 </body>
 </html>
