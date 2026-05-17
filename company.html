@@ -37,13 +37,9 @@
   <link rel="stylesheet" href="assets/site.css" />
   <style>
     .founder {
-      display: grid;
-      grid-template-columns: 220px 1fr;
-      gap: 32px;
       padding: 32px;
       border: 1px solid var(--rule);
     }
-    @media (max-width: 700px) { .founder { grid-template-columns: 1fr; } }
     .founder-portrait {
       aspect-ratio: 1;
       background:
@@ -57,13 +53,6 @@
       font-family: var(--f-mono);
       font-size: 10px;
       letter-spacing: 0.12em;
-    }
-    .founder-portrait img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
     }
     .founder h3 {
       font-family: var(--f-display);
@@ -152,9 +141,6 @@
       <div class="grid-12" style="row-gap: 24px;">
         <div class="col-6">
           <div class="founder">
-            <div class="founder-portrait" style="padding: 0;">
-              <img src="/uploads/founder-deepak.jpg" alt="Deepak Rathod" />
-            </div>
             <div>
               <h3>Deepak Rathod</h3>
               <div class="role">FOUNDER &amp; CEO · PRODUCT · ARCHITECTURE · KERNEL</div>
@@ -168,9 +154,6 @@
         </div>
         <div class="col-6">
           <div class="founder">
-            <div class="founder-portrait" style="padding: 0;">
-              <img src="/uploads/founder-xavier.jpg" alt="Xavier Borah" />
-            </div>
             <div>
               <h3>Xavier Borah</h3>
               <div class="role">CO-FOUNDER · SALES · ALLIANCES · OPS · FINANCE</div>
