@@ -6,12 +6,15 @@
   "scripts": {
     "build": "eleventy",
     "dev": "eleventy --serve --quiet",
-    "debug": "DEBUG=Eleventy* eleventy"
+    "debug": "DEBUG=Eleventy* eleventy",
+    "deploy": "npm run build && wrangler deploy",
+    "preview": "npm run build && wrangler dev"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@11ty/eleventy-plugin-rss": "^2.0.2",
     "luxon": "^3.5.0",
-    "markdown-it": "^14.1.1"
+    "markdown-it": "^14.1.1",
+    "wrangler": "^4.92.0"
   }
 }
