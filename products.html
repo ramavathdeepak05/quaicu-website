@@ -60,6 +60,17 @@
       gap: 4px;
       text-align: right;
     }
+    @media (max-width: 640px) {
+      .product-detail .pd-head {
+        grid-template-columns: 1fr;
+      }
+      .product-detail .pd-meta {
+        text-align: left;
+      }
+      .product-detail .pd-meta [style*="justify-self: end"] {
+        justify-self: start;
+      }
+    }
     .product-detail .pd-tag {
       font-family: var(--f-display);
       font-size: clamp(24px, 3vw, 40px);
