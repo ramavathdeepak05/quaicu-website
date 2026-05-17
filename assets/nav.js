@@ -3,8 +3,8 @@
   const NAV = `
   <header class="nav">
     <div class="shell nav-inner">
-      <a href="index.html" class="nav-brand" aria-label="QUAICU home">
-        <img src="favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU<span class="nav-brand-mono">v.1·2026</span>
+      <a href="/" class="nav-brand" aria-label="QUAICU home">
+        <img src="/favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="/platform.html" data-page="platform">Platform</a>
@@ -18,8 +18,8 @@
         <a href="/careers.html" data-page="careers">Careers</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn--ghost" href="diagnostic.html">Diagnostic</a>
-        <a class="btn btn--primary" href="contact.html">Request a Pilot</a>
+        <a class="btn btn--ghost" href="/diagnostic.html">Diagnostic</a>
+        <a class="btn btn--primary" href="/contact.html">Request a Pilot</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
         <span></span><span></span><span></span>
@@ -64,45 +64,44 @@
         <div class="foot-col">
           <h4>Platform</h4>
           <ul>
-            <li><a href="platform.html">Overview</a></li>
-            <li><a href="architecture.html">Architecture</a></li>
-            <li><a href="platform.html#delivery">Delivery</a></li>
-            <li><a href="diagnostic.html">Diagnostic</a></li>
+            <li><a href="/platform.html">Overview</a></li>
+            <li><a href="/architecture.html">Architecture</a></li>
+            <li><a href="/platform.html#delivery">Delivery</a></li>
+            <li><a href="/diagnostic.html">Diagnostic</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Products</h4>
           <ul>
-            <li><a href="products.html#alis">ALIS · Education</a></li>
-            <li><a href="products.html#rico">RICO · Healthcare</a></li>
-            <li><a href="products.html#fero">FERO · Hospitality</a></li>
-            <li><a href="products.html#polo">POLO · Real Estate</a></li>
-            <li><a href="products.html#lemo">LEMO · Legal</a></li>
-            <li><a href="products.html#ciro">CIRO · Banking</a></li>
+            <li><a href="/products.html#alis">ALIS · Education</a></li>
+            <li><a href="/products.html#rico">RICO · Healthcare</a></li>
+            <li><a href="/products.html#fero">FERO · Hospitality</a></li>
+            <li><a href="/products.html#polo">POLO · Real Estate</a></li>
+            <li><a href="/products.html#lemo">LEMO · Legal</a></li>
+            <li><a href="/products.html#ciro">CIRO · Banking</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="company.html">About</a></li>
-            <li><a href="partnerships.html">Partnerships</a></li>
-            <li><a href="council.html">Members Council</a></li>
-            <li><a href="careers.html">Careers</a></li>
+            <li><a href="/company.html">About</a></li>
+            <li><a href="/partnerships.html">Partnerships</a></li>
+            <li><a href="/council.html">Members Council</a></li>
+            <li><a href="/careers.html">Careers</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Engage</h4>
           <ul>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="contact.html#pilot">Request a Pilot</a></li>
-            <li><a href="contact.html#diagnostic">Diagnostic Brief</a></li>
-            <li><a href="legal.html">Legal</a></li>
+            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/contact.html#pilot">Request a Pilot</a></li>
+            <li><a href="/contact.html#diagnostic">Diagnostic Brief</a></li>
+            <li><a href="/legal.html">Legal</a></li>
           </ul>
         </div>
       </div>
       <div class="foot-coda">
         <div>© <span data-year></span> QUAICU SOLUTIONS PRIVATE LIMITED · BUILT IN HYDERABAD · DPDP-NATIVE</div>
-        <div>v.1·2026 / GOVERNANCE-FIRST</div>
       </div>
     </div>
   </footer>`;
