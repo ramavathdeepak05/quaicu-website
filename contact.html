@@ -164,6 +164,8 @@
 
               <div class="field full"><label>Link to resume, deck, or anything that helps <span style="color: var(--fg-3); font-weight: 400;">(optional)</span></label><input type="url" name="link" placeholder="https://" /></div>
 
+              <div class="field full"><label>Attach a file <span style="color: var(--fg-3); font-weight: 400;">(optional · max 5 MB)</span></label><input type="file" name="attachment" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.png,.jpg,.jpeg,.zip" /></div>
+
               <div class="full" style="display: flex; justify-content: flex-end; gap: 12px; align-items: center;">
                 <span class="meta" style="color: var(--fg-3);">We read every message.</span>
                 <button class="btn btn--primary" type="submit">Send<span class="arrow"></span></button>
@@ -237,18 +239,13 @@
       const originalText = btn.innerHTML;
       
       btn.textContent = 'Sending...';
-      
+
       const formData = new FormData(form);
-      const object = Object.fromEntries(formData);
-      const json = JSON.stringify(object);
 
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: json
+        headers: { 'Accept': 'application/json' },
+        body: formData
       })
       .then(async (response) => {
         let jsonRes = await response.json();
