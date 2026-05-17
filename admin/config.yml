@@ -10,7 +10,7 @@ backend:
   branch: main
   # URL of the deployed OAuth Worker. Replace YOUR-CF-SUBDOMAIN once
   # `wrangler deploy` prints the Worker URL.
-  base_url: https://quaicu-cms-oauth.YOUR-CF-SUBDOMAIN.workers.dev
+  base_url: https://quaicu-cms-oauth.ramavathdeepak05.workers.dev
   auth_endpoint: auth
   commit_messages:
     create: "blog: add {{slug}}"
