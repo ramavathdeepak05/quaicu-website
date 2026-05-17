@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ title }}{% if title %} · {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}" />
+  <link rel="canonical" href="{{ (page.url | absoluteUrl(site.url)) }}" />
+  {% if preloadImage %}<link rel="preload" as="image" href="{{ preloadImage }}" />{% endif %}
+
+  <meta property="og:type" content="{{ ogType or 'website' }}" />
+  <meta property="og:site_name" content="{{ site.title }}" />
+  <meta property="og:url" content="{{ (page.url | absoluteUrl(site.url)) }}" />
+  <meta property="og:title" content="{{ ogTitle or title or site.title }}" />
+  <meta property="og:description" content="{{ ogDescription or description or site.description }}" />
+  <meta property="og:image" content="{{ (ogImage or '/og-card.png') | absoluteUrl(site.url) }}" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ ogTitle or title or site.title }}" />
+  <meta name="twitter:description" content="{{ ogDescription or description or site.description }}" />
+  <meta name="twitter:image" content="{{ (ogImage or '/og-card.png') | absoluteUrl(site.url) }}" />
+
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="alternate" type="application/rss+xml" title="{{ site.blog.name }}" href="/blog/feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div data-nav-slot></div>
+
+  {{ content | safe }}
+
+  <div data-foot-slot></div>
+  <script src="/assets/nav.js"></script>
+  <script src="/assets/site.js"></script>
+</body>
+</html>

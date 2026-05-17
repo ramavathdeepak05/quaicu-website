@@ -1,0 +1,121 @@
+---
+layout: base.njk
+ogType: article
+---
+{% set absoluteHero = (hero or "/og-card.png") | absoluteUrl(site.url) %}
+{% set readMinutes = (content | readingTime) %}
+
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ title | dump | safe }},
+  "description": {{ (description or "") | dump | safe }},
+  "image": "{{ absoluteHero }}",
+  "datePublished": "{{ page.date | isoDate }}",
+  "dateModified": "{{ page.date | isoDate }}",
+  "author": {
+    "@type": "Organization",
+    "name": {{ (author or site.author.name) | dump | safe }},
+    "url": "{{ site.url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ site.url }}/favicon.ico"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absoluteUrl(site.url) }}"
+  }
+}</script>
+
+<section class="page-hero post-hero" data-screen-label="01 Post Hero">
+  <div class="shell">
+    <div class="breadcrumb">
+      <a href="/">QUAICU</a><span class="sep">/</span>
+      <a href="/blog/">Notes</a><span class="sep">/</span>
+      <span>{{ title }}</span>
+    </div>
+    <div class="grid-12">
+      <div class="col-9">
+        <div class="eyebrow"><span class="dot"></span>{{ (tags | first or "NOTE") | upper }} · {{ page.date | readableDate | upper }}</div>
+        <h1 class="h1" style="margin-top: 24px;">{{ title }}</h1>
+        {% if description %}
+        <p class="lead" style="margin-top: 24px; max-width: 56ch;">{{ description }}</p>
+        {% endif %}
+        <div class="post-meta">
+          <span>{{ readMinutes }} min read</span>
+          <span class="sep">·</span>
+          <span>{{ author or site.author.name }}</span>
+          {% if tags and tags.length %}
+          <span class="sep">·</span>
+          <span>
+            {% for tag in tags %}<a class="post-tag" href="/blog/tags/{{ tag | slugify }}/">#{{ tag }}</a>{% if not loop.last %} {% endif %}{% endfor %}
+          </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if hero %}
+  <div class="atmos atmos--hero" style="background-image: url('{{ hero }}');">
+    <div class="atmos-caption"><span class="dot"></span>{{ (tags | first or "NOTE") | upper }}</div>
+  </div>
+  {% endif %}
+</section>
+
+<section data-screen-label="02 Post Body">
+  <div class="shell">
+    <article class="prose">
+      {{ content | safe }}
+    </article>
+  </div>
+</section>
+
+{% set prev = collections.posts | getPreviousCollectionItem(page) %}
+{% set next = collections.posts | getNextCollectionItem(page) %}
+{% if prev or next %}
+<section data-screen-label="03 Post Footer" class="section--bg" style="background-image: url('/uploads/stock-images/pexels-jakobjin-14452236.jpg');">
+  <div class="shell">
+    <div class="section-head">
+      <div class="kicker">CONTINUE READING</div>
+      <div><h2 class="h2">More from <span class="muted">QUAICU Notes</span>.</h2></div>
+    </div>
+    <div class="grid-12" style="row-gap: 24px;">
+      {% if prev %}
+      <div class="col-6">
+        <a class="post-nav-card" href="{{ prev.url }}">
+          <div class="kicker">← PREVIOUS</div>
+          <h3 class="h3" style="margin-top: 12px;">{{ prev.data.title }}</h3>
+          {% if prev.data.description %}<p class="muted" style="font-size: 14px; margin-top: 12px;">{{ prev.data.description }}</p>{% endif %}
+        </a>
+      </div>
+      {% endif %}
+      {% if next %}
+      <div class="col-6">
+        <a class="post-nav-card" href="{{ next.url }}">
+          <div class="kicker">NEXT →</div>
+          <h3 class="h3" style="margin-top: 12px;">{{ next.data.title }}</h3>
+          {% if next.data.description %}<p class="muted" style="font-size: 14px; margin-top: 12px;">{{ next.data.description }}</p>{% endif %}
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section data-screen-label="04 Post CTA">
+  <div class="shell">
+    <div style="border-top: 2px solid var(--fg); padding-top: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;">
+      <h2 class="h2" style="max-width: 28ch;">Want governed AI in your institution? Start with the diagnostic.</h2>
+      <div class="row" style="gap: 12px;">
+        <a class="btn btn--ghost btn--lg" href="/blog/">All notes<span class="arrow"></span></a>
+        <a class="btn btn--primary btn--lg" href="/contact.html">Request a pilot<span class="arrow"></span></a>
+      </div>
+    </div>
+  </div>
+</section>

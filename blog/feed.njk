@@ -1,0 +1,30 @@
+---
+permalink: /blog/feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>{{ site.blog.name }}</title>
+    <link>{{ site.url }}/blog/</link>
+    <atom:link href="{{ site.url }}/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <description>{{ site.blog.description }}</description>
+    <language>en-us</language>
+    {%- set latest = collections.posts | first %}
+    {%- if latest %}<lastBuildDate>{{ latest.date | dateToRfc822 }}</lastBuildDate>{%- endif %}
+    {%- for post in collections.posts | limit(20) %}
+    <item>
+      <title>{{ post.data.title }}</title>
+      <link>{{ site.url }}{{ post.url }}</link>
+      <guid isPermaLink="true">{{ site.url }}{{ post.url }}</guid>
+      <pubDate>{{ post.date | dateToRfc822 }}</pubDate>
+      {%- if post.data.author %}<author>hello@quaicu.org ({{ post.data.author }})</author>{%- endif %}
+      {%- if post.data.description %}<description>{{ post.data.description }}</description>{%- endif %}
+      <content:encoded><![CDATA[{{ post.templateContent | safe }}]]></content:encoded>
+      {%- for tag in (post.data.tags or []) %}
+      <category>{{ tag }}</category>
+      {%- endfor %}
+    </item>
+    {%- endfor %}
+  </channel>
+</rss>

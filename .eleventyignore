@@ -1,0 +1,13 @@
+node_modules
+_site
+.git
+README.md
+BLOG.md
+DEPLOY.md
+package.json
+package-lock.json
+.eleventy.js
+.eleventyignore
+uploads/Pasted text.txt
+uploads/QUAICU_Website_v2.md
+uploads/kernel_diagram.md

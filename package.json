@@ -1,0 +1,17 @@
+{
+  "name": "quaicu-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QUAICU brutalist static site + Eleventy-powered blog.",
+  "scripts": {
+    "build": "eleventy",
+    "dev": "eleventy --serve --quiet",
+    "debug": "DEBUG=Eleventy* eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-plugin-rss": "^2.0.2",
+    "luxon": "^3.5.0",
+    "markdown-it": "^14.1.1"
+  }
+}

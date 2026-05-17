@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Architecture Governed AI Infrastructure · QUAICU</title>
+  <meta name="description" content="Hybrid architecture: deterministic core for consequential actions, bounded probabilistic AI for advisory work. Hash-chained, replayable, one-click compliance reporting." />
+  <link rel="canonical" href="https://quaicu.org/architecture.html" />
+  <link rel="preload" as="image" href="uploads/stock-images/pexels-minimoy-35757487.jpg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="QUAICU" />
+  <meta property="og:url" content="https://quaicu.org/architecture.html" />
+  <meta property="og:title" content="Architecture Governed AI as Institutional Infrastructure" />
+  <meta property="og:description" content="Hybrid governance model. Deterministic core. Bounded probabilistic AI. Non-bypassable enforcement. Hash-chained, replayable audit." />
+  <meta property="og:image" content="https://quaicu.org/og-card.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Architecture Governed AI Infrastructure" />
+  <meta name="twitter:description" content="Not a product feature. Not a compliance bolt-on. The architecture itself. Critical rules cannot be bypassed." />
+  <meta name="twitter:image" content="https://quaicu.org/og-card.png" />
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"QUAICU","item":"https://quaicu.org/"},{"@type":"ListItem","position":2,"name":"Architecture","item":"https://quaicu.org/architecture.html"}]}</script>
+
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .enforce-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--fg);
+    }
+    .enforce-grid > div {
+      padding: 24px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 180px;
+    }
+    .enforce-grid > div:nth-child(2n) { border-right: 0; }
+    .enforce-grid > div:nth-last-child(-n+2) { border-bottom: 0; }
+    .enforce-grid .e-num {
+      font-family: var(--f-mono);
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #fff;
+    }
+    .enforce-grid .e-title {
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .enforce-grid .e-desc { color: #fff; font-size: 13px; line-height: 1.5; }
+    @media (max-width: 700px) {
+      .enforce-grid { grid-template-columns: 1fr; }
+      .enforce-grid > div { border-right: 0; }
+    }
+
+    .hybrid-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--fg);
+    }
+    .hybrid-split > div {
+      padding: 40px;
+      border-right: 1px solid var(--rule);
+    }
+    .hybrid-split > div:last-child { border-right: 0; }
+    .hybrid-split .hs-tag {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .hybrid-split h3 {
+      font-family: var(--f-display);
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 16px 0;
+    }
+    .hybrid-split p { color: var(--fg-2); font-size: 14px; max-width: 36ch; }
+    @media (max-width: 800px) { .hybrid-split { grid-template-columns: 1fr; } .hybrid-split > div { border-right: 0; border-bottom: 1px solid var(--rule); } }
+
+    /* ── Brutalist mermaid overrides ─────────────────────────────────── */
+    .mermaid-frame {
+      background: var(--bg);
+      border: 1px solid var(--fg);
+      padding: 32px;
+      overflow-x: auto;
+    }
+    .mermaid-frame .mermaid-meta {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+      border-bottom: 1px solid var(--rule);
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .mermaid {
+      display: flex;
+      justify-content: center;
+      font-family: var(--f-mono) !important;
+    }
+    .mermaid svg { max-width: 100%; height: auto; }
+    /* Sharp corners - no brutalism without 90° angles */
+    .mermaid .node rect,
+    .mermaid .cluster rect,
+    .mermaid .label-container { rx: 0 !important; ry: 0 !important; }
+    .mermaid .nodeLabel,
+    .mermaid .edgeLabel,
+    .mermaid .cluster-label,
+    .mermaid foreignObject div { font-family: var(--f-mono) !important; }
+    .mermaid .cluster-label .nodeLabel {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .mermaid .edgeLabel {
+      background: var(--bg) !important;
+      padding: 2px 6px !important;
+      font-size: 10px !important;
+    }
+    .mermaid .edgePath .path { stroke-width: 1.25px !important; }
+
+    /* ── Stack-monitor: window chrome + live layer activity ───────── */
+    .appwin-wrap--stack .appwin-frame-strip {
+      grid-template-columns: auto 1fr auto;
+      gap: 16px;
+    }
+    .stack-dots { display: inline-flex; gap: 6px; }
+    .stack-dots span {
+      width: 11px; height: 11px;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .stack-dots span:nth-child(1) { background: #ff5f57; }
+    .stack-dots span:nth-child(2) { background: #ffbd2e; }
+    .stack-dots span:nth-child(3) { background: #28c840; }
+    .stack-title {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--aw-fg-2);
+      text-align: center;
+    }
+    .stack-title .muted { color: var(--aw-fg-3); }
+
+    .appwin-wrap--stack .kernel-col-head .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stack-pip {
+      display: inline-flex;
+      gap: 2px;
+      vertical-align: middle;
+    }
+    .stack-pip i {
+      width: 3px; height: 10px;
+      background: rgba(255,255,255,0.10);
+      display: inline-block;
+    }
+    .stack-pip i.on { background: var(--aw-ember); }
+    .stack-pip i.live {
+      background: var(--aw-ember);
+      animation: pipblink 1s steps(2, end) infinite;
+    }
+    @keyframes pipblink { 50% { opacity: 0.25; } }
+
+    .appwin-wrap--stack .kernel-col { position: relative; }
+    .appwin-wrap--stack .kernel-col:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 50%; bottom: -7px;
+      width: 1px; height: 14px;
+      transform: translateX(-50%);
+      background: repeating-linear-gradient(
+        to bottom,
+        var(--aw-ember) 0 3px,
+        transparent 3px 6px
+      );
+      animation: flowdown 0.6s linear infinite;
+      z-index: 3;
+    }
+    @keyframes flowdown {
+      from { background-position: 0 0; }
+      to   { background-position: 0 -6px; }
+    }
+
+    .appwin-statusbar {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 22px;
+      padding: 11px 22px;
+      background: var(--aw-bg-2);
+      border-top: 1px solid var(--aw-rule);
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: var(--aw-fg-3);
+      text-transform: uppercase;
+    }
+    .appwin-statusbar strong {
+      color: var(--aw-fg-2);
+      font-weight: 600;
+      margin-left: 6px;
+      letter-spacing: 0.04em;
+    }
+    .appwin-statusbar .running {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--aw-ember);
+    }
+    .appwin-statusbar .running .lamp {
+      width: 6px; height: 6px;
+      background: var(--aw-ember);
+      display: inline-block;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    .appwin-statusbar .spacer { flex: 1; }
+    @media (max-width: 700px) {
+      .appwin-wrap--stack .appwin-frame-strip { grid-template-columns: auto 1fr; }
+      .stack-title { display: none; }
+      .appwin-statusbar { gap: 12px; font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div data-nav-slot></div>
+
+  <section class="page-hero" data-screen-label="01 Architecture Hero">
+    <div class="shell">
+      <div class="breadcrumb">
+        <a href="index.html">QUAICU</a><span class="sep">/</span><span>Architecture</span>
+      </div>
+      <div class="grid-12">
+        <div class="col-9">
+          <div class="eyebrow"><span class="dot"></span>06 ARCHITECTURE</div>
+          <h1 class="h1" style="margin-top: 24px;">
+            Governed AI as<br/>institutional infrastructure.
+          </h1>
+          <p class="lead" style="margin-top: 32px;">
+            For evaluators and technical teams. The deeper proof beneath the product: how governance is built in, not bolted on.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="atmos atmos--hero" style="background-image: url('uploads/stock-images/pexels-minimoy-35757487.jpg');">
+      <div class="atmos-caption"><span class="dot"></span>POLICY PRECEDES INFERENCE</div>
+    </div>
+  </section>
+
+  <!-- HYBRID GOVERNANCE -->
+  <section data-screen-label="02 Hybrid Governance" class="section--bg" style="background-image: url('uploads/stock-images/pexels-yuraforrat-20326814.jpg');">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">06·1 HYBRID GOVERNANCE MODEL</div>
+        <div><h2 class="h2">Determinism handles what must not vary.<br/><span class="muted">AI handles what benefits from intelligence.</span></h2></div>
+      </div>
+
+      <div class="hybrid-split">
+        <div>
+          <div class="hs-tag">CORE / RULE-BASED</div>
+          <h3>Deterministic Core.</h3>
+          <p>For consequential actions with zero-error tolerance. Rule-based execution. No AI override permitted.</p>
+          <div class="row-tight" style="margin-top: 24px;">
+            <span class="chip">RULES</span><span class="chip">LEDGER</span><span class="chip">QUORUM</span><span class="chip">STATE</span>
+          </div>
+        </div>
+        <div>
+          <div class="hs-tag">BOUNDED / PROBABILISTIC</div>
+          <h3>Probabilistic AI.</h3>
+          <p>For predictions, risk flags, draft content always human-reviewable, never autonomously executed.</p>
+          <div class="row-tight" style="margin-top: 24px;">
+            <span class="chip">RISK FLAGS</span><span class="chip">DRAFTS</span><span class="chip">SCORING</span><span class="chip">TRIAGE</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="lead" style="margin-top: 32px; max-width: none;">
+        The two operate side by side under the same governance kernel. <span class="muted">Humans remain the final authority on consequential action.</span>
+      </p>
+    </div>
+  </section>
+
+  <div class="atmos" style="background-image: url('uploads/stock-images/pexels-harshit-mehta-2161164138-37260298.jpg');">
+    <div class="atmos-caption"><span class="dot"></span>HASH-CHAINED · REPLAY-SAFE · REGULATOR-READY</div>
+  </div>
+
+  <!-- THE STACK -->
+  <section data-screen-label="03 The Stack">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">06·2 THE STACK</div>
+        <div><h2 class="h2">Four addressable layers. One enforcement contract.</h2></div>
+      </div>
+
+      <div class="appwin-wrap appwin-wrap--stack">
+        <div class="appwin appwin--frame">
+          <div class="appwin-frame-strip">
+            <span class="stack-dots"><span></span><span></span><span></span></span>
+            <span class="stack-title">quaicu_kernel <span class="muted">▸</span> enforcement_contract.app</span>
+            <span class="right">PID 0001 · TICK 247d</span>
+          </div>
+          <div class="kernel kernel--vertical kernel--app kernel--stack">
+            <div class="kernel-col">
+              <div class="kernel-col-head">
+                <span class="num">4</span>
+                <span class="label">Application Layer</span>
+                <span class="status">
+                  <span class="lamp"></span>APP · 1.28k REQ/s
+                  <span class="stack-pip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="live"></i><i></i></span>
+                </span>
+              </div>
+              <div class="kernel-stack-body">
+                <p>Domain-specific modules and workflows across web and mobile. One governance kernel beneath. Vertical applications swap in without rewriting the core.</p>
+              </div>
+            </div>
+            <div class="kernel-col">
+              <div class="kernel-col-head">
+                <span class="num">3</span>
+                <span class="label">Rule Engine</span>
+                <span class="status">
+                  <span class="lamp"></span>RULE · 142 POLICIES · 0 OVERRIDES
+                  <span class="stack-pip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="live"></i></span>
+                </span>
+              </div>
+              <div class="kernel-stack-body">
+                <p>Strict logic. Deterministic execution. No silent overrides. Where the institution writes its non-negotiables, the kernel reads them on every action.</p>
+              </div>
+            </div>
+            <div class="kernel-col kernel-col--accent">
+              <div class="kernel-col-head">
+                <span class="num">2</span>
+                <span class="label">AI Agents</span>
+                <span class="status">
+                  <span class="lamp"></span>AI · GUARDRAILED · DRAFT-ONLY
+                  <span class="stack-pip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="live"></i><i></i><i></i></span>
+                </span>
+              </div>
+              <div class="kernel-stack-body">
+                <p>Bounded intelligence. Probabilistic output. Always reviewable, never autonomous. Agents propose; the kernel decides what gets to run.</p>
+              </div>
+            </div>
+            <div class="kernel-col">
+              <div class="kernel-col-head">
+                <span class="num">1</span>
+                <span class="label">Trust Layer</span>
+                <span class="status">
+                  <span class="lamp"></span>TRUST · HASH-CHAIN · TENANT-ISOLATED
+                  <span class="stack-pip"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>
+                </span>
+              </div>
+              <div class="kernel-stack-body">
+                <p>On-premise, private cloud, or hybrid. Tenant-isolated data storage. Identity management. Encryption at rest and in transit. Immutable audit ledger.</p>
+                <div class="chips">
+                  <span class="chip">IDP</span>
+                  <span class="chip">VAULT</span>
+                  <span class="chip">ENCRYPTION</span>
+                  <span class="chip">HASH-CHAIN</span>
+                  <span class="chip">REPLAY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="appwin-statusbar">
+            <span class="running"><span class="lamp"></span>RUNNING</span>
+            <span>LAYERS <strong>04</strong></span>
+            <span>CONTRACT <strong>NON-BYPASSABLE</strong></span>
+            <span>HALT/30d <strong>0</strong></span>
+            <span>COMPLIANCE <strong>1-CLICK</strong></span>
+            <span class="spacer"></span>
+            <span>STATE <strong>NOMINAL</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="atmos" style="background-image: url('uploads/stock-images/pexels-natasha-zoellner-328307832-32892986.jpg');">
+    <div class="atmos-caption"><span class="dot"></span>NEVER FAILS SILENTLY</div>
+  </div>
+
+  <!-- ENFORCEMENT -->
+  <section data-screen-label="04 Enforcement" class="section--bg" style="background-image: url('uploads/stock-images/pexels-mb-2292492-5621415.jpg');">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">06·3 ENFORCEMENT, LAYER BY LAYER</div>
+        <div><h2 class="h2">Every state change in every QUAICU deployment passes through a non-bypassable enforcement model.</h2></div>
+      </div>
+
+      <div class="enforce-grid">
+        <div>
+          <div class="e-num">01</div>
+          <div class="e-title">HITL Checkpoints</div>
+          <div class="e-desc">Consequential actions await a named human approver. No silent autonomy.</div>
+        </div>
+        <div>
+          <div class="e-num">02</div>
+          <div class="e-title">State Machine Validation</div>
+          <div class="e-desc">Transitions are declared, typed, and validated. Illegal states are unreachable.</div>
+        </div>
+        <div>
+          <div class="e-num">03</div>
+          <div class="e-title">Role-Based Access Control</div>
+          <div class="e-desc">Authority is granted, scoped, and revocable. Privilege escalation is logged.</div>
+        </div>
+        <div>
+          <div class="e-num">04</div>
+          <div class="e-title">Approval Workflows</div>
+          <div class="e-desc">Multi-party where the institution demands it. Single-party never assumed.</div>
+        </div>
+        <div>
+          <div class="e-num">05</div>
+          <div class="e-title">Policy Engine</div>
+          <div class="e-desc">Declarative rules versioned per institution. Inference is gated before execution.</div>
+        </div>
+        <div>
+          <div class="e-num">06</div>
+          <div class="e-title">Global Locks</div>
+          <div class="e-desc">System-wide pause primitives. The kernel can halt itself if invariants drift.</div>
+        </div>
+      </div>
+
+      <div class="grid-12" style="margin-top: 48px;">
+        <div class="col-6">
+          <p class="lead">
+            The audit ledger is hash-chained and fully replayable. Critical rules cannot be bypassed by an AI agent, an integrator, or a privileged user. Because every action lives in one ledger, regulator-ready compliance reports generate on a single click.
+          </p>
+        </div>
+        <div class="col-6">
+          <div class="codeblock">
+            <div><span class="cc">// audit ledger · append-only</span></div>
+            <div>ledger.append(</div>
+            <div>&nbsp;&nbsp;<span class="cv">actor</span>: <span class="cs">"approver@tenant"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cv">action</span>: <span class="cs">"commit_transition"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cv">policy</span>: <span class="cs">"dual_control@v3"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cv">prev_hash</span>: <span class="cs">"0x9c3a…"</span>,</div>
+            <div>&nbsp;&nbsp;<span class="cv">ts</span>: <span class="cs">"2026-05-13T11:42:08Z"</span></div>
+            <div>)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KERNEL FLOW -->
+  <section data-screen-label="06 Kernel Flow">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">06·5 KERNEL FLOW</div>
+        <div><h2 class="h2">Governed autonomy inside the core.</h2></div>
+      </div>
+      <div class="mermaid-frame">
+        <div class="mermaid-meta">
+          <span>FIG · 06·5 / KERNEL FLOW</span>
+          <span>POLICY PRECEDES INFERENCE</span>
+        </div>
+        <div class="mermaid">
+graph TB
+    REQ(["Inbound Request"])
+
+    subgraph L4["Precedence Locks"]
+        LOCKS["Hierarchical lock stack\nAny tier engaged → fail-closed"]
+    end
+
+    subgraph L5["Authority"]
+        AUTH["Role + attribute check"]
+        Q["Multi-party approval"]
+    end
+
+    subgraph L3["State Machine"]
+        SM["Declared transitions only"]
+    end
+
+    subgraph CONST["Policy Layer"]
+        POL["Versioned policy set\nrules-as-data"]
+        SIM["Shadow-run before activation"]
+        POL --- SIM
+    end
+
+    subgraph PROC["Process Engine"]
+        CAPTURE["Capture · DRAFT"]
+        APPR["Route to approver"]
+        AI_STEP["AI step · advisory only"]
+        ACT["Deterministic action"]
+        UNDO["Formal reversal window"]
+    end
+
+    subgraph L2["AI Gateway"]
+        GUARD["Inbound guardrails"]
+        HITL["Low confidence → human"]
+        LOCAL["Local inference\nno external network"]
+        OUT["Output: DRAFT only"]
+        GUARD --> HITL --> LOCAL --> OUT
+    end
+
+    subgraph L1["Event Bus"]
+        BUS["Durable event bus"]
+        PERSIST["Persisted before dispatch"]
+        WORKER["Idempotent handlers"]
+        BUS --> PERSIST --> WORKER
+    end
+
+    subgraph L6["Audit Ledger"]
+        LEDGER["Hash-chained · append-only"]
+        SNAP["Version snapshot per event"]
+        REPLAY["Deterministic replay"]
+        LEDGER --> SNAP --> REPLAY
+    end
+
+    DB[("Isolated storage")]
+
+    %% Flow
+    REQ --> L4
+    L4 -->|"Cleared"| L5
+    L5 -->|"Authorized"| L3
+    L3 -->|"Legal"| CONST
+    CONST -->|"Pass"| PROC
+    PROC -->|"AI step"| L2
+    L2 -->|"DRAFT returned"| PROC
+    PROC -->|"Emit event"| L1
+    PROC -->|"Atomic write"| L6
+    L6 --> DB
+    L1 --> DB
+
+    %% Rejection
+    L4 -->|"Locked"| HALT["HALT · fail-closed"]
+    L5 -->|"Denied"| HALT
+    L3 -->|"Illegal"| HALT
+    CONST -->|"Block"| HALT
+
+    %% Brutalist styling
+    style L4 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style L5 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style L3 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style CONST fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style PROC fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style L2 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style L1 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style L6 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style REQ fill:#e3f0e7,stroke:#008746,stroke-width:1.75px,color:#0a0a0a
+    style DB fill:#1c1c1c,stroke:#0a0a0a,stroke-width:1.5px,color:#fafaf7
+    style HALT fill:#c43a1a,stroke:#0a0a0a,stroke-width:1.75px,color:#fafaf7
+
+    style LOCKS fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style AUTH fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style Q fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style SM fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style POL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style SIM fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style CAPTURE fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style APPR fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style AI_STEP fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style ACT fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style UNDO fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style GUARD fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style HITL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style LOCAL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style OUT fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style BUS fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style PERSIST fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style WORKER fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style LEDGER fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style SNAP fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style REPLAY fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="07 Closing" class="section--bg" style="background-image: url('uploads/stock-images/pexels-jakobjin-14452236.jpg');">
+    <div class="shell">
+      <div style="border-top: 2px solid var(--fg); padding-top: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;">
+        <h2 class="h2" style="max-width: 24ch;">The system never fails silently.</h2>
+        <div class="row" style="gap: 12px;">
+          <a class="btn btn--lg" href="platform.html">Platform overview</a>
+          <a class="btn btn--primary btn--lg" href="contact.html#pilot">Request a Pilot<span class="arrow"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-foot-slot></div>
+  <script src="assets/nav.js"></script>
+  <script src="assets/site.js"></script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const isDark = document.documentElement.getAttribute('data-mode') === 'dark';
+      const paper = isDark ? '#141413' : '#fafaf7';
+      const paper2 = isDark ? '#1c1c1c' : '#f0eee8';
+      const ink = isDark ? '#fafaf7' : '#0a0a0a';
+      mermaid.initialize({
+        startOnLoad: true,
+        theme: 'base',
+        securityLevel: 'loose',
+        themeVariables: {
+          fontFamily: '"JetBrains Mono", "SFMono-Regular", Menlo, monospace',
+          fontSize: '12px',
+          background: paper,
+          primaryColor: paper,
+          primaryTextColor: ink,
+          primaryBorderColor: ink,
+          secondaryColor: paper2,
+          tertiaryColor: paper,
+          lineColor: ink,
+          textColor: ink,
+          mainBkg: paper,
+          nodeBorder: ink,
+          clusterBkg: paper2,
+          clusterBorder: ink,
+          edgeLabelBackground: paper,
+          titleColor: ink
+        },
+        flowchart: {
+          curve: 'linear',
+          htmlLabels: true,
+          nodeSpacing: 28,
+          rankSpacing: 50,
+          padding: 8
+        }
+      });
+    });
+  </script>
+</body>
+</html>

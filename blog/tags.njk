@@ -1,0 +1,52 @@
+---
+layout: base.njk
+pagination:
+  data: collections.tagList
+  size: 1
+  alias: tag
+permalink: "/blog/tags/{{ tag | slugify }}/"
+eleventyComputed:
+  title: "Tag: {{ tag }}"
+  description: "QUAICU Notes tagged {{ tag }}."
+---
+
+<section class="page-hero" data-screen-label="01 Tag Hero">
+  <div class="shell">
+    <div class="breadcrumb">
+      <a href="/">QUAICU</a><span class="sep">/</span>
+      <a href="/blog/">Notes</a><span class="sep">/</span>
+      <span>#{{ tag }}</span>
+    </div>
+    <div class="grid-12">
+      <div class="col-9">
+        <div class="eyebrow"><span class="dot"></span>TAG · {{ tag | upper }}</div>
+        <h1 class="h1" style="margin-top: 24px;">Tagged <span class="muted">#{{ tag }}</span>.</h1>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="02 Tagged Posts">
+  <div class="shell">
+    <div class="notes-list">
+      {% for post in collections.posts %}
+        {% if tag in (post.data.tags or []) %}
+        <a class="notes-row" href="{{ post.url }}">
+          <div class="notes-date">{{ post.date | ymdDate }}</div>
+          <div class="notes-title">
+            <h3>{{ post.data.title }}</h3>
+            {% if post.data.description %}<p>{{ post.data.description }}</p>{% endif %}
+          </div>
+          <div class="notes-tags">
+            {% for t in (post.data.tags or []) %}#{{ t }}{% if not loop.last %} {% endif %}{% endfor %}
+          </div>
+        </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <p style="margin-top: 48px; font-family: var(--f-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;">
+      <a href="/blog/" class="post-tag" style="border-bottom: 1px solid var(--ember);">← Back to all notes</a>
+    </p>
+  </div>
+</section>

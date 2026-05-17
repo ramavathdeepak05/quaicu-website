@@ -1,0 +1,50 @@
+# Decap CMS configuration for QUAICU.
+# Authors log in at /admin/ via Netlify Identity. Saving a post commits
+# a Markdown file to content/blog/ and triggers a Netlify rebuild.
+
+backend:
+  name: git-gateway
+  branch: main
+  commit_messages:
+    create: "blog: add {{slug}}"
+    update: "blog: update {{slug}}"
+    delete: "blog: remove {{slug}}"
+    uploadMedia: "blog: upload {{path}}"
+    deleteMedia: "blog: delete {{path}}"
+
+# Editorial workflow lets non-technical authors save drafts before publishing.
+publish_mode: editorial_workflow
+
+media_folder: "uploads/blog"
+public_folder: "/uploads/blog"
+
+site_url: https://quaicu.org
+display_url: https://quaicu.org
+logo_url: https://quaicu.org/favicon.ico
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Post"
+    folder: "content/blog"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{date | date('YYYY-MM-DD')}} · {{title}}"
+    sortable_fields: ["date", "title"]
+    view_filters:
+      - label: "Drafts"
+        field: draft
+        pattern: true
+      - label: "Published"
+        field: draft
+        pattern: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Summary (used as meta description + post lead)", name: "description", widget: "text", required: true, pattern: ['.{40,200}', "Aim for 60–160 characters for the best SEO."] }
+      - { label: "Author", name: "author", widget: "string", default: "QUAICU", required: false }
+      - { label: "Hero image", name: "hero", widget: "image", required: false, hint: "Optional. Wide image used as the post hero and OG card." }
+      - { label: "Tags", name: "tags", widget: "list", default: ["note"], hint: "Free-form keywords. Each tag becomes a filter page at /blog/tags/<tag>/." }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true, hint: "Drafts are not built. Untick to publish." }
+      - { label: "Body", name: "body", widget: "markdown" }

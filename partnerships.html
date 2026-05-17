@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Partnerships Institutional Pilots and Advisory · QUAICU</title>
+  <meta name="description" content="Two partnership tracks: institutional pilots that validate a unified agentic operating layer inside real environments, and advisory partners who own the relationship." />
+  <link rel="canonical" href="https://quaicu.org/partnerships.html" />
+  <link rel="preload" as="image" href="uploads/stock-images/pexels-wolfgang-weiser-467045605-35836565.jpg" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="QUAICU" />
+  <meta property="og:url" content="https://quaicu.org/partnerships.html" />
+  <meta property="og:title" content="Partnerships Institutional Pilots and Advisory" />
+  <meta property="og:description" content="Pilot partners run live institutional deployments; advisory partners own the relationship while QUAICU delivers. Same non-negotiables." />
+  <meta property="og:image" content="https://quaicu.org/og-card.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Partnerships Pilots and Advisory" />
+  <meta name="twitter:description" content="Pilot and advisory tracks for a unified agentic operating layer with governance built in. Deployment chosen by the institution. Per-tenant isolation." />
+  <meta name="twitter:image" content="https://quaicu.org/og-card.png" />
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"QUAICU","item":"https://quaicu.org/"},{"@type":"ListItem","position":2,"name":"Partnerships","item":"https://quaicu.org/partnerships.html"}]}</script>
+
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/site.css" />
+  <style>
+    .track {
+      border: 1px solid var(--fg);
+      padding: 40px;
+      display: grid;
+      gap: 24px;
+    }
+    .track .track-tag {
+      font-family: var(--f-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg-3);
+    }
+    .track h3 {
+      font-family: var(--f-display);
+      font-size: clamp(28px, 3vw, 40px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .track .for {
+      font-family: var(--f-mono);
+      font-size: 12px;
+      padding: 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--rule);
+      color: var(--fg-2);
+    }
+    .stage-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 24px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .stage-row:last-child { border-bottom: 0; }
+    .stage-row .sn {
+      font-family: var(--f-mono);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    /* Ecosystem partners grid */
+    .partners-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border: 1px solid var(--rule);
+      border-right: 0;
+      border-bottom: 0;
+      background: var(--bg);
+    }
+    .partner-cell {
+      aspect-ratio: 3 / 2;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      border-right: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      background: var(--bg);
+      transition: background 200ms ease;
+    }
+    .partner-cell--dark {
+      background: var(--ink);
+    }
+    html[data-mode="dark"] .partner-cell--dark {
+      background: #000;
+    }
+    .partner-cell img {
+      max-height: 64px;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.92;
+    }
+    .partner-cell:hover img { opacity: 1; }
+
+    @media (max-width: 1000px) {
+      .partners-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 560px) {
+      .partners-grid { grid-template-columns: repeat(2, 1fr); }
+      .partner-cell { padding: 20px; }
+      .partner-cell img { max-height: 48px; }
+    }
+  </style>
+</head>
+<body>
+  <div data-nav-slot></div>
+
+  <section class="page-hero" data-screen-label="01 Partnerships Hero">
+    <div class="shell">
+      <div class="breadcrumb"><a href="index.html">QUAICU</a><span class="sep">/</span><span>Partnerships</span></div>
+      <div class="grid-12">
+        <div class="col-9">
+          <div class="eyebrow"><span class="dot"></span>08 PARTNERSHIPS</div>
+          <h1 class="h1" style="margin-top: 24px;">Institutions adopt AI when ROI<br/>is provable, governance is built in,<br/><span class="muted">and the relationship is credible.</span></h1>
+          <p class="lead" style="margin-top: 32px;">AI adoption fails when ROI is invisible, when governance is bolted on after deployment, and when vendors optimise for speed over accountability.</p>
+        </div>
+      </div>
+    </div>
+    <div class="atmos atmos--hero" style="background-image: url('uploads/stock-images/pexels-wolfgang-weiser-467045605-35836565.jpg');">
+      <div class="atmos-caption"><span class="dot"></span>TWO TRACKS · INSTITUTIONAL · ADVISORY</div>
+    </div>
+  </section>
+
+  <section data-screen-label="02 Non-negotiables">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">08·1 NON-NEGOTIABLES</div>
+        <div><h2 class="h2">Five conditions every partnership operates under.</h2></div>
+      </div>
+
+      <div class="grid-12" style="row-gap: 16px;">
+        <div class="col-3"><div class="card" style="height: 100%;"><span class="num-tag">01</span><h3 class="h3" style="margin-top: 8px;">Deployment chosen by the partner</h3></div></div>
+        <div class="col-3"><div class="card" style="height: 100%;"><span class="num-tag">02</span><h3 class="h3" style="margin-top: 8px;">Institutional data ownership</h3></div></div>
+        <div class="col-3"><div class="card" style="height: 100%;"><span class="num-tag">03</span><h3 class="h3" style="margin-top: 8px;">Per-tenant isolation by default</h3></div></div>
+        <div class="col-3"><div class="card" style="height: 100%;"><span class="num-tag">04</span><h3 class="h3" style="margin-top: 8px;">Auditable to the policy version</h3></div></div>
+        <div class="col-12"><div class="card" style="height: 100%;"><span class="num-tag">05 · ROOT INVARIANT</span><h3 class="h3" style="margin-top: 8px;">Governance-built-in architecture, end to end.</h3></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ECOSYSTEM PARTNERS -->
+  <section data-screen-label="03 Ecosystem Partners">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">08·2 ECOSYSTEM</div>
+        <div>
+          <h2 class="h2">Built with institutional partners,<br/><span class="muted">backed by infrastructure peers.</span></h2>
+          <p class="lead muted" style="margin-top: 16px; font-size: 16px;">Live deployment partners and compute, cloud, and research collaborators across the QUAICU ecosystem.</p>
+        </div>
+      </div>
+
+      <div class="partners-grid" aria-label="Ecosystem partners">
+        <div class="partner-cell"><img src="uploads/partners/nvidia.svg" alt="NVIDIA" loading="lazy" /></div>
+        <div class="partner-cell"><img src="uploads/partners/aws.svg" alt="Amazon Web Services" loading="lazy" /></div>
+        <div class="partner-cell"><img src="uploads/partners/woxsen-university.png" alt="Woxsen University" loading="lazy" /></div>
+        <div class="partner-cell"><img src="uploads/partners/ai-research-centre.png" alt="AI Research Centre" loading="lazy" /></div>
+        <div class="partner-cell"><img src="uploads/partners/t-hub.png" alt="T-Hub" loading="lazy" /></div>
+        <div class="partner-cell"><img src="uploads/partners/google-for-startups.png" alt="Google for Startups" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="atmos" style="background-image: url('uploads/stock-images/pexels-ryank-19727168.jpg');">
+    <div class="atmos-caption"><span class="dot"></span>DEPLOYMENT CHOSEN BY THE INSTITUTION</div>
+  </div>
+
+  <!-- TWO TRACKS -->
+  <section data-screen-label="04 Two Tracks" class="section--bg" style="background-image: url('uploads/stock-images/pexels-mb-2292492-5621415.jpg');">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">08·3 TWO TRACKS</div>
+        <div><h2 class="h2">Institutional partners run live pilots.<br/><span class="muted">Advisory partners own the relationship.</span></h2></div>
+      </div>
+
+      <div class="grid-12" style="row-gap: 24px;">
+        <!-- INSTITUTIONAL -->
+        <div class="col-6">
+          <div class="track" id="institutional">
+            <div class="track-tag">TRACK · 01</div>
+            <h3>Institutional Strategic Partnership</h3>
+            <div class="for"><strong>FOR:</strong> Vice-Chancellors · Deans · CIO Advisors · Chancellors · Hospital CIOs · Group CIOs.</div>
+            <p class="body" style="font-size: 14px;">A non-commercial pilot to put the product to work inside a real institution and prove what it actually returns, in hours saved and reports generated, before any commercial conversation begins.</p>
+
+            <div>
+              <div class="kicker" style="margin-bottom: 12px;">WHAT PARTNERS DO</div>
+              <ul style="list-style: none; display: grid; gap: 8px; font-size: 14px;">
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">→</span> Host a live pilot of the relevant product in the deployment they choose.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">→</span> Share what is and isn't working on the rules, the workflows, and the compliance handoffs.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">→</span> Review the pilot results alongside us and decide what graduates to full use.</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="kicker" style="margin-bottom: 12px;">WHAT PARTNERS RECEIVE</div>
+              <ul style="list-style: none; display: grid; gap: 8px; font-size: 14px;">
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> First access to the product for their sector.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> A deployment they fully control.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> Direct influence on the rules, approvals, and audit features.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> A clear public story as a leader in responsible AI for their sector.</li>
+              </ul>
+            </div>
+
+            <div>
+              <div class="kicker" style="margin-bottom: 12px;">STRUCTURE</div>
+              <div class="stage-row">
+                <span class="sn">01</span>
+                <div>
+                  <strong>Pilot Partner.</strong>
+                  <p class="muted" style="font-size: 13px; margin-top: 4px;">Non-commercial. 90–120 days. Live deployment and validation.</p>
+                </div>
+              </div>
+              <div class="stage-row">
+                <span class="sn">02</span>
+                <div>
+                  <strong>Strategic Partner.</strong>
+                  <p class="muted" style="font-size: 13px; margin-top: 4px;">Post-pilot association. Case study and reference, optional.</p>
+                </div>
+              </div>
+            </div>
+
+            <a class="btn btn--primary" href="contact.html#pilot" style="justify-self: flex-start;">Apply as institutional partner<span class="arrow"></span></a>
+          </div>
+        </div>
+
+        <!-- ADVISORY -->
+        <div class="col-6">
+          <div class="track" id="advisory">
+            <div class="track-tag">TRACK · 02</div>
+            <h3>Advisory &amp; Consulting Partnership</h3>
+            <div class="for"><strong>FOR:</strong> Admissions consultants · placement partners · accreditation consultants · healthcare advisory firms · hospitality consultants · real estate advisors.</div>
+
+            <div>
+              <div class="kicker" style="margin-bottom: 12px;">MODEL</div>
+              <p class="body" style="font-size: 14px;">The advisor keeps the institutional relationship and leads the strategic conversation. QUAICU builds, deploys, and runs the product. The relationship can be co-branded, white-labeled, or kept silent, whichever serves the client best.</p>
+            </div>
+
+            <div>
+              <div class="kicker" style="margin-bottom: 12px;">WHAT PARTNERS RECEIVE</div>
+              <ul style="list-style: none; display: grid; gap: 8px; font-size: 14px;">
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> Revenue participation on deployments.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> Clear account protection.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> Differentiation from generic advisory firms.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0;">·</span> Technical and delivery support from QUAICU.</li>
+              </ul>
+            </div>
+
+            <a class="btn btn--primary" href="contact.html#advisor" style="justify-self: flex-start; margin-top: auto;">Apply as advisory partner<span class="arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div data-foot-slot></div>
+  <script src="assets/nav.js"></script>
+  <script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+graph TD
+    %% Styling
+    classDef client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px;
+    classDef proxy fill:#f1f5f9,stroke:#64748b,stroke-width:2px;
+    classDef core fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+    classDef db fill:#fef3c7,stroke:#d97706,stroke-width:2px;
+    classDef infra fill:#f3f4f6,stroke:#4b5563,stroke-width:2px;
+    classDef ai fill:#ede9fe,stroke:#7c3aed,stroke-width:2px;
+    classDef external fill:#fce7f3,stroke:#db2777,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef observ fill:#ecfdf5,stroke:#059669,stroke-width:2px;
+
+    %% Client Layer
+    subgraph Clients["Client Layer"]
+        WebApp["Web App (React/Vite)"]:::client
+        DesktopApp["Desktop App (Electron WiFi Sync)"]:::client
+    end
+
+    %% Edge / Proxy Layer
+    subgraph Edge["Edge Layer"]
+        Nginx["Nginx Reverse Proxy & SSL"]:::proxy
+    end
+
+    %% Core Application Layer
+    subgraph CoreApps["ALIS Application Layer (Python / FastAPI)"]
+        ControlPlane["Control Plane\n(SaaS Tenant Lifecycle)"]:::core
+        ALISMonolith["ALIS Core API Monolith\n(Finance, Admissions, PhD, etc.)"]:::core
+        CeleryWorker["Celery Workers\n(Async Tasks)"]:::core
+        CeleryBeat["Celery Beat\n(Cron & Scheduled Tasks)"]:::core
+    end
+
+    %% AI Layer
+    subgraph AILayer["AI & LLM Services"]
+        AIService["AI Service Router\n(Proxy & Capability Routing)"]:::core
+        Ollama["Ollama\n(Local LLMs & Embeddings)"]:::ai
+    end
+
+    %% Data & State Layer
+    subgraph DataLayer["Self-Hosted Data & Infrastructure Layer"]
+        PgBouncer["PgBouncer\n(Connection Pooling)"]:::infra
+        Postgres["PostgreSQL + pgvector\n(Relational & Vector DB)"]:::db
+        Redis["Redis\n(Cache & Celery Broker)"]:::db
+        MinIO["MinIO\n(S3-Compatible Object Storage)"]:::db
+        Vault["HashiCorp Vault\n(Secrets & P0-2 Encryption)"]:::infra
+    end
+
+    %% Observability Stack
+    subgraph Observability["Observability & Telemetry"]
+        Prometheus["Prometheus (Metrics)"]:::observ
+        Grafana["Grafana (Dashboards)"]:::observ
+        Loki["Loki (Log Aggregation)"]:::observ
+        Promtail["Promtail (Log Shipper)"]:::observ
+        Alertmanager["Alertmanager (Routing)"]:::observ
+    end
+
+    %% External Integrations Layer
+    subgraph External["External Integrations & Third-Party APIs"]
+        subgraph Finance["Finance & Accounting"]
+            Razorpay["Razorpay / PayU"]:::external
+            Tally["Tally ERP"]:::external
+            EInvoice["NIC e-Invoice"]:::external
+        end
+        
+        subgraph Comms["Communications"]
+            MSG91["MSG91 / Twilio (SMS)"]:::external
+            WhatsApp["Meta WhatsApp API"]:::external
+            SMTP["Email (Google/O365/SMTP)"]:::external
+        end
+
+        subgraph Institutional["Institutional & Govt"]
+            DigiLocker["DigiLocker"]:::external
+            NTA["NTA API (Scores)"]:::external
+            Drillbit["Drillbit (Plagiarism)"]:::external
+        end
+
+        subgraph Cloud["Cloud Infrastructure"]
+            CloudAI["Cloud AI (AWS/Azure/GCP)"]:::external
+            DNS["DNS (Cloudflare/Route53/Azure)"]:::external
+            Sentry["Sentry (APM & Errors)"]:::external
+        end
+    end
+
+    %% Interconnections
+
+    %% Client -> Proxy
+    WebApp -->|HTTPS| Nginx
+    DesktopApp -->|HTTPS| Nginx
+
+    %% Proxy -> Core
+    Nginx -->|Route| ALISMonolith
+    Nginx -->|Admin| ControlPlane
+
+    %% Core <-> Databases
+    ALISMonolith -->|SQL| PgBouncer
+    ControlPlane -->|SQL| PgBouncer
+    CeleryWorker -->|SQL| PgBouncer
+    PgBouncer --> PostgreSQL
+    
+    ALISMonolith -->|KV/Broker| Redis
+    CeleryWorker -->|Listen| Redis
+    CeleryBeat -->|Schedule| Redis
+
+    ALISMonolith -.->|Documents/S3| MinIO
+    ControlPlane -.->|Tenant Config| MinIO
+
+    ALISMonolith -.->|Decrypt Keys| Vault
+    ControlPlane -.->|Manage Secrets| Vault
+
+    %% AI Integrations
+    ALISMonolith -->|Task Intent| AIService
+    CeleryWorker -->|Async Inference| AIService
+    AIService -->|Native Local Inference| Ollama
+    AIService -.->|Fallback / Reasoning| CloudAI
+
+    %% External APIs
+    ALISMonolith -.->|Fee Links & Webhooks| Razorpay
+    ALISMonolith -.->|HTTP Push| Tally
+    ALISMonolith -.->|GST IRN| EInvoice
+    ALISMonolith -.->|Notification Trigger| MSG91
+    ALISMonolith -.->|Notification Trigger| WhatsApp
+    ALISMonolith -.->|Notification Trigger| SMTP
+    ALISMonolith -.->|OAuth| DigiLocker
+    ALISMonolith -.->|Bulk Fetch| NTA
+    ALISMonolith -.->|Check Submissions| Drillbit
+    
+    ControlPlane -.->|Provision Domains| DNS
+    
+    ALISMonolith -.->|Trace & Error Push| Sentry
+    ControlPlane -.->|Trace & Error Push| Sentry
+
+    %% Observability Internal Flow
+    Promtail -->|Ship Logs| Loki
+    Loki -->|Query| Grafana
+    Prometheus -->|Query| Grafana
+    Prometheus -->|Alert Trigger| Alertmanager
+    Alertmanager -.->|Send Alerts| SMTP
+
+    %% Monitoring the whole system
+    Prometheus -.->|Scrape Metrics| ALISMonolith
+    Prometheus -.->|Scrape Metrics| Nginx
+    Prometheus -.->|Scrape Metrics| Postgres
+    Prometheus -.->|Scrape Metrics| Redis
