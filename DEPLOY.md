@@ -1,136 +1,144 @@
-# Deploy guide — one-time setup
+# Deploy guide — Cloudflare Pages + Decap CMS
 
-This walks you through getting `quaicu.org` and the new `/blog/` live on Netlify, with Decap CMS accessible at `/admin/` for non-technical authors.
+The static site is already live on Cloudflare Pages, auto-deploying from `main`. The remaining work is one-time CMS setup:
 
-You only do this once. After that, every git push (or every CMS "Publish") deploys automatically.
+1. Create a GitHub OAuth App (so authors can log into `/admin/` with GitHub).
+2. Deploy the OAuth Worker (`workers/decap-oauth/`).
+3. Wire the Worker URL + your repo into `admin/config.yml`.
+4. Invite collaborators (your future post authors).
 
----
-
-## Prerequisites you'll need accounts for
-
-- **GitHub** — free. https://github.com/signup
-- **Netlify** — free. https://app.netlify.com/signup (sign up with your GitHub account so they're linked)
+End-to-end this is ~20 minutes. After that, every CMS publish auto-deploys.
 
 ---
 
-## Step 1 · Push the site to GitHub
+## Step 1 · Create a GitHub OAuth App
 
-From the project directory:
+1. Go to https://github.com/settings/developers → **OAuth Apps → New OAuth App**.
+2. Fill in:
+   - **Application name:** `QUAICU CMS`
+   - **Homepage URL:** `https://quaicu.org`
+   - **Authorization callback URL:** *leave blank for now — you'll set it in step 2 after the Worker is deployed.*
+3. Hit **Register application**. You'll land on the app's page.
+4. **Copy the Client ID.** Click **Generate a new client secret** and **copy that immediately** — GitHub shows it only once.
+
+Keep both values handy for Step 2.
+
+---
+
+## Step 2 · Deploy the OAuth Worker
+
+You need [Wrangler](https://developers.cloudflare.com/workers/wrangler/) installed (`npm install -g wrangler` or use `npx wrangler`).
 
 ```sh
-# initialize the repo
-git init
-git add .
-git commit -m "Initial commit: brutalist static site + Eleventy blog"
-git branch -M main
+cd workers/decap-oauth
+npm install
+wrangler login                              # one-time browser login
+wrangler secret put GITHUB_CLIENT_ID        # paste the Client ID from Step 1
+wrangler secret put GITHUB_CLIENT_SECRET    # paste the Client Secret from Step 1
+wrangler deploy
 ```
 
-Then create the GitHub repo:
+Wrangler prints the deployed URL, e.g.:
 
-1. Go to https://github.com/new
-2. Name it `quaicu-website` (or whatever you prefer)
-3. **Keep it private** if you don't want competitors reading your post drafts before they ship
-4. **Do not** initialize with README/license/.gitignore — we have those already
-5. Hit **Create repository**
+```
+Published quaicu-cms-oauth
+  https://quaicu-cms-oauth.YOUR-CF-SUBDOMAIN.workers.dev
+```
 
-Copy the `git remote add` command GitHub shows you. It will look like:
+**Copy that URL.**
+
+Now go back to the GitHub OAuth App you created in Step 1 and set:
+
+- **Authorization callback URL:** `https://quaicu-cms-oauth.YOUR-CF-SUBDOMAIN.workers.dev/callback`
+
+Save.
+
+---
+
+## Step 3 · Point Decap CMS at the Worker
+
+Open `admin/config.yml` in your editor. Update the `backend` block:
+
+```yaml
+backend:
+  name: github
+  repo: ramavathdeepak05/quaicu-website
+  branch: main
+  base_url: https://quaicu-cms-oauth.YOUR-CF-SUBDOMAIN.workers.dev
+  auth_endpoint: auth
+```
+
+Commit and push:
 
 ```sh
-git remote add origin https://github.com/<your-username>/quaicu-website.git
-git push -u origin main
+git add admin/config.yml
+git commit -m "Wire Decap CMS to OAuth Worker"
+git push
 ```
 
-Run it. The full site is now on GitHub.
+Cloudflare Pages auto-rebuilds (~30 sec). The CMS is now reachable at `quaicu.org/admin/`.
 
 ---
 
-## Step 2 · Connect Netlify to the repo
-
-1. Go to https://app.netlify.com → **Add new site → Import an existing project**.
-2. Pick **GitHub**, authorize Netlify, choose the `quaicu-website` repo.
-3. Netlify reads `netlify.toml` and auto-fills:
-   - **Build command:** `npm run build`
-   - **Publish directory:** `_site`
-4. Hit **Deploy site**.
-
-In about 60 seconds you'll get a URL like `https://shimmering-pixie-abc123.netlify.app/`. Click it. The whole site, including `/blog/`, should be live.
-
----
-
-## Step 3 · Point quaicu.org at Netlify
-
-In Netlify: **Site settings → Domain management → Add a domain → `quaicu.org`**.
-
-Netlify will show you two DNS records to add at your domain registrar (where you bought `quaicu.org`):
-
-- An `A` record pointing the root domain to Netlify's load balancer
-- A `CNAME` for `www`
-
-Add them at your registrar. DNS propagation takes 15 min to a few hours. Netlify will auto-issue an SSL certificate (Let's Encrypt) once DNS resolves — wait for the green padlock in their dashboard.
-
----
-
-## Step 4 · Enable Netlify Identity (required for the CMS)
-
-Decap CMS uses **Netlify Identity** to authenticate authors. Without this step, `/admin/` will not work.
-
-1. In Netlify: **Site → Identity → Enable Identity**.
-2. **Registration preferences → set to "Invite only"**. (Otherwise the public can sign up to write blog posts. Don't.)
-3. **Identity → Services → Git Gateway → Enable Git Gateway**. This lets the CMS commit posts to GitHub on behalf of authors, without giving them your GitHub credentials.
-
----
-
-## Step 5 · Invite yourself + teammates as authors
-
-1. **Identity → Invite users** → enter your email, hit invite.
-2. Check your email for the invite link, click it, set a password.
-3. You can now log in at `https://quaicu.org/admin/`.
-4. Repeat for each teammate who should be able to write posts.
-
-Invited users only get access to the CMS. They cannot edit the website's code or any other GitHub content.
-
----
-
-## Step 6 · Verify the CMS works
+## Step 4 · Verify the CMS works
 
 1. Visit `https://quaicu.org/admin/`.
-2. Log in.
-3. You should see the Decap CMS UI with **Blog Posts** in the sidebar.
-4. Click **New Post**, fill the title and body, untick **Draft**, hit **Publish**.
-5. Wait ~30 seconds. Visit `https://quaicu.org/blog/` and your post should be there.
+2. Click **Login with GitHub** → popup opens → log in on github.com → popup closes → you're in.
+3. You should see the Decap UI with **Blog Posts** in the sidebar.
+4. Click **New Post**, fill in title and body, untick **Draft**, hit **Publish → Publish now**.
+5. Within ~30 seconds the post appears at `https://quaicu.org/blog/<slug>/`.
 
-If the CMS UI loads but login fails — double-check Step 4 (Identity and Git Gateway both enabled).
+If login fails:
+- **"App not approved"** → the OAuth callback URL doesn't match Step 2. Edit the OAuth App and confirm it points to `/callback` on the Worker URL.
+- **"Origin not allowed"** → check `workers/decap-oauth/wrangler.toml` → `ALLOWED_ORIGIN` is set to `https://quaicu.org`.
+- **Login succeeds but Decap shows "Failed to load"** → your GitHub account is not a collaborator on the repo. See Step 5.
 
 ---
 
-## Step 7 · One-time SEO setup
+## Step 5 · Invite collaborators (future authors)
+
+Each person who needs to write posts must:
+
+1. Have a free GitHub account (github.com/signup).
+2. Be added to your repo as a collaborator — at minimum **Write** access.
+
+To invite:
+
+1. Go to `https://github.com/ramavathdeepak05/quaicu-website/settings/access`.
+2. **Add people** → enter their GitHub username or email → **Write** role.
+3. They receive an email — they accept.
+4. They can now log into `quaicu.org/admin/` with GitHub.
+
+Don't add anyone you wouldn't trust with the repo — collaborators technically have write access to all files, not just the blog. For external guest writers, the better pattern is to have them email you a Markdown file and you publish on their behalf.
+
+---
+
+## Step 6 · One-time SEO setup
 
 1. **Google Search Console** — https://search.google.com/search-console
-   - Add property `quaicu.org`
-   - Verify ownership (Netlify has a DNS TXT record verification option, or use the HTML file method)
+   - Add property `quaicu.org` (verify ownership via DNS TXT on Cloudflare, or upload the HTML file)
    - **Sitemaps → Add new sitemap → `sitemap.xml`** → Submit
    - Google starts crawling within a few days
 
 2. **Bing Webmaster Tools** — https://www.bing.com/webmasters
    - Add `quaicu.org`, verify, submit `sitemap.xml`
-   - 5% of search traffic but very cheap to set up
 
-3. **LinkedIn/X preview check** — paste a post URL into:
+3. **Preview check** — paste a post URL into:
    - https://www.linkedin.com/post-inspector/
    - https://cards-dev.twitter.com/validator
-   - Confirm the OG image, title, description preview correctly.
+   - Confirms OG image, title, description render correctly when shared.
 
 ---
 
-## Step 8 · Set up the production domain in `_data/site.js`
+## Step 7 · Confirm `_data/site.js` matches your domain
 
-Once `quaicu.org` resolves to the new site, double-check `_data/site.js` has:
+Open `_data/site.js`. The first line should be:
 
 ```js
 url: "https://quaicu.org",
 ```
 
-This is what canonical URLs, OG tags, the sitemap, and the RSS feed all use. If you ever change domains, this is the only line you have to update.
+This drives canonical URLs, OG tags, the sitemap, and the RSS feed. If you ever change domains, this is the only line you have to update.
 
 ---
 
@@ -138,27 +146,39 @@ This is what canonical URLs, OG tags, the sitemap, and the RSS feed all use. If 
 
 You don't touch any of this again. The flow becomes:
 
-- **Author writes a post** → `/admin/` → Publish → live in 30 sec.
+- **Author writes a post** → `quaicu.org/admin/` → Publish → live in 30 sec.
 - **Developer edits the site** → `git push` → live in 30 sec.
-
-That's the whole loop.
 
 ---
 
 ## Troubleshooting
 
-**The Netlify build fails with "node version not found".**
-Check that `netlify.toml` sets `NODE_VERSION = "20"` (it does, by default).
+**`wrangler deploy` says "no account"**
+Run `wrangler login` first. It opens a browser, you authorize, done.
 
-**The CMS login spinner just spins.**
-Identity widget hasn't loaded. Check that `admin/index.html` and the Netlify Identity script are both present in the deployed `_site/admin/`. Re-deploy if you renamed anything.
+**The Worker deploys but `https://…workers.dev/health` returns 522**
+DNS propagation lag — wait 60 seconds and retry.
 
-**Posts I publish in the CMS don't appear on the site.**
-1. Did you untick the **Draft** checkbox? Drafts don't build.
-2. Did the Netlify build succeed? Check **Deploys** in the Netlify dashboard.
+**CMS publishes but Cloudflare Pages doesn't rebuild**
+Check Cloudflare Pages → your project → **Settings → Builds & deployments → Production branch** is set to `main`. The CMS commits to `main`, so it must match.
 
-**A non-author can sign up at `/admin/`.**
-Go back to **Identity → Registration → Invite only**. Then delete any unauthorized users in **Identity → Users**.
+**The CMS UI loads but I see "Config errors"**
+You forgot to update `repo:` and/or `base_url:` in `admin/config.yml` — they still contain the placeholder values from the template.
 
-**Build is slow.**
-Eleventy rebuilds the whole site on every change. ~3 sec for a few dozen posts is normal. If it gets to 30+ sec, time to add incremental builds — not yet needed.
+**A non-author can sign up at /admin/**
+GitHub OAuth grants access to anyone with a GitHub account, BUT Decap will reject any user who is not a repo collaborator. So the perimeter is the GitHub collaborator list — keep that tight.
+
+**I want to test changes to the OAuth Worker locally**
+```sh
+cd workers/decap-oauth
+wrangler dev      # serves on http://localhost:8787
+```
+Temporarily change `admin/config.yml` → `base_url: http://localhost:8787` and run `npm run dev` for the site. Don't commit that change.
+
+**I want to rotate the GitHub client secret**
+Regenerate it in the GitHub OAuth App settings, then:
+```sh
+cd workers/decap-oauth
+wrangler secret put GITHUB_CLIENT_SECRET
+```
+Paste the new value. No redeploy needed.

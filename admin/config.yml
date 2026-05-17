@@ -1,10 +1,17 @@
-# Decap CMS configuration for QUAICU.
-# Authors log in at /admin/ via Netlify Identity. Saving a post commits
-# a Markdown file to content/blog/ and triggers a Netlify rebuild.
+# Decap CMS configuration for QUAICU on Cloudflare.
+# Authors log in at /admin/ with their GitHub account (must be a collaborator
+# on the repo). Auth is brokered by the Cloudflare Worker defined in
+# workers/decap-oauth/. Saving a post commits a Markdown file to content/blog/
+# and Cloudflare Pages auto-rebuilds.
 
 backend:
-  name: git-gateway
+  name: github
+  repo: ramavathdeepak05/quaicu-website
   branch: main
+  # URL of the deployed OAuth Worker. Replace YOUR-CF-SUBDOMAIN once
+  # `wrangler deploy` prints the Worker URL.
+  base_url: https://quaicu-cms-oauth.YOUR-CF-SUBDOMAIN.workers.dev
+  auth_endpoint: auth
   commit_messages:
     create: "blog: add {{slug}}"
     update: "blog: update {{slug}}"
@@ -12,7 +19,8 @@ backend:
     uploadMedia: "blog: upload {{path}}"
     deleteMedia: "blog: delete {{path}}"
 
-# Editorial workflow lets non-technical authors save drafts before publishing.
+# Editorial workflow lets authors save drafts and request review before
+# publishing. Each state corresponds to a GitHub branch — Decap manages this.
 publish_mode: editorial_workflow
 
 media_folder: "uploads/blog"

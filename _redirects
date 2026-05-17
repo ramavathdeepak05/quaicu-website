@@ -1,0 +1,9 @@
+# Cloudflare Pages reads this at the root of the build output (_site/).
+# Format docs: https://developers.cloudflare.com/pages/configuration/redirects/
+
+# Friendly alias for the sitemap.
+/sitemap  /sitemap.xml  301
+
+# Friendly alias for the RSS feed.
+/rss      /blog/feed.xml  301
+/feed     /blog/feed.xml  301

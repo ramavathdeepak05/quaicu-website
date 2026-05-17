@@ -7,10 +7,11 @@ This is for non-technical authors. You will not need to touch code or git.
 
 ## 1 · How to write a post
 
-1. Go to **https://quaicu.org/admin/** in your browser.
-2. Sign in with your Netlify Identity account (Deepak will invite you).
-3. Click **Blog Posts → New Post**.
-4. Fill in the fields:
+1. Make sure you have a **free GitHub account** (github.com/signup) and Deepak has added you as a collaborator on the website repo. (You only do this once.)
+2. Go to **https://quaicu.org/admin/** in your browser.
+3. Click **Login with GitHub** → authorize the popup. You're in.
+4. Click **Blog Posts → New Post**.
+5. Fill in the fields:
    - **Title** — keep under ~70 characters so it doesn't get truncated in Google results.
    - **Publish date** — when the post should appear.
    - **Summary** — 60–160 characters. This is also your meta description (what Google shows under your title in search results) and the lead paragraph at the top of the post. Make it count.
@@ -19,10 +20,10 @@ This is for non-technical authors. You will not need to touch code or git.
    - **Tags** — free-form keywords (e.g., `field-notes`, `alis`, `governance`). Each tag becomes a filter page at `/blog/tags/<tag>/`.
    - **Draft** — keep this **on** while writing. **Untick to publish.**
    - **Body** — the post itself. Markdown editor with a live preview.
-5. Hit **Save**. The post is saved as a draft.
-6. When ready, **untick Draft**, hit **Save**, then **Publish → Publish now**.
+6. Hit **Save**. The post is saved as a draft.
+7. When ready, **untick Draft**, hit **Save**, then **Publish → Publish now**.
 
-In about 30 seconds the post is live at `quaicu.org/blog/<slug>/` (where `<slug>` is auto-generated from the title).
+In about 30 seconds Cloudflare rebuilds and the post is live at `quaicu.org/blog/<slug>/` (where `<slug>` is auto-generated from the title).
 
 ---
 
@@ -108,7 +109,7 @@ Use this for posts that need legal or leadership review before going public.
 ## 7 · What happens after Publish
 
 1. Decap commits your Markdown file to GitHub.
-2. Netlify detects the commit and rebuilds the site (~30 sec).
+2. Cloudflare Pages detects the commit and rebuilds the site (~30 sec).
 3. The post appears at `quaicu.org/blog/<slug>/`.
 4. The sitemap, RSS feed, and `/blog/` index update automatically.
 5. Google will discover the new post within 1–7 days. To speed this up, submit the sitemap once in [Google Search Console](https://search.google.com/search-console) — that's a one-time setup, the auto-rebuild handles updates after.

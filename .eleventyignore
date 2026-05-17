@@ -8,6 +8,7 @@ package.json
 package-lock.json
 .eleventy.js
 .eleventyignore
+workers
 uploads/Pasted text.txt
 uploads/QUAICU_Website_v2.md
 uploads/kernel_diagram.md

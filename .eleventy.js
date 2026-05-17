@@ -18,6 +18,9 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy("*.html");
+  // Cloudflare Pages reads _headers and _redirects from the build output root.
+  eleventyConfig.addPassthroughCopy("_headers");
+  eleventyConfig.addPassthroughCopy("_redirects");
 
   // ---- markdown engine inside posts can use njk filters/shortcodes ----
   eleventyConfig.setLibrary("md", require("markdown-it")({

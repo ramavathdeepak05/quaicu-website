@@ -6,21 +6,10 @@
   <meta name="robots" content="noindex" />
   <title>QUAICU · Content Admin</title>
   <link rel="icon" href="/favicon.ico" />
-
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
+  <!-- Decap CMS loads its own UI here. Auth is brokered by the Cloudflare
+       Worker configured in /admin/config.yml under backend.base_url. -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
-  </script>
 </body>
 </html>

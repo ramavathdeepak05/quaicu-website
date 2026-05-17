@@ -1,0 +1,16 @@
+# Cloudflare Worker that brokers GitHub OAuth for Decap CMS at /admin/.
+# Deploy from this directory: `wrangler deploy`
+# Set secrets:
+#   wrangler secret put GITHUB_CLIENT_ID
+#   wrangler secret put GITHUB_CLIENT_SECRET
+# (see DEPLOY.md for the full setup walkthrough.)
+
+name = "quaicu-cms-oauth"
+main = "src/index.js"
+compatibility_date = "2025-01-15"
+
+[vars]
+# Only these origins are allowed to use the OAuth proxy.
+# Add Cloudflare Pages preview URLs here if you want to test from them.
+ALLOWED_ORIGIN = "https://quaicu.org"
+GITHUB_OAUTH_SCOPE = "repo,user"
