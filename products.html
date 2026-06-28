@@ -197,12 +197,20 @@
           <div>
             <div class="kicker" style="margin-bottom: 12px;">WHAT YOU GET</div>
             <div class="module-grid">
-              <div><span class="m-num">K·01</span><span class="m-title">Policy Engine</span><span class="m-desc">Define rules once. Every AI action checks them first.</span></div>
-              <div><span class="m-num">K·02</span><span class="m-title">Immutable Ledger</span><span class="m-desc">Every decision logged in an unbroken, auditor-ready trail.</span></div>
-              <div><span class="m-num">K·03</span><span class="m-title">HITL Enforcement</span><span class="m-desc">Human-in-the-loop gates that cannot be silently bypassed.</span></div>
-              <div><span class="m-num">K·04</span><span class="m-title">DPDP Consent</span><span class="m-desc">Personal data handled under consent you can prove.</span></div>
-              <div><span class="m-num">K·05</span><span class="m-title">AI Gateway</span><span class="m-desc">One controlled interface to any model. Prompt-to-output traceability.</span></div>
-              <div><span class="m-num">K·06</span><span class="m-title">Event Bus</span><span class="m-desc">Structured event stream your application can hook into.</span></div>
+              <div><span class="m-num">K·01</span><span class="m-title">Policy Engine</span><span class="m-desc">CEL-based rule evaluation on every action.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·02</span><span class="m-title">TrustLedger</span><span class="m-desc">Cryptographic, append-only audit record of every sealed action.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·03</span><span class="m-title">HITL Gate</span><span class="m-desc">Human-in-the-loop enforcement. Timeout = DENY.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·04</span><span class="m-title">DPDP Consent</span><span class="m-desc">Purpose-bound consent verification at evaluation time.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·05</span><span class="m-title">AI Gateway</span><span class="m-desc">Controlled interface to AI models — PII masking, prompt logging, token budgets.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·06</span><span class="m-title">Process Engine</span><span class="m-desc">Durable, replay-safe workflow orchestration.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·07</span><span class="m-title">Event Bus</span><span class="m-desc">Structured events emitted only after a sealed action.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·08</span><span class="m-title">Model Registry</span><span class="m-desc">Per-tenant allowlist of approved AI models.</span><span class="pill pill--live" style="font-size:9px;padding:2px 6px;">PROD</span></div>
+              <div><span class="m-num">K·09</span><span class="m-title">Fairness</span><span class="m-desc">Async demographic disparity detection across governed decisions.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
+              <div><span class="m-num">K·10</span><span class="m-title">Drift Monitor</span><span class="m-desc">Semantic drift detection against a registered model baseline.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
+              <div><span class="m-num">K·11</span><span class="m-title">Explainability</span><span class="m-desc">Reconstructs why any past decision was made.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
+              <div><span class="m-num">K·12</span><span class="m-title">Incident Engine</span><span class="m-desc">Post-breach rollback with governed reversal actions.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
+              <div><span class="m-num">K·13</span><span class="m-title">Sandbox</span><span class="m-desc">Safe replay environment for testing policy changes.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
+              <div><span class="m-num">K·14</span><span class="m-title">Regulatory Mapping</span><span class="m-desc">Maps policies to regulations; generates signed evidence packs.</span><span class="pill pill--next" style="font-size:9px;padding:2px 6px;">PILOT</span></div>
             </div>
           </div>
           <div>
@@ -230,9 +238,9 @@
                 <div class="kicker" style="font-size: 10px; margin-bottom: 4px;">DEVELOPERS · DOCUMENTATION</div>
                 <a class="btn" href="https://kernel.quaicu.org" target="_blank" rel="noopener">Open kernel.quaicu.org <span class="arrow"></span></a>
                 <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px;">
-                  <a href="https://kernel.quaicu.org/docs/quickstart/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">Quickstart ↗</a>
-                  <a href="https://kernel.quaicu.org/docs/reference/api/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">API Reference ↗</a>
-                  <a href="https://kernel.quaicu.org/docs/tutorials/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">Tutorials ↗</a>
+                  <a href="https://kernel.quaicu.org/quickstart/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">Quickstart ↗</a>
+                  <a href="https://kernel.quaicu.org/reference/api/rest/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">API Reference ↗</a>
+                  <a href="https://kernel.quaicu.org/tutorials/" target="_blank" rel="noopener" style="font-family: var(--f-mono); font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--ember); text-decoration: none;">Tutorials ↗</a>
                 </div>
               </div>
             </div>

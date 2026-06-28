@@ -103,9 +103,9 @@
           <h4>Developers</h4>
           <ul>
             <li><a href="https://kernel.quaicu.org" target="_blank" rel="noopener">kernel.quaicu.org ↗</a></li>
-            <li><a href="https://kernel.quaicu.org/docs/quickstart/" target="_blank" rel="noopener">Quickstart ↗</a></li>
-            <li><a href="https://kernel.quaicu.org/docs/reference/api/" target="_blank" rel="noopener">API Reference ↗</a></li>
-            <li><a href="https://kernel.quaicu.org/docs/tutorials/" target="_blank" rel="noopener">Tutorials ↗</a></li>
+            <li><a href="https://kernel.quaicu.org/quickstart/" target="_blank" rel="noopener">Quickstart ↗</a></li>
+            <li><a href="https://kernel.quaicu.org/reference/api/rest/" target="_blank" rel="noopener">API Reference ↗</a></li>
+            <li><a href="https://kernel.quaicu.org/tutorials/" target="_blank" rel="noopener">Tutorials ↗</a></li>
           </ul>
         </div>
       </div>
