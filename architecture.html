@@ -473,132 +473,78 @@
     </div>
   </section>
 
-  <!-- KERNEL FLOW -->
-  <section data-screen-label="06 Kernel Flow">
+  <!-- GOVERNANCE LIFECYCLE -->
+  <section data-screen-label="06 Governance Lifecycle">
     <div class="shell">
       <div class="section-head">
-        <div class="kicker">06·5 KERNEL FLOW</div>
-        <div><h2 class="h2">Governed autonomy inside the core.</h2></div>
+        <div class="kicker">06·5 GOVERNANCE LIFECYCLE</div>
+        <div><h2 class="h2">Every AI action follows one non-bypassable sequence.</h2></div>
       </div>
       <div class="mermaid-frame">
         <div class="mermaid-meta">
-          <span>FIG · 06·5 / KERNEL FLOW</span>
+          <span>FIG · 06·5 / GOVERNANCE LIFECYCLE · FAIL-CLOSED</span>
           <span>POLICY PRECEDES INFERENCE</span>
         </div>
         <div class="mermaid">
 graph TB
-    REQ(["Inbound Request"])
+    REQ(["Inbound Action"])
+    HALT["HALT · Fail-Closed"]
+    DONE(["Governed Result"])
 
-    subgraph L4["Precedence Locks"]
-        LOCKS["Hierarchical lock stack\nAny tier engaged → fail-closed"]
+    subgraph KERN["Governance Kernel · Non-Bypassable"]
+        EVAL["Policy Evaluation"]
+        GATE["Human Approval Gate"]
+        EXEC["Execution"]
+        SEAL["Audit Ledger Seal"]
+        EMIT["Event Emission"]
     end
 
-    subgraph L5["Authority"]
-        AUTH["Role + attribute check"]
-        Q["Multi-party approval"]
-    end
+    REQ --> EVAL
+    EVAL -->|"Allow"| GATE
+    EVAL -->|"Deny / Error"| HALT
+    GATE -->|"Approved"| EXEC
+    GATE -->|"Timeout / Reject"| HALT
+    EXEC -->|"Failure"| HALT
+    EXEC --> SEAL
+    SEAL --> EMIT
+    EMIT --> DONE
 
-    subgraph L3["State Machine"]
-        SM["Declared transitions only"]
-    end
-
-    subgraph CONST["Policy Layer"]
-        POL["Versioned policy set\nrules-as-data"]
-        SIM["Shadow-run before activation"]
-        POL --- SIM
-    end
-
-    subgraph PROC["Process Engine"]
-        CAPTURE["Capture · DRAFT"]
-        APPR["Route to approver"]
-        AI_STEP["AI step · advisory only"]
-        ACT["Deterministic action"]
-        UNDO["Formal reversal window"]
-    end
-
-    subgraph L2["AI Gateway"]
-        GUARD["Inbound guardrails"]
-        HITL["Low confidence → human"]
-        LOCAL["Local inference\nno external network"]
-        OUT["Output: DRAFT only"]
-        GUARD --> HITL --> LOCAL --> OUT
-    end
-
-    subgraph L1["Event Bus"]
-        BUS["Durable event bus"]
-        PERSIST["Persisted before dispatch"]
-        WORKER["Idempotent handlers"]
-        BUS --> PERSIST --> WORKER
-    end
-
-    subgraph L6["Audit Ledger"]
-        LEDGER["Hash-chained · append-only"]
-        SNAP["Version snapshot per event"]
-        REPLAY["Deterministic replay"]
-        LEDGER --> SNAP --> REPLAY
-    end
-
-    DB[("Isolated storage")]
-
-    %% Flow
-    REQ --> L4
-    L4 -->|"Cleared"| L5
-    L5 -->|"Authorized"| L3
-    L3 -->|"Legal"| CONST
-    CONST -->|"Pass"| PROC
-    PROC -->|"AI step"| L2
-    L2 -->|"DRAFT returned"| PROC
-    PROC -->|"Emit event"| L1
-    PROC -->|"Atomic write"| L6
-    L6 --> DB
-    L1 --> DB
-
-    %% Rejection
-    L4 -->|"Locked"| HALT["HALT · fail-closed"]
-    L5 -->|"Denied"| HALT
-    L3 -->|"Illegal"| HALT
-    CONST -->|"Block"| HALT
-
-    %% Brutalist styling
-    style L4 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style L5 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style L3 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style CONST fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style PROC fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style L2 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style L1 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
-    style L6 fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
+    style KERN fill:#f0eee8,stroke:#0a0a0a,stroke-width:1.5px,color:#0a0a0a
     style REQ fill:#e3f0e7,stroke:#008746,stroke-width:1.75px,color:#0a0a0a
-    style DB fill:#1c1c1c,stroke:#0a0a0a,stroke-width:1.5px,color:#fafaf7
+    style DONE fill:#e3f0e7,stroke:#008746,stroke-width:1.75px,color:#0a0a0a
     style HALT fill:#c43a1a,stroke:#0a0a0a,stroke-width:1.75px,color:#fafaf7
-
-    style LOCKS fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style AUTH fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style Q fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style SM fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style POL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style SIM fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style CAPTURE fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style APPR fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style AI_STEP fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style ACT fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style UNDO fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style GUARD fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style HITL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style LOCAL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style OUT fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style BUS fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style PERSIST fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style WORKER fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style LEDGER fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style SNAP fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
-    style REPLAY fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style EVAL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style GATE fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style EXEC fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style SEAL fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
+    style EMIT fill:#fafaf7,stroke:#0a0a0a,color:#0a0a0a
         </div>
       </div>
     </div>
   </section>
 
-  <section data-screen-label="07 Closing" class="section--bg" style="background-image: url('uploads/stock-images/pexels-jakobjin-14452236.jpg');">
+  <!-- DEVELOPER CTA -->
+  <section data-screen-label="07 Developer CTA">
+    <div class="shell">
+      <div style="border-top: 1px solid var(--rule); padding: 56px 0;">
+        <div class="grid-12" style="align-items: center;">
+          <div class="col-8 stack-12">
+            <div class="kicker">FOR ENGINEERS · KERNEL DOCUMENTATION</div>
+            <h2 class="h2" style="margin-top: 12px;">The technical depth continues on kernel.quaicu.org.</h2>
+            <p class="body muted" style="margin-top: 12px; max-width: 56ch;">
+              API reference, Python SDK guide, CEL policy language, deployment runbooks, and the architecture decisions behind every governance layer.
+            </p>
+          </div>
+          <div class="col-4" style="display: flex; flex-direction: column; gap: 10px; justify-content: center;">
+            <a class="btn btn--primary" href="https://kernel.quaicu.org" target="_blank" rel="noopener">Open kernel.quaicu.org <span class="arrow"></span></a>
+            <a class="btn" href="products.html#kernel">Kernel overview <span class="arrow"></span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="08 Closing" class="section--bg" style="background-image: url('uploads/stock-images/pexels-jakobjin-14452236.jpg');">
     <div class="shell">
       <div style="border-top: 2px solid var(--fg); padding-top: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;">
         <h2 class="h2" style="max-width: 24ch;">The system never fails silently.</h2>
