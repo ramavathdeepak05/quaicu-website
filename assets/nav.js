@@ -4,7 +4,7 @@
   <header class="nav">
     <div class="shell nav-inner">
       <a href="/" class="nav-brand" aria-label="QUAICU home">
-        <img src="/favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
+        <img src="/assets/brand/icon-96.png" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="/how-it-works" data-page="how-it-works">How it works</a>
