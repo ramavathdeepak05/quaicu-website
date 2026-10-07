@@ -17,8 +17,9 @@
   <!-- End Google Tag Manager -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{{ title }}{% if title %} · {% endif %}{{ site.title }}</title>
-  <meta name="description" content="{{ description or site.description }}" />
+  <title>{% if seoTitle %}{{ seoTitle }}{% else %}{{ title }}{% if title %} · {% endif %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ seoDescription or description or site.description }}" />
+  {% if noindex %}<meta name="robots" content="noindex, follow" />{% endif %}
   <link rel="canonical" href="{{ (page.url | absoluteUrl(site.url)) }}" />
   {% if preloadImage %}<link rel="preload" as="image" href="{{ preloadImage }}" />{% endif %}
 
@@ -26,7 +27,7 @@
   <meta property="og:site_name" content="{{ site.title }}" />
   <meta property="og:url" content="{{ (page.url | absoluteUrl(site.url)) }}" />
   <meta property="og:title" content="{{ ogTitle or title or site.title }}" />
-  <meta property="og:description" content="{{ ogDescription or description or site.description }}" />
+  <meta property="og:description" content="{{ ogDescription or seoDescription or description or site.description }}" />
   {% set shareImage = ogImage or hero or '/og-card.png' %}
   <meta property="og:image" content="{{ shareImage | absoluteUrl(site.url) }}" />
   {% if shareImage == '/og-card.png' %}<meta property="og:image:width" content="1200" />
@@ -36,7 +37,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="{{ ogTitle or title or site.title }}" />
-  <meta name="twitter:description" content="{{ ogDescription or description or site.description }}" />
+  <meta name="twitter:description" content="{{ ogDescription or seoDescription or description or site.description }}" />
   <meta name="twitter:image" content="{{ shareImage | absoluteUrl(site.url) }}" />
 
   <link rel="icon" href="/favicon.ico" sizes="any" />

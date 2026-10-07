@@ -5,6 +5,8 @@ description: The hyperscalers spent April and May of 2026 rebuilding their
   stacks around agent governance. Indian institutions cannot move student
   records, patient files, or core banking data onto those platforms which means
   India needs its own kernel, not a borrowed one.
+seoTitle: "Why India Cannot Borrow AI Governance · QUAICU"
+seoDescription: "Hyperscalers rebuilt their stacks around agent governance in 2026. Why Indian institutions holding sensitive records need their own kernel."
 author: Xavier Borah
 hero: ""
 tags:

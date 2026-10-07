@@ -27,11 +27,4 @@ eleventyExcludeFromCollections: true
     <priority>0.7</priority>
   </url>
 {%- endfor %}
-{%- for tag in collections.tagList %}
-  <url>
-    <loc>{{ site.url }}/blog/tags/{{ tag | slugify }}/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.4</priority>
-  </url>
-{%- endfor %}
 </urlset>

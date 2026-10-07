@@ -5,6 +5,7 @@ pagination:
   size: 1
   alias: tag
 permalink: "/blog/tags/{{ tag | slugify }}/"
+noindex: true
 eleventyComputed:
   title: "Tag: {{ tag }}"
   description: "QUAICU Notes tagged {{ tag }}."

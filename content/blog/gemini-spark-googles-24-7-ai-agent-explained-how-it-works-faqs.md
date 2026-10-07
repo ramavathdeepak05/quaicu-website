@@ -4,6 +4,8 @@ date: 2026-05-20T17:00:00+05:30
 description: Google's Gemini Spark is a 24/7 AI agent that takes action across
   Gmail, Docs, and Workspace and not just chatting, but actually getting work
   done on your behalf. Here's how it works and what it can do.
+seoTitle: "Gemini Spark: Google's 24/7 AI Agent Explained · QUAICU"
+seoDescription: "Gemini Spark is Google's always-on AI agent that acts across Gmail, Docs and Workspace. How it works, what it can do, and common questions."
 author: QUAICU
 hero: /uploads/blog/1000366723.jpg
 tags:

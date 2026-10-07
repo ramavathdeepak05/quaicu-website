@@ -4,6 +4,7 @@ date: 2026-05-19T10:06:00+05:30
 description: "Everyone's excited about AI copilots. But there's a quieter, more
   important question institutions need to ask: who's actually in charge when the
   AI acts?"
+seoDescription: "AI copilots save time, but regulated institutions must answer a harder question first: who is in charge when the AI acts?"
 author: QUAICU
 tags:
   - note

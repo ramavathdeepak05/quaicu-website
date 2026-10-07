@@ -5,6 +5,8 @@ description: An authoritative analysis of the current enterprise AI security
   crisis, highlighting the vulnerabilities of public cloud infrastructure and
   the mandatory shift to sovereign, on-premise AI systems for universities and
   regulated industries.
+seoTitle: "The 2026 AI Data Crisis for Regulated Institutions · QUAICU"
+seoDescription: "Why public cloud AI is failing universities and regulated industries in 2026, and the case for sovereign, on-premise AI systems."
 author: QUAICU
 tags: []
 draft: false
