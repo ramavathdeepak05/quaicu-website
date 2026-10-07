@@ -1,6 +1,6 @@
 // QUAICU site build
 // =================
-// Hand-authored HTML pages (index.html, products.html, etc.) are passed
+// Hand-authored HTML pages (index.html, proof.html, etc.) are passed
 // through untouched. Eleventy only processes the blog (Markdown + Nunjucks
 // templates) and the auto-generated sitemap/RSS feed.
 

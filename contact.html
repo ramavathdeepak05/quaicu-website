@@ -11,7 +11,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact QUAICU</title>
-  <meta name="description" content="One form to reach QUAICU. Pilots, diagnostic, advisory partnerships, careers, or a general question. We respond within two business days." />
+  <meta name="description" content="One form to reach QUAICU. Engineering support, new platform builds, advisory partnerships, careers, or a general question. We respond within two business days." />
   <link rel="canonical" href="https://quaicu.org/contact.html" />
   <link rel="preload" as="image" href="uploads/stock-images/pexels-vyacheslav-bobin-105199946-13033360.jpg" />
 
@@ -19,7 +19,7 @@
   <meta property="og:site_name" content="QUAICU" />
   <meta property="og:url" content="https://quaicu.org/contact.html" />
   <meta property="og:title" content="Contact QUAICU" />
-  <meta property="og:description" content="One form, every reason. Pilots, diagnostic, advisory partnerships, careers. We respond within two business days. Hyderabad, India." />
+  <meta property="og:description" content="One form, every reason. Engineering support, new platform builds, advisory partnerships, careers. We respond within two business days. Hyderabad, India." />
   <meta property="og:image" content="https://quaicu.org/og-card.png" />
   <meta property="og:locale" content="en_US" />
 
@@ -137,17 +137,11 @@
               <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
               <div class="field full">
                 <label>What's this about?</label>
-                <p class="muted" style="font-size: 12px; margin: -4px 0 8px 0;">All product engagements begin with the diagnostic. Pick the vertical so we can scope it for you.</p>
+                <p class="muted" style="font-size: 12px; margin: -4px 0 8px 0;">Tell us what you need and we will route it to the right person.</p>
                 <select id="contact-reason" name="reason" required>
                   <option value="general">General inquiry</option>
-                  <option value="diagnostic-alis">Diagnostic &middot; Education (ALIS)</option>
-                  <option value="diagnostic-rico">Diagnostic &middot; Healthcare (RICO)</option>
-                  <option value="diagnostic-fero">Diagnostic &middot; Hospitality (FERO)</option>
-                  <option value="diagnostic-polo">Diagnostic &middot; Real Estate (POLO)</option>
-                  <option value="diagnostic-lemo">Diagnostic &middot; Legal (LEMO)</option>
-                  <option value="diagnostic-ciro">Diagnostic &middot; Banking &amp; Finance (CIRO)</option>
-                  <option value="diagnostic-other">Diagnostic &middot; Vertical not listed</option>
-                  <option value="kernel">Governance Kernel licensing</option>
+                  <option value="support">Engineering support</option>
+                  <option value="build">New platform build</option>
                   <option value="advisor">Advisory partnership</option>
                   <option value="careers">Careers / job application</option>
                   <option value="press">Press / media</option>
@@ -206,7 +200,7 @@
         <div class="col-9">
           <div class="eyebrow"><span class="dot"></span>11 GET IN TOUCH</div>
           <h2 class="h2" style="margin-top: 24px;">One form.<br/><span class="muted">We route from there.</span></h2>
-          <p class="lead" style="margin-top: 32px;">Tell us what's on your mind. Pilots, the diagnostic, advisory partnerships, kernel licensing, careers, or a general question. All go through the same form. We respond within two business days.</p>
+          <p class="lead" style="margin-top: 32px;">Tell us what's on your mind. Engineering support, a new platform build, advisory partnerships, careers, or a general question. All go through the same form. We respond within two business days.</p>
         </div>
       </div>
     </div>
@@ -218,9 +212,9 @@
     // on the right category.
     (function () {
       var map = {
-        '#pilot': 'diagnostic-other',
+        '#pilot': 'build',
         '#advisor': 'advisor',
-        '#diagnostic': 'diagnostic-other',
+        '#diagnostic': 'build',
         '#careers': 'careers',
         '#contact': 'general'
       };

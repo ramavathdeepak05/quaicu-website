@@ -81,4 +81,4 @@ For institutions operating in regulated sectors — education, healthcare, banki
 
 ---
 
-**Find out where your institution stands.** QUAICU's diagnostic maps your current AI exposure across eight departments and delivers a governance gap report within 15–20 days. No product pitch. Just clarity. [Book the Diagnostic →](https://quaicu.org/diagnostic.html)
+**Need a second pair of eyes on how your AI work is delivered?** Tell us what you need and we will point you to the right starting point. [Talk to us →](https://quaicu.org/contact.html)
