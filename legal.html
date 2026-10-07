@@ -41,6 +41,13 @@
     .legal-block h2 { font-family: var(--f-display); font-size: 36px; font-weight: 600; letter-spacing: -0.02em; }
     .legal-block p { color: var(--fg-2); max-width: 70ch; margin-top: 16px; }
     .legal-block .stamp { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.1em; color: var(--fg-3); margin-top: 24px; }
+    /* on the dark image section, match the glass cards used elsewhere */
+    .section--bg .legal-block { background: rgba(255, 255, 255, .04); border-color: rgba(255, 255, 255, .18); }
+    .section--bg .legal-block .stamp { color: rgba(255, 255, 255, .55); }
+    @media (max-width: 700px) {
+      .legal-block { padding: 28px; }
+      .legal-block h2 { font-size: 28px; }
+    }
   </style>
 </head>
 <body>

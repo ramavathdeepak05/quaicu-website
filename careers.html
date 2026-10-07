@@ -61,6 +61,11 @@
       .roles-grid { grid-template-columns: 1fr; }
       .roles-grid > div { border-right: 0; }
     }
+    .apply-band { margin-top: 48px; padding: 32px; border: 1px solid var(--fg); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center; }
+    .apply-band .h3 { overflow-wrap: anywhere; }
+    @media (max-width: 700px) {
+      .apply-band { grid-template-columns: 1fr; padding: 24px; justify-items: start; }
+    }
   </style>
 </head>
 <body>
@@ -144,7 +149,7 @@
         <div><span class="r-num">09</span><span class="r-title">Compliance &amp; Audit</span><span class="r-meta">FULL-TIME · HYDERABAD</span></div>
       </div>
 
-      <div style="margin-top: 48px; padding: 32px; border: 1px solid var(--fg); display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: center;">
+      <div class="apply-band">
         <div>
           <div class="kicker">SEND</div>
           <h3 class="h3" style="margin-top: 8px;">careers@quaicu.org</h3>
