@@ -1582,6 +1582,10 @@ table.brutal th.td--highlight {
   background: var(--ember);
 }
 
+.section--bg .num-tag {
+  color: rgba(255, 255, 255, .55);
+}
+
 /* tables */
 .section--bg table.brutal th {
   color: rgba(255, 255, 255, .55);
@@ -2042,11 +2046,31 @@ html[data-mode="dark"] .logo-marquee-item--invert img {
 
 @media (max-width: 800px) {
   .kpi {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .kpi>div {
     border-bottom: 1px solid var(--rule);
+  }
+}
+
+/* phones: word values such as "1-TICKET" don't fit two to a row */
+@media (max-width: 560px) {
+  .kpi {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .kpi>div {
+    border-right: 0;
+    padding: 24px;
+  }
+
+  .kpi>div:last-child {
+    border-bottom: 0;
+  }
+
+  .kpi .v {
+    font-size: 44px;
   }
 }
 
@@ -2127,6 +2151,51 @@ html[data-mode="dark"] .logo-marquee-item--invert img {
   color: var(--ember);
 }
 
+/* wide two-column variant; one link stretches over the whole card so a
+   second link can sit inside it without nesting <a> elements */
+.product-card--wide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.product-card .pc-stretch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.product-card .pc-stretch:focus-visible {
+  outline: none;
+}
+
+.product-card:has(.pc-stretch:focus-visible) {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+}
+
+.product-card .pc-ext {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 700px) {
+  .product-card--wide {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .product-card--wide .pc-head {
+    flex-wrap: wrap;
+  }
+
+  .product-card--wide .pc-code {
+    font-size: 30px;
+  }
+}
+
 /* page hero */
 .page-hero {
   padding-block: clamp(72px, 9vw, 144px);
@@ -2175,7 +2244,7 @@ html[data-mode="dark"] .logo-marquee-item--invert img {
 
   .form-grid,
   .form-grid .full {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-column: 1;
   }
 }
@@ -2204,6 +2273,8 @@ html[data-mode="dark"] .logo-marquee-item--invert img {
   font-size: 14px;
   padding: 12px 14px;
   outline: none;
+  width: 100%;
+  min-width: 0;
 }
 
 .field input:focus,
@@ -3388,6 +3459,13 @@ html[data-mode="dark"] .logo-marquee-item--invert img {
 .appwin--frame {
   display: block;
   grid-template-columns: none;
+}
+
+/* the frame has no inner padding, so the status bar must not use the
+   negative side margins meant for the padded dashboard window */
+.appwin--frame > .appwin-statusbar {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 /* tighter stack-body: just chips, no title, no description */

@@ -58,6 +58,18 @@
       color: rgba(0, 135, 70, 0.85);
     }
     .form-block .fb-head .meta { white-space: nowrap; }
+    /* the form is a light panel inside a dark image section: keep its small
+       labels dark rather than the section's white */
+    .section--bg .form-block .kicker,
+    .section--bg .form-block .meta,
+    .section--bg .form-block p.muted { color: var(--fg-3); }
+    .section--bg .form-block .btn--primary { background: var(--fg); border-color: var(--fg); color: var(--bg); }
+    .section--bg .form-block .btn--primary:hover { background: var(--ember); border-color: var(--ember); color: #fff; }
+    @media (max-width: 700px) {
+      .form-block { padding: 24px; }
+      .form-block .fb-head { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+      .form-block .fb-head .meta { white-space: normal; }
+    }
     .form-aside {
       position: sticky;
       top: 96px;
