@@ -45,24 +45,24 @@
 
   let state = { proposed: 18432, blocked: 142, approved: 14209, pending: 27 };
 
-  // Pool of plausible institutional AI actions
+  // Pool of illustrative support and build actions (demo only)
   const actions = [
-    { id: "ADM", op: "grant_offer_letter", actor: "ALIS·Admissions", policy: "DPDP+Consent", approver: "Registrar", risk: "med" },
-    { id: "FIN", op: "post_journal_entry", actor: "ALIS·Finance", policy: "SOD+CFO_Sign", approver: "CFO", risk: "high" },
-    { id: "ACA", op: "publish_lesson_plan", actor: "ALIS·Academics", policy: "Curriculum_Auth", approver: "Dean", risk: "low" },
-    { id: "EXA", op: "release_results", actor: "ALIS·Exams", policy: "Dual_Control", approver: "CoE", risk: "high" },
-    { id: "HR ", op: "process_payroll_run", actor: "ALIS·HR", policy: "Det_Calc+Audit", approver: "Director_HR", risk: "high" },
-    { id: "GRV", op: "triage_grievance", actor: "ALIS·StudentSvc", policy: "SLA<24h", approver: "Auto+SPOC", risk: "low" },
-    { id: "REG", op: "compile_NAAC_evid", actor: "ALIS·Regulatory", policy: "Hash_Chain", approver: "Coordinator", risk: "med" },
-    { id: "RES", op: "score_grant_propos", actor: "ALIS·Research", policy: "IP_Boundary", approver: "Dean_Research", risk: "med" },
-    { id: "COM", op: "send_bulk_advisory", actor: "ALIS·Comms", policy: "Consent+Throttle", approver: "Communications", risk: "low" },
-    { id: "FEE", op: "version_fee_schedule", actor: "ALIS·Finance", policy: "Versioned+VC", approver: "VC", risk: "high" },
-    { id: "CER", op: "issue_certificate", actor: "ALIS·StudentSvc", policy: "Signed_Ledger", approver: "Registrar", risk: "med" },
-    { id: "ATT", op: "flag_attendance_anomaly", actor: "ALIS·HR", policy: "HITL_Review", approver: "HOD", risk: "low" },
-    { id: "PRO", op: "assemble_question_paper", actor: "ALIS·Exams", policy: "Air_Gap+Dual", approver: "CoE", risk: "high" },
-    { id: "RIS", op: "raise_student_risk_flag", actor: "ALIS·Academics", policy: "Confidential", approver: "Mentor", risk: "med" },
-    { id: "REC", op: "reconcile_ledger", actor: "ALIS·Finance", policy: "Det_Only", approver: "", risk: "low" },
-    { id: "INV", op: "validate_invoice", actor: "ALIS·Finance", policy: "Three_Way_Match", approver: "AP_Manager", risk: "med" },
+    { id: "TKT", op: "triage_ticket", actor: "Support·Intake", policy: "Scope_Check", approver: "Engineer", risk: "low" },
+    { id: "FIX", op: "draft_bug_fix", actor: "Support·Engine", policy: "Change_Review", approver: "Engineer", risk: "med" },
+    { id: "REL", op: "ship_release", actor: "Build·Release", policy: "Dual_Control", approver: "Lead", risk: "high" },
+    { id: "MIG", op: "run_db_migration", actor: "Build·Data", policy: "Air_Gap+Dual", approver: "Lead", risk: "high" },
+    { id: "UPD", op: "update_client", actor: "Support·Manager", policy: "Consent+Throttle", approver: "Manager", risk: "low" },
+    { id: "DOC", op: "draft_release_notes", actor: "Build·Docs", policy: "Style_Check", approver: "Engineer", risk: "low" },
+    { id: "TST", op: "run_regression_suite", actor: "Build·QA", policy: "Hash_Chain", approver: "", risk: "low" },
+    { id: "DEP", op: "deploy_to_staging", actor: "Build·Infra", policy: "Env_Boundary", approver: "Lead", risk: "med" },
+    { id: "PRD", op: "deploy_to_production", actor: "Build·Infra", policy: "Dual_Control", approver: "Lead", risk: "high" },
+    { id: "ACC", op: "grant_repo_access", actor: "Support·Access", policy: "Least_Privilege", approver: "Manager", risk: "med" },
+    { id: "RCA", op: "draft_root_cause", actor: "Support·Engine", policy: "Change_Review", approver: "Engineer", risk: "med" },
+    { id: "SCP", op: "draft_scope_summary", actor: "Build·Scoping", policy: "Scope_Check", approver: "Manager", risk: "low" },
+    { id: "SEC", op: "apply_security_patch", actor: "Support·Infra", policy: "Change_Review", approver: "Lead", risk: "high" },
+    { id: "BKP", op: "verify_backup", actor: "Support·Infra", policy: "Det_Only", approver: "", risk: "low" },
+    { id: "INV", op: "prepare_ticket_summary", actor: "Support·Manager", policy: "Three_Way_Match", approver: "Manager", risk: "med" },
+    { id: "RVW", op: "request_code_review", actor: "Build·Engine", policy: "HITL_Review", approver: "Engineer", risk: "low" },
   ];
 
   const now = () => {

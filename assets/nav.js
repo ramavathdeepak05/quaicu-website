@@ -74,7 +74,6 @@
           <ul>
             <li><a href="/solutions.html">Engineering support</a></li>
             <li><a href="/diagnostic.html">New platform builds</a></li>
-            <li><a href="/products.html#alis">ALIS at Woxsen</a></li>
             <li><a href="/products.html#kernel">Reusable IP</a></li>
           </ul>
         </div>
