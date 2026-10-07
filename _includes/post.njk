@@ -14,9 +14,9 @@ ogType: article
   "datePublished": "{{ page.date | isoDate }}",
   "dateModified": "{{ page.date | isoDate }}",
   "author": {
-    "@type": "Organization",
+    "@type": "{% if author and author != 'QUAICU' and author != site.author.name %}Person{% else %}Organization{% endif %}",
     "name": {{ (author or site.author.name) | dump | safe }},
-    "url": "{{ site.url }}"
+    "url": "{{ site.url }}{% if author and author != 'QUAICU' and author != site.author.name %}/company{% endif %}"
   },
   "publisher": {
     "@type": "Organization",

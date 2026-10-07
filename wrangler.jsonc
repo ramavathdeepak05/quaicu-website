@@ -9,7 +9,9 @@
     "directory": "_site",
     // Pages are served without ".html": /how-it-works serves how-it-works.html,
     // and /how-it-works.html redirects there. Canonical URLs match this.
-    "html_handling": "auto-trailing-slash"
+    "html_handling": "auto-trailing-slash",
+    // Unknown URLs get 404.html with a real 404 status.
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"

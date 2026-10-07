@@ -9,6 +9,14 @@ pagination:
   reverse: false
 permalink: "{% if pagination.pageNumber == 0 %}/blog/{% else %}/blog/page/{{ pagination.pageNumber + 1 }}/{% endif %}"
 ---
+{% if pagination.pageNumber == 0 %}<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": {{ site.blog.name | dump | safe }},
+  "description": {{ site.blog.description | dump | safe }},
+  "url": "{{ site.url }}/blog/",
+  "publisher": { "@type": "Organization", "@id": "{{ site.url }}/#organization", "name": {{ site.author.name | dump | safe }}, "url": "{{ site.url }}/" }
+}</script>{% endif %}
 
 <section class="page-hero" data-screen-label="01 Notes Hero">
   <div class="shell">
