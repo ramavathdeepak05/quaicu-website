@@ -7,19 +7,19 @@
         <img src="/favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="/platform.html" data-page="platform">Platform</a>
-        <a href="/products.html" data-page="products">Products</a>
-        <a href="/architecture.html" data-page="architecture">Architecture</a>
-        <a href="/diagnostic.html" data-page="diagnostic">Diagnostic</a>
-        <a href="/solutions.html" data-page="solutions">Solutions</a>
+        <a href="/platform.html" data-page="platform">How it works</a>
+        <a href="/products.html" data-page="products">Proof</a>
+        <a href="/architecture.html" data-page="architecture">Trust</a>
+        <a href="/solutions.html" data-page="solutions">Support</a>
+        <a href="/diagnostic.html" data-page="diagnostic">Builds</a>
         <a href="/company.html" data-page="company">Company</a>
         <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
         <a href="/blog/" data-page="blog">Notes</a>
         <a href="/careers.html" data-page="careers">Careers</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn--ghost" href="/engagement.html">How we engage</a>
-        <a class="btn btn--primary" href="/diagnostic.html">Book the Diagnostic</a>
+        <a class="btn btn--ghost" href="/engagement.html">How we work</a>
+        <a class="btn btn--primary" href="/contact.html">Talk to us</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
         <span></span><span></span><span></span>
@@ -29,19 +29,19 @@
   </header>
   <div class="nav-mobile" id="nav-mobile" data-open="false" aria-hidden="true">
     <nav aria-label="Primary mobile">
-      <a href="/platform.html" data-page="platform">Platform</a>
-      <a href="/products.html" data-page="products">Products</a>
-      <a href="/architecture.html" data-page="architecture">Architecture</a>
-      <a href="/diagnostic.html" data-page="diagnostic">Diagnostic</a>
-      <a href="/solutions.html" data-page="solutions">Solutions</a>
+      <a href="/platform.html" data-page="platform">How it works</a>
+      <a href="/products.html" data-page="products">Proof</a>
+      <a href="/architecture.html" data-page="architecture">Trust</a>
+      <a href="/solutions.html" data-page="solutions">Support</a>
+      <a href="/diagnostic.html" data-page="diagnostic">Builds</a>
       <a href="/company.html" data-page="company">Company</a>
       <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
       <a href="/blog/" data-page="blog">Notes</a>
       <a href="/careers.html" data-page="careers">Careers</a>
     </nav>
     <div class="nav-mobile-cta">
-      <a class="btn btn--ghost btn--lg" href="/engagement.html">How we engage<span class="arrow"></span></a>
-      <a class="btn btn--primary btn--lg" href="/diagnostic.html">Book the Diagnostic<span class="arrow"></span></a>
+      <a class="btn btn--ghost btn--lg" href="/engagement.html">How we work<span class="arrow"></span></a>
+      <a class="btn btn--primary btn--lg" href="/contact.html">Talk to us<span class="arrow"></span></a>
     </div>
   </div>`;
 
@@ -52,8 +52,7 @@
         <div class="foot-col foot-brand">
           <div class="h2">QUAICU.</div>
           <div class="muted" style="max-width: 32ch; font-size: 14px;">
-            AI governance kernel and policy packs for regulated enterprises.
-            One kernel. Six verticals. Available standalone.
+            Ongoing engineering support, priced per ticket, and new platform builds. Delivered with an AI engine and human oversight.
           </div>
           <div class="meta" style="margin-top: 24px;">
             QUAICU Solutions Pvt Ltd<br/>
@@ -62,23 +61,21 @@
           </div>
         </div>
         <div class="foot-col">
-          <h4>Platform</h4>
+          <h4>How it works</h4>
           <ul>
-            <li><a href="/platform.html">Overview</a></li>
-            <li><a href="/architecture.html">Architecture</a></li>
-            <li><a href="/platform.html#delivery">Delivery</a></li>
-            <li><a href="/diagnostic.html">Diagnostic</a></li>
+            <li><a href="/platform.html">The AI engine</a></li>
+            <li><a href="/architecture.html">Trust and governance</a></li>
+            <li><a href="/platform.html#delivery">Delivery model</a></li>
+            <li><a href="/engagement.html">How we work</a></li>
           </ul>
         </div>
         <div class="foot-col">
-          <h4>Products</h4>
+          <h4>Services</h4>
           <ul>
-            <li><a href="/products.html#alis">ALIS · Education</a></li>
-            <li><a href="/products.html#rico">RICO · Healthcare</a></li>
-            <li><a href="/products.html#fero">FERO · Hospitality</a></li>
-            <li><a href="/products.html#polo">POLO · Real Estate</a></li>
-            <li><a href="/products.html#lemo">LEMO · Legal</a></li>
-            <li><a href="/products.html#ciro">CIRO · Banking</a></li>
+            <li><a href="/solutions.html">Engineering support</a></li>
+            <li><a href="/diagnostic.html">New platform builds</a></li>
+            <li><a href="/products.html#alis">ALIS at Woxsen</a></li>
+            <li><a href="/products.html#kernel">Reusable IP</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -93,14 +90,13 @@
         <div class="foot-col">
           <h4>Engage</h4>
           <ul>
-            <li><a href="/diagnostic.html">Book the Diagnostic</a></li>
-            <li><a href="/engagement.html">How we engage</a></li>
-            <li><a href="/contact.html">Contact</a></li>
+            <li><a href="/contact.html">Talk to us</a></li>
+            <li><a href="/engagement.html">How we work</a></li>
             <li><a href="/legal.html">Legal</a></li>
           </ul>
         </div>
         <div class="foot-col">
-          <h4>Developers</h4>
+          <h4>Technical docs</h4>
           <ul>
             <li><a href="https://kernel.quaicu.org" target="_blank" rel="noopener">kernel.quaicu.org ↗</a></li>
             <li><a href="https://kernel.quaicu.org/quickstart/" target="_blank" rel="noopener">Quickstart ↗</a></li>
@@ -110,7 +106,7 @@
         </div>
       </div>
       <div class="foot-coda">
-        <div>© <span data-year></span> QUAICU SOLUTIONS PRIVATE LIMITED · BUILT IN HYDERABAD · DPDP-NATIVE</div>
+        <div>© <span data-year></span> QUAICU SOLUTIONS PRIVATE LIMITED · BUILT IN HYDERABAD · AI-ASSISTED, HUMAN-REVIEWED</div>
       </div>
     </div>
   </footer>`;

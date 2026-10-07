@@ -3,9 +3,9 @@
 module.exports = {
   url: "https://quaicu.org",
   title: "QUAICU",
-  tagline: "Agentic operating software for regulated enterprises.",
+  tagline: "Engineering support priced per ticket, and new platform builds.",
   description:
-    "Agentic operating software for regulated enterprises. Governance built in. Compliance reporting one click away.",
+    "Ongoing engineering support, priced per ticket, and new platform builds. Delivered with an AI engine and human oversight. Built in Hyderabad, India.",
   author: {
     name: "QUAICU Solutions Private Limited",
     email: "hello@quaicu.org",
@@ -14,7 +14,7 @@ module.exports = {
   blog: {
     name: "QUAICU Notes",
     description:
-      "Field notes, product updates, and research from QUAICU. AI for regulated institutions.",
+      "Field notes, updates, and lessons from QUAICU on building and running software that holds up.",
     postsPerPage: 10,
   },
   social: {
