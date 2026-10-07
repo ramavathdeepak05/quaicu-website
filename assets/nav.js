@@ -74,6 +74,7 @@
           <ul>
             <li><a href="/support">Engineering support</a></li>
             <li><a href="/builds">New platform builds</a></li>
+            <li><a href="/pricing">Pricing</a></li>
             <li><a href="/proof#kernel">Reusable IP</a></li>
           </ul>
           <h4 style="margin-top: 24px;">Who we help</h4>
