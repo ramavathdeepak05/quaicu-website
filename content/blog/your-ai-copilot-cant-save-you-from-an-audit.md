@@ -81,4 +81,4 @@ For institutions operating in regulated sectors — education, healthcare, banki
 
 ---
 
-**Need a second pair of eyes on how your AI work is delivered?** Tell us what you need and we will point you to the right starting point. [Talk to us →](https://quaicu.org/contact.html)
+**Need a second pair of eyes on how your AI work is delivered?** Tell us what you need and we will point you to the right starting point. [Talk to us →](https://quaicu.org/contact)

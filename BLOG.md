@@ -34,7 +34,7 @@ Five rules. Follow them and Google will reward you.
 1. **One H1 per post.** Your title is the H1. Don't add another. Use `##` (H2) for section headings.
 2. **Front-load the answer.** The first 2 sentences should make it clear what the reader will get. Don't bury the lead.
 3. **Write the summary like a meta description.** It should make sense out of context. 60–160 chars. Include the post's core keyword naturally.
-4. **Internal links.** When you mention another part of the site (e.g. how it works, the proof page), link to it. `[how it works](/how-it-works.html)`. This signals topic relevance to Google.
+4. **Internal links.** When you mention another part of the site (e.g. how it works, the proof page), link to it. `[how it works](/how-it-works)`. This signals topic relevance to Google.
 5. **Original is the only thing that ranks.** Re-published content from another blog/Medium will be down-ranked. Always publish here first.
 
 ---

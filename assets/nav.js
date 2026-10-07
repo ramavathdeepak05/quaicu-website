@@ -4,22 +4,22 @@
   <header class="nav">
     <div class="shell nav-inner">
       <a href="/" class="nav-brand" aria-label="QUAICU home">
-        <img src="/favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
+        <img src="/assets/brand/icon-96.png" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="/how-it-works.html" data-page="how-it-works">How it works</a>
-        <a href="/proof.html" data-page="proof">Proof</a>
-        <a href="/trust.html" data-page="trust">Trust</a>
-        <a href="/support.html" data-page="support">Support</a>
-        <a href="/builds.html" data-page="builds">Builds</a>
-        <a href="/company.html" data-page="company">Company</a>
-        <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
+        <a href="/how-it-works" data-page="how-it-works">How it works</a>
+        <a href="/proof" data-page="proof">Proof</a>
+        <a href="/trust" data-page="trust">Trust</a>
+        <a href="/support" data-page="support">Support</a>
+        <a href="/builds" data-page="builds">Builds</a>
+        <a href="/company" data-page="company">Company</a>
+        <a href="/partnerships" data-page="partnerships">Partnerships</a>
         <a href="/blog/" data-page="blog">Notes</a>
-        <a href="/careers.html" data-page="careers">Careers</a>
+        <a href="/careers" data-page="careers">Careers</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn--ghost" href="/how-we-work.html">How we work</a>
-        <a class="btn btn--primary" href="/contact.html">Talk to us</a>
+        <a class="btn btn--ghost" href="/how-we-work">How we work</a>
+        <a class="btn btn--primary" href="/contact">Talk to us</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
         <span></span><span></span><span></span>
@@ -29,19 +29,19 @@
   </header>
   <div class="nav-mobile" id="nav-mobile" data-open="false" aria-hidden="true">
     <nav aria-label="Primary mobile">
-      <a href="/how-it-works.html" data-page="how-it-works">How it works</a>
-      <a href="/proof.html" data-page="proof">Proof</a>
-      <a href="/trust.html" data-page="trust">Trust</a>
-      <a href="/support.html" data-page="support">Support</a>
-      <a href="/builds.html" data-page="builds">Builds</a>
-      <a href="/company.html" data-page="company">Company</a>
-      <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
+      <a href="/how-it-works" data-page="how-it-works">How it works</a>
+      <a href="/proof" data-page="proof">Proof</a>
+      <a href="/trust" data-page="trust">Trust</a>
+      <a href="/support" data-page="support">Support</a>
+      <a href="/builds" data-page="builds">Builds</a>
+      <a href="/company" data-page="company">Company</a>
+      <a href="/partnerships" data-page="partnerships">Partnerships</a>
       <a href="/blog/" data-page="blog">Notes</a>
-      <a href="/careers.html" data-page="careers">Careers</a>
+      <a href="/careers" data-page="careers">Careers</a>
     </nav>
     <div class="nav-mobile-cta">
-      <a class="btn btn--ghost btn--lg" href="/how-we-work.html">How we work<span class="arrow"></span></a>
-      <a class="btn btn--primary btn--lg" href="/contact.html">Talk to us<span class="arrow"></span></a>
+      <a class="btn btn--ghost btn--lg" href="/how-we-work">How we work<span class="arrow"></span></a>
+      <a class="btn btn--primary btn--lg" href="/contact">Talk to us<span class="arrow"></span></a>
     </div>
   </div>`;
 
@@ -63,35 +63,35 @@
         <div class="foot-col">
           <h4>How it works</h4>
           <ul>
-            <li><a href="/how-it-works.html">The AI engine</a></li>
-            <li><a href="/trust.html">Trust and governance</a></li>
-            <li><a href="/how-it-works.html#delivery">Delivery model</a></li>
-            <li><a href="/how-we-work.html">How we work</a></li>
+            <li><a href="/how-it-works">The AI engine</a></li>
+            <li><a href="/trust">Trust and governance</a></li>
+            <li><a href="/how-it-works#delivery">Delivery model</a></li>
+            <li><a href="/how-we-work">How we work</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="/support.html">Engineering support</a></li>
-            <li><a href="/builds.html">New platform builds</a></li>
-            <li><a href="/proof.html#kernel">Reusable IP</a></li>
+            <li><a href="/support">Engineering support</a></li>
+            <li><a href="/builds">New platform builds</a></li>
+            <li><a href="/proof#kernel">Reusable IP</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="/company.html">About</a></li>
-            <li><a href="/partnerships.html">Partnerships</a></li>
-            <li><a href="/council.html">Members Council</a></li>
-            <li><a href="/careers.html">Careers</a></li>
+            <li><a href="/company">About</a></li>
+            <li><a href="/partnerships">Partnerships</a></li>
+            <li><a href="/council">Members Council</a></li>
+            <li><a href="/careers">Careers</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Engage</h4>
           <ul>
-            <li><a href="/contact.html">Talk to us</a></li>
-            <li><a href="/how-we-work.html">How we work</a></li>
-            <li><a href="/legal.html">Legal</a></li>
+            <li><a href="/contact">Talk to us</a></li>
+            <li><a href="/how-we-work">How we work</a></li>
+            <li><a href="/legal">Legal</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -127,7 +127,7 @@
     const isBlog = path === "/blog" || path.startsWith("/blog/");
     const file = isBlog
       ? "blog"
-      : (path.split("/").pop() || "index.html").replace(".html", "") || "index";
+      : (path.split("/").pop() || "/").replace(".html", "") || "index";
     document.querySelectorAll(".nav-links a[data-page], .nav-mobile a[data-page]").forEach((a) => {
       if (a.dataset.page === file) a.classList.add("is-active");
     });

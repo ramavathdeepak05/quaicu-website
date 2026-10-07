@@ -1,6 +1,5 @@
 ---
-title: "# Governance Is the New Product Category. Here Is Why India Cannot
-  Borrow It.   "
+title: "Governance Is the New Product Category. Here Is Why India Cannot Borrow It."
 date: 2026-05-23T20:16:00+05:30
 description: The hyperscalers spent April and May of 2026 rebuilding their
   stacks around agent governance. Indian institutions cannot move student

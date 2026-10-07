@@ -7,6 +7,9 @@ eleventyExcludeFromCollections: true
 {%- for p in staticPages %}
   <url>
     <loc>{{ site.url }}{{ p.url }}</loc>
+    {%- if p.lastmod %}
+    <lastmod>{{ p.lastmod }}</lastmod>
+    {%- endif %}
     <changefreq>{{ p.changefreq }}</changefreq>
     <priority>{{ p.priority }}</priority>
   </url>

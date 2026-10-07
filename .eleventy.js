@@ -12,8 +12,13 @@ module.exports = function (eleventyConfig) {
 
   // ---- passthrough: ship the existing static site untouched ----
   eleventyConfig.addPassthroughCopy("assets");
-  eleventyConfig.addPassthroughCopy("uploads");
+  // uploads/stock-images-original holds unused full-size originals (~50 MB);
+  // the site uses the optimised copies in uploads/stock-images.
+  eleventyConfig.addPassthroughCopy("uploads", {
+    filter: ["**", "!stock-images-original/**"],
+  });
   eleventyConfig.addPassthroughCopy("favicon.ico");
+  eleventyConfig.addPassthroughCopy("apple-touch-icon.png");
   eleventyConfig.addPassthroughCopy("og-card.png");
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
