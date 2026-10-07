@@ -99,6 +99,7 @@
             <li><a href="/contact">Talk to us</a></li>
             <li><a href="/how-we-work">How we work</a></li>
             <li><a href="/legal">Legal</a></li>
+            <li><a href="#" data-cookie-settings>Cookie settings</a></li>
           </ul>
         </div>
         <div class="foot-col">

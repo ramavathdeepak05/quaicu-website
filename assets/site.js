@@ -441,10 +441,12 @@
 })();
 
 // ---- LEAD TRACKING ----
-// Sends events to the Google Tag Manager data layer (the container is already on every page)
-// and remembers where a visit started, so a contact-form message can say how the person
-// found us. No cookies: sessionStorage only, cleared when the tab closes. Everything here is
-// optional and fails quietly if storage or the data layer is unavailable.
+// Sends events to the Google Tag Manager data layer (the container is already on every page).
+// The tags in Tag Manager only fire once the visitor has accepted analytics (see COOKIE CONSENT
+// below). It also remembers where a visit started, so a contact-form message can say how the
+// person found us: that is stored in sessionStorage (cleared when the tab closes), and only
+// after the visitor has accepted analytics. Everything here is optional and fails quietly if
+// storage or the data layer is unavailable.
 (function () {
   var KEY = "qFirstTouch";
   function read() {
@@ -453,8 +455,12 @@
   function write(v) {
     try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
   }
+  function consented() {
+    try { return localStorage.getItem("qConsent") === "granted"; } catch (e) { return false; }
+  }
 
-  if (!read()) {
+  function start() {
+    if (read()) return;
     var q = new URLSearchParams(location.search);
     var ref = "";
     try {
@@ -468,7 +474,13 @@
       campaign: (q.get("utm_campaign") || "").slice(0, 60),
     });
   }
+  function stop() {
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+  }
+  if (consented()) start();
 
+  window.qStartAttribution = start;
+  window.qStopAttribution = stop;
   window.qFirstTouch = read;
   window.qTrack = function (name, params) {
     var evt = { event: name };
@@ -487,6 +499,70 @@
         cta_url: href,
         page_path: location.pathname,
       });
+    }
+  });
+})();
+
+// ---- COOKIE CONSENT ----
+// Every page head sets Consent Mode to "denied" before Tag Manager loads. This shows a small bar
+// on the first visit, records the choice in localStorage and tells Tag Manager. "Cookie settings"
+// in the footer reopens it. Decline and Accept carry equal weight.
+(function () {
+  var KEY = "qConsent";
+  function get() {
+    try { return localStorage.getItem(KEY); } catch (e) { return null; }
+  }
+  function set(v) {
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+  }
+  function update(v) {
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    gtag("consent", "update", { analytics_storage: v });
+  }
+
+  function close() {
+    var bar = document.querySelector(".consent-bar");
+    if (bar && bar.parentNode) bar.parentNode.removeChild(bar);
+  }
+  function choose(v) {
+    set(v);
+    update(v);
+    if (v === "granted") { if (window.qStartAttribution) window.qStartAttribution(); }
+    else if (window.qStopAttribution) window.qStopAttribution();
+    close();
+  }
+  function show(focus) {
+    if (document.querySelector(".consent-bar")) return;
+    var bar = document.createElement("div");
+    bar.className = "consent-bar";
+    bar.setAttribute("role", "region");
+    bar.setAttribute("aria-label", "Cookie consent");
+    bar.innerHTML =
+      '<p class="consent-text">We use analytics cookies to see how the site is used. They stay off unless you accept. ' +
+      '<a href="/legal#privacy">Privacy Policy</a></p>' +
+      '<div class="consent-actions">' +
+      '<button type="button" class="btn" data-consent="denied">Decline</button>' +
+      '<button type="button" class="btn" data-consent="granted">Accept</button>' +
+      "</div>";
+    bar.addEventListener("click", function (e) {
+      var b = e.target && e.target.closest ? e.target.closest("[data-consent]") : null;
+      if (b) choose(b.getAttribute("data-consent"));
+    });
+    document.body.appendChild(bar);
+    if (focus) {
+      var first = bar.querySelector("button");
+      if (first) first.focus();
+    }
+  }
+
+  if (!get()) show(false);
+
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("[data-cookie-settings]") : null;
+    if (a) {
+      e.preventDefault();
+      show(true);
     }
   });
 })();
