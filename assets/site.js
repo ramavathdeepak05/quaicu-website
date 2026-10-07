@@ -169,15 +169,44 @@
         if (!e.isIntersecting) return;
         e.target.classList.add("m-in");
         seen.unobserve(e.target);
+        pending.delete(e.target);
         if (e.target._mOnIn) e.target._mOnIn();
       });
     },
     { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
   );
+  const pending = new Set();
   const watch = (el, delay) => {
     if (delay) el.style.setProperty("--m-d", delay + "ms");
+    pending.add(el);
     seen.observe(el);
   };
+  // Safety net for fast scrolls: anything already above the fold's bottom edge is shown,
+  // even if it flew past between two observer checks.
+  let sweepQueued = false;
+  const sweep = () => {
+    sweepQueued = false;
+    const vh = window.innerHeight;
+    pending.forEach((el) => {
+      if (el.classList.contains("m-in")) return pending.delete(el);
+      if (el.getBoundingClientRect().top < vh) {
+        el.classList.add("m-in");
+        seen.unobserve(el);
+        pending.delete(el);
+        if (el._mOnIn) el._mOnIn();
+      }
+    });
+  };
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!sweepQueued && pending.size) {
+        sweepQueued = true;
+        setTimeout(sweep, 200);
+      }
+    },
+    { passive: true }
+  );
   const insideTagged = (el) => el.parentElement && el.parentElement.closest(".m-r, .m-split");
 
   // 1. headlines rise line by line (lines are the <br>-separated runs)
@@ -239,6 +268,7 @@
     ".page-hero .breadcrumb", ".page-hero .eyebrow", ".page-hero .lead", ".page-hero .rule-l",
     ".section-head .kicker", ".atmos-caption", ".appwin-wrap--stack", ".mermaid-frame",
     ".band-foundation", ".legal-block", ".form-block", ".form-aside",
+    ".m-viz", ".m-steps",
   ];
   let k = 0;
   document.querySelectorAll(singles.join(",")).forEach((el) => {
@@ -333,4 +363,79 @@
   window.addEventListener("beforeprint", () =>
     document.querySelectorAll(".m-r, .m-split, .codeblock, .section-head").forEach((el) => el.classList.add("m-in"))
   );
+})();
+
+// ---- MOTION ELEMENTS ----
+// Loops on the illustrative diagrams run only while they are on screen, and only
+// when the motion layer is active. Without it they show their finished state.
+(function () {
+  if (!document.documentElement.classList.contains("motion")) return;
+
+  // on-screen toggle for every looping element
+  const live = new IntersectionObserver(
+    (es) => es.forEach((e) => e.target.classList.toggle("m-live", e.isIntersecting)),
+    { threshold: 0.15 }
+  );
+
+  // proof page: a signal moves across the kernel modules
+  document.querySelectorAll(".module-grid").forEach((g) => {
+    const cells = g.querySelectorAll(":scope > div");
+    const step = 220;
+    g.style.setProperty("--m-cycle", Math.max(cells.length * step + 1800, 4200) + "ms");
+    cells.forEach((c, i) => c.style.setProperty("--m-i-d", i * step + "ms"));
+    live.observe(g);
+  });
+  document.querySelectorAll("[data-m-live]").forEach((el) => live.observe(el));
+
+  // ticket journey: a ticket walks Raised -> Engine -> Review -> Delivered, then the next one starts
+  const tickets = [
+    ["#T-2041", "Bug report"],
+    ["#T-2042", "Minor feature update"],
+    ["#T-2043", "Bug report"],
+    ["#T-2044", "Minor feature update"],
+  ];
+  const msgs = [
+    "Ticket raised. We get to work.",
+    "Our AI engine takes the repeatable work.",
+    "A person reviews it before anything ships.",
+    "Delivered. Billed as one ticket.",
+  ];
+  document.querySelectorAll("[data-m-journey]").forEach((j) => {
+    const stations = j.querySelectorAll(".mj-st");
+    const card = j.querySelector(".mj-ticket");
+    const id = j.querySelector(".mj-id");
+    const type = j.querySelector(".mj-type");
+    const msg = j.querySelector(".mj-msg");
+    let t = 0;
+    let step = 0;
+    const render = () => {
+      j.style.setProperty("--mj-step", step);
+      j.style.setProperty("--mj-p", step / 3);
+      stations.forEach((s, i) => {
+        s.classList.toggle("is-done", i < step);
+        s.classList.toggle("is-active", i === step);
+      });
+      msg.textContent = msgs[step];
+    };
+    const tick = () => {
+      if (j.classList.contains("m-live")) {
+        if (step < 3) {
+          step++;
+          render();
+        } else {
+          // next ticket: hide, jump back to the start, show again
+          card.classList.add("is-reset");
+          t = (t + 1) % tickets.length;
+          step = 0;
+          render();
+          id.textContent = tickets[t][0];
+          type.textContent = tickets[t][1];
+          requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove("is-reset")));
+        }
+      }
+      setTimeout(tick, step === 3 ? 2600 : 1700);
+    };
+    render();
+    setTimeout(tick, 1700);
+  });
 })();
