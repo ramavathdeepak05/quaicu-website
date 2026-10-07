@@ -439,3 +439,54 @@
     setTimeout(tick, 1700);
   });
 })();
+
+// ---- LEAD TRACKING ----
+// Sends events to the Google Tag Manager data layer (the container is already on every page)
+// and remembers where a visit started, so a contact-form message can say how the person
+// found us. No cookies: sessionStorage only, cleared when the tab closes. Everything here is
+// optional and fails quietly if storage or the data layer is unavailable.
+(function () {
+  var KEY = "qFirstTouch";
+  function read() {
+    try { return JSON.parse(sessionStorage.getItem(KEY) || "null"); } catch (e) { return null; }
+  }
+  function write(v) {
+    try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch (e) {}
+  }
+
+  if (!read()) {
+    var q = new URLSearchParams(location.search);
+    var ref = "";
+    try {
+      if (document.referrer && new URL(document.referrer).origin !== location.origin) ref = document.referrer.slice(0, 200);
+    } catch (e) {}
+    write({
+      landing: location.pathname,
+      referrer: ref,
+      source: (q.get("utm_source") || "").slice(0, 60),
+      medium: (q.get("utm_medium") || "").slice(0, 60),
+      campaign: (q.get("utm_campaign") || "").slice(0, 60),
+    });
+  }
+
+  window.qFirstTouch = read;
+  window.qTrack = function (name, params) {
+    var evt = { event: name };
+    for (var k in params || {}) evt[k] = params[k];
+    (window.dataLayer = window.dataLayer || []).push(evt);
+  };
+
+  // Every link to the contact page counts as an intent signal.
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (/^(https:\/\/quaicu\.org)?\/contact(?:[#?]|$)/.test(href)) {
+      window.qTrack("cta_click", {
+        cta_text: (a.textContent || "").trim().slice(0, 60),
+        cta_url: href,
+        page_path: location.pathname,
+      });
+    }
+  });
+})();

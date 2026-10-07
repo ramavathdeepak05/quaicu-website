@@ -135,6 +135,8 @@
       <div class="breadcrumb"><a href="/">QUAICU</a><span class="sep">/</span><span>Contact</span></div>
       <!-- legacy anchor targets so external links from other pages still land here -->
       <a id="contact"></a>
+      <a id="support"></a>
+      <a id="build"></a>
       <a id="pilot"></a>
       <a id="diagnostic"></a>
       <a id="advisor"></a>
@@ -226,11 +228,13 @@
   </section>
 
   <script>
-    // Pre-select the dropdown based on the URL hash so existing links
-    // (/contact#pilot, #advisor, #diagnostic, #careers) still land
-    // on the right category.
+    // Pre-select the dropdown based on the URL hash so links such as
+    // /contact#support, #build, #advisor and #careers land on the right
+    // category. Older hashes (#pilot, #diagnostic) still work.
     (function () {
       var map = {
+        '#support': 'support',
+        '#build': 'build',
         '#pilot': 'build',
         '#advisor': 'advisor',
         '#diagnostic': 'build',
@@ -256,6 +260,15 @@
 
       const formData = new FormData(form);
 
+      // Say how this person reached us (first page of the visit, referrer, campaign),
+      // so each message arrives with its source. Set by assets/site.js; all optional.
+      const ft = window.qFirstTouch && window.qFirstTouch();
+      if (ft) {
+        formData.set('landing_page', ft.landing || '');
+        formData.set('first_referrer', ft.referrer || '');
+        formData.set('campaign', [ft.source, ft.medium, ft.campaign].filter(Boolean).join(' / '));
+      }
+
       fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
@@ -266,6 +279,12 @@
         if (response.status == 200) {
           form.dataset.sent = 1;
           btn.textContent = 'Sent.';
+          if (window.qTrack) {
+            window.qTrack('generate_lead', {
+              lead_reason: formData.get('reason') || '',
+              lead_landing_page: (ft && ft.landing) || ''
+            });
+          }
           form.reset();
         } else {
           console.log(jsonRes);

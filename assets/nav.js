@@ -76,6 +76,12 @@
             <li><a href="/builds">New platform builds</a></li>
             <li><a href="/proof#kernel">Reusable IP</a></li>
           </ul>
+          <h4 style="margin-top: 24px;">Who we help</h4>
+          <ul>
+            <li><a href="/for/growing-businesses">Growing businesses</a></li>
+            <li><a href="/for/product-teams">Product teams</a></li>
+            <li><a href="/for/regulated-teams">Regulated teams</a></li>
+          </ul>
         </div>
         <div class="foot-col">
           <h4>Company</h4>
