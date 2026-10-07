@@ -4789,3 +4789,38 @@ html.motion .module-grid.m-live > div {
 @media (max-width: 700px) {
   .qa-row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 16px 0; }
 }
+
+/* ============== cookie consent bar ============== */
+.consent-bar {
+  position: fixed;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 1000;
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 16px 20px;
+  background: var(--bg);
+  color: var(--fg);
+  border: 1px solid var(--fg);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+}
+.consent-text {
+  margin: 0;
+  flex: 1 1 320px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--fg-2);
+}
+.consent-text a { text-decoration: underline; }
+.consent-actions { display: flex; gap: 8px; }
+@media (max-width: 700px) {
+  .consent-bar { left: 12px; right: 12px; bottom: 12px; padding: 14px 16px; }
+  .consent-actions { width: 100%; }
+  .consent-actions .btn { flex: 1; justify-content: center; }
+}
