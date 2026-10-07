@@ -4776,3 +4776,16 @@ html.motion .module-grid.m-live > div {
     animation: none !important;
   }
 }
+
+/* ============== question-and-answer and step lists: <dl class="qa"> ============== */
+.qa { margin: 0; border-top: 2px solid var(--fg); }
+.qa-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
+.qa-row dt { font-weight: 500; }
+.qa-row dd { margin: 0; color: var(--fg-2); }
+.qa-row a { text-decoration: underline; }
+.section--bg .qa { border-top-color: rgba(255, 255, 255, .5); }
+.section--bg .qa-row { border-bottom-color: rgba(255, 255, 255, .18); }
+.section--bg .qa-row dd { color: rgba(255, 255, 255, .72); }
+@media (max-width: 700px) {
+  .qa-row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 16px 0; }
+}

@@ -42,20 +42,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <!-- absolute paths: this page lives in /for/ -->
   <link rel="stylesheet" href="/assets/site.css" />
-  <style>
-    /* question-and-answer / step lists: two columns on desktop, stacked on phones */
-    .qa { margin: 0; border-top: 2px solid var(--fg); }
-    .qa-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px; padding: 20px 0; border-bottom: 1px solid var(--rule); }
-    .qa-row dt { font-weight: 500; }
-    .qa-row dd { margin: 0; color: var(--fg-2); }
-    .qa-row a { text-decoration: underline; }
-    .section--bg .qa { border-top-color: rgba(255, 255, 255, .5); }
-    .section--bg .qa-row { border-bottom-color: rgba(255, 255, 255, .18); }
-    .section--bg .qa-row dd { color: rgba(255, 255, 255, .72); }
-    @media (max-width: 700px) {
-      .qa-row { grid-template-columns: minmax(0, 1fr); gap: 6px; padding: 16px 0; }
-    }
-  </style>
 </head>
 <body>
   <!-- Google Tag Manager (noscript) -->
@@ -183,7 +169,7 @@
         <div class="qa-row"><dt>What counts as a ticket?</dt><dd>Anything from a minor feature update to a bug report.</dd></div>
         <div class="qa-row"><dt>How do I pay?</dt><dd>You pay for the tickets you raise, at a fixed price per ticket. New platform builds are priced to the project.</dd></div>
         <div class="qa-row"><dt>Who reviews the work?</dt><dd>A named person reviews every delivery before it reaches you. Your relationship manager owns the outcome.</dd></div>
-        <div class="qa-row"><dt>Where does my data live?</dt><dd>Kept separate from every other client's. Anything we host for you can run on-premise, in a private cloud, hybrid, or on AWS, Azure or GCP, as your IT policy requires. Before work starts, we tell you which AI model providers process your code, and where.</dd></div>
+        <div class="qa-row"><dt>Where does my data live?</dt><dd>Kept separate from every other client's. Anything we host for you can run on-premise, in a private cloud, hybrid, or on AWS, Azure or GCP, as your IT policy requires. Our AI model providers are listed on our <a href="/trust#sub-processors" style="text-decoration: underline;">Trust page</a>, and are used under business agreements that do not allow training on your content.</dd></div>
         <div class="qa-row"><dt>Can you build something new?</dt><dd>Yes. We design, build and launch new platforms too. <a href="/builds" style="text-decoration: underline;">See new platform builds</a>.</dd></div>
       </dl>
 
