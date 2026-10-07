@@ -9,15 +9,15 @@
 /feed     /blog/feed.xml  301
 
 # Renamed pages: old URLs keep working (301 preserves #fragments in browsers).
-/platform.html      /how-it-works.html  301
-/platform           /how-it-works.html  301
-/products.html      /proof.html         301
-/products           /proof.html         301
-/architecture.html  /trust.html         301
-/architecture       /trust.html         301
-/solutions.html     /support.html       301
-/solutions          /support.html       301
-/diagnostic.html    /builds.html        301
-/diagnostic         /builds.html        301
-/engagement.html    /how-we-work.html   301
-/engagement         /how-we-work.html   301
+/platform.html      /how-it-works  301
+/platform           /how-it-works  301
+/products.html      /proof         301
+/products           /proof         301
+/architecture.html  /trust         301
+/architecture       /trust         301
+/solutions.html     /support       301
+/solutions          /support       301
+/diagnostic.html    /builds        301
+/diagnostic         /builds        301
+/engagement.html    /how-we-work   301
+/engagement         /how-we-work   301

@@ -6,7 +6,10 @@
     "enabled": true
   },
   "assets": {
-    "directory": "_site"
+    "directory": "_site",
+    // Pages are served without ".html": /how-it-works serves how-it-works.html,
+    // and /how-it-works.html redirects there. Canonical URLs match this.
+    "html_handling": "auto-trailing-slash"
   },
   "compatibility_flags": [
     "nodejs_compat"
