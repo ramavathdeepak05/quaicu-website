@@ -7,18 +7,18 @@
         <img src="/favicon.ico" alt="" width="22" height="22" class="nav-brand-mark" />QUAICU
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="/platform.html" data-page="platform">How it works</a>
-        <a href="/products.html" data-page="products">Proof</a>
-        <a href="/architecture.html" data-page="architecture">Trust</a>
-        <a href="/solutions.html" data-page="solutions">Support</a>
-        <a href="/diagnostic.html" data-page="diagnostic">Builds</a>
+        <a href="/how-it-works.html" data-page="how-it-works">How it works</a>
+        <a href="/proof.html" data-page="proof">Proof</a>
+        <a href="/trust.html" data-page="trust">Trust</a>
+        <a href="/support.html" data-page="support">Support</a>
+        <a href="/builds.html" data-page="builds">Builds</a>
         <a href="/company.html" data-page="company">Company</a>
         <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
         <a href="/blog/" data-page="blog">Notes</a>
         <a href="/careers.html" data-page="careers">Careers</a>
       </nav>
       <div class="nav-cta">
-        <a class="btn btn--ghost" href="/engagement.html">How we work</a>
+        <a class="btn btn--ghost" href="/how-we-work.html">How we work</a>
         <a class="btn btn--primary" href="/contact.html">Talk to us</a>
       </div>
       <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile" type="button">
@@ -29,18 +29,18 @@
   </header>
   <div class="nav-mobile" id="nav-mobile" data-open="false" aria-hidden="true">
     <nav aria-label="Primary mobile">
-      <a href="/platform.html" data-page="platform">How it works</a>
-      <a href="/products.html" data-page="products">Proof</a>
-      <a href="/architecture.html" data-page="architecture">Trust</a>
-      <a href="/solutions.html" data-page="solutions">Support</a>
-      <a href="/diagnostic.html" data-page="diagnostic">Builds</a>
+      <a href="/how-it-works.html" data-page="how-it-works">How it works</a>
+      <a href="/proof.html" data-page="proof">Proof</a>
+      <a href="/trust.html" data-page="trust">Trust</a>
+      <a href="/support.html" data-page="support">Support</a>
+      <a href="/builds.html" data-page="builds">Builds</a>
       <a href="/company.html" data-page="company">Company</a>
       <a href="/partnerships.html" data-page="partnerships">Partnerships</a>
       <a href="/blog/" data-page="blog">Notes</a>
       <a href="/careers.html" data-page="careers">Careers</a>
     </nav>
     <div class="nav-mobile-cta">
-      <a class="btn btn--ghost btn--lg" href="/engagement.html">How we work<span class="arrow"></span></a>
+      <a class="btn btn--ghost btn--lg" href="/how-we-work.html">How we work<span class="arrow"></span></a>
       <a class="btn btn--primary btn--lg" href="/contact.html">Talk to us<span class="arrow"></span></a>
     </div>
   </div>`;
@@ -63,18 +63,18 @@
         <div class="foot-col">
           <h4>How it works</h4>
           <ul>
-            <li><a href="/platform.html">The AI engine</a></li>
-            <li><a href="/architecture.html">Trust and governance</a></li>
-            <li><a href="/platform.html#delivery">Delivery model</a></li>
-            <li><a href="/engagement.html">How we work</a></li>
+            <li><a href="/how-it-works.html">The AI engine</a></li>
+            <li><a href="/trust.html">Trust and governance</a></li>
+            <li><a href="/how-it-works.html#delivery">Delivery model</a></li>
+            <li><a href="/how-we-work.html">How we work</a></li>
           </ul>
         </div>
         <div class="foot-col">
           <h4>Services</h4>
           <ul>
-            <li><a href="/solutions.html">Engineering support</a></li>
-            <li><a href="/diagnostic.html">New platform builds</a></li>
-            <li><a href="/products.html#kernel">Reusable IP</a></li>
+            <li><a href="/support.html">Engineering support</a></li>
+            <li><a href="/builds.html">New platform builds</a></li>
+            <li><a href="/proof.html#kernel">Reusable IP</a></li>
           </ul>
         </div>
         <div class="foot-col">
@@ -90,7 +90,7 @@
           <h4>Engage</h4>
           <ul>
             <li><a href="/contact.html">Talk to us</a></li>
-            <li><a href="/engagement.html">How we work</a></li>
+            <li><a href="/how-we-work.html">How we work</a></li>
             <li><a href="/legal.html">Legal</a></li>
           </ul>
         </div>
