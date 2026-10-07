@@ -152,3 +152,185 @@
   setInterval(runOne, 1400);
   updateCounters();
 })();
+
+// ---- MOTION LAYER ----
+// Scroll reveals, headline rises, count-ups, self-typing code blocks, a signal
+// travelling through the stack diagrams and a slow drift on the image bands.
+// Skipped entirely when the visitor prefers reduced motion; nothing is hidden
+// unless this script runs (styles are gated by html.motion).
+(function () {
+  const mq = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  if ((mq && mq.matches) || !("IntersectionObserver" in window)) return;
+  document.documentElement.classList.add("motion");
+
+  const seen = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        e.target.classList.add("m-in");
+        seen.unobserve(e.target);
+        if (e.target._mOnIn) e.target._mOnIn();
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
+  );
+  const watch = (el, delay) => {
+    if (delay) el.style.setProperty("--m-d", delay + "ms");
+    seen.observe(el);
+  };
+  const insideTagged = (el) => el.parentElement && el.parentElement.closest(".m-r, .m-split");
+
+  // 1. headlines rise line by line (lines are the <br>-separated runs)
+  document
+    .querySelectorAll(".hero h1, .page-hero h1, .section-head h2, h2.display")
+    .forEach((h) => {
+      if (insideTagged(h)) return;
+      const lines = [[]];
+      Array.from(h.childNodes).forEach((n) => {
+        if (n.nodeName === "BR") lines.push([]);
+        else lines[lines.length - 1].push(n);
+      });
+      const kept = lines.filter((ln) => ln.some((n) => n.nodeType !== 3 || n.textContent.trim()));
+      if (!kept.length) return;
+      h.textContent = "";
+      kept.forEach((ln, i) => {
+        const outer = document.createElement("span");
+        const inner = document.createElement("span");
+        outer.className = "m-line";
+        inner.className = "m-li";
+        inner.style.setProperty("--m-d", i * 90 + "ms");
+        ln.forEach((n) => inner.appendChild(n));
+        outer.appendChild(inner);
+        h.appendChild(outer);
+      });
+      h.classList.add("m-split");
+      watch(h);
+    });
+
+  // 2. section dividers carry a one-off signal sweep
+  document.querySelectorAll(".section-head").forEach((s) => watch(s));
+
+  // 3. staggered reveals: groups first, then single elements not already inside a group
+  const groups = [
+    ["section:not(.hero):not(.page-hero) .grid-12", ':scope > [class*="col-"]'],
+    [".kpi", ":scope > div"],
+    ["table.brutal tbody", ":scope > tr"],
+    [".planes", ":scope > .plane"],
+    [".enforce-grid", ":scope > div"],
+    [".module-grid", ":scope > div"],
+    [".roles-grid", ":scope > div"],
+    [".partners-grid", ":scope > div"],
+    [".gates-row", ":scope > div"],
+    [".hybrid-split", ":scope > div"],
+    [".notes-list", ":scope > *"],
+  ];
+  groups.forEach(([parentSel, childSel]) => {
+    document.querySelectorAll(parentSel).forEach((p) => {
+      let i = 0;
+      p.querySelectorAll(childSel).forEach((c) => {
+        if (insideTagged(c) || c.classList.contains("m-r")) return;
+        c.classList.add("m-r");
+        watch(c, Math.min(i++ * 80, 560));
+      });
+    });
+  });
+  const singles = [
+    ".hero .eyebrow", ".hero .lead", ".hero .row", ".hero p.muted",
+    ".page-hero .breadcrumb", ".page-hero .eyebrow", ".page-hero .lead", ".page-hero .rule-l",
+    ".section-head .kicker", ".atmos-caption", ".appwin-wrap--stack", ".mermaid-frame",
+    ".band-foundation", ".legal-block", ".form-block", ".form-aside",
+  ];
+  let k = 0;
+  document.querySelectorAll(singles.join(",")).forEach((el) => {
+    if (insideTagged(el) || el.classList.contains("m-r")) return;
+    el.classList.add("m-r");
+    const inHero = el.closest(".hero, .page-hero");
+    watch(el, inHero ? 150 + (k++ % 4) * 90 : 0);
+  });
+
+  // 4. numeric stat tiles count up
+  document.querySelectorAll(".kpi .v").forEach((v) => {
+    const t = v.textContent.trim();
+    if (!/^\d+$/.test(t)) return;
+    const end = parseInt(t, 10);
+    const pad = t.length;
+    v.textContent = "0".padStart(pad, "0");
+    v._mOnIn = () => {
+      const t0 = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - t0) / 900);
+        v.textContent = String(Math.round(end * (1 - Math.pow(1 - p, 3)))).padStart(pad, "0");
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    watch(v);
+  });
+
+  // 5. code blocks type out line by line, then show a caret
+  document.querySelectorAll(".codeblock").forEach((cb) => {
+    const lines = Array.from(cb.children);
+    lines.forEach((ln, i) => {
+      ln.classList.add("m-code");
+      ln.style.setProperty("--m-d", 200 + i * 110 + "ms");
+    });
+    const last = lines[lines.length - 1];
+    if (last) {
+      const caret = document.createElement("span");
+      caret.className = "m-caret";
+      caret.setAttribute("aria-hidden", "true");
+      caret.style.setProperty("--m-d", 200 + lines.length * 110 + "ms");
+      last.appendChild(caret);
+    }
+    watch(cb);
+  });
+
+  // 6. stack diagrams: a signal runs through the chips while the diagram is on screen
+  document.querySelectorAll(".kernel--stack").forEach((st) => {
+    const chips = st.querySelectorAll(".kernel-stack-body .chip:not(.chip--accent)");
+    if (!chips.length) return;
+    const stepMs = 240;
+    st.style.setProperty("--m-cycle", Math.max(chips.length * stepMs + 1800, 4200) + "ms");
+    chips.forEach((c, i) => c.style.setProperty("--m-i-d", i * stepMs + "ms"));
+    new IntersectionObserver(
+      (es) => es.forEach((e) => st.classList.toggle("m-live", e.isIntersecting)),
+      { threshold: 0.2 }
+    ).observe(st);
+  });
+
+  // 7. image bands drift a little as they pass (desktop pointers only)
+  const fine = window.matchMedia && window.matchMedia("(pointer: fine)").matches;
+  if (fine) {
+    const bands = new Set();
+    const bandIo = new IntersectionObserver((es) =>
+      es.forEach((e) => (e.isIntersecting ? bands.add(e.target) : bands.delete(e.target)))
+    );
+    document.querySelectorAll(".atmos").forEach((b) => bandIo.observe(b));
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const vh = window.innerHeight;
+      bands.forEach((b) => {
+        const r = b.getBoundingClientRect();
+        const p = Math.max(-1, Math.min(1, (r.top + r.height / 2 - vh / 2) / vh));
+        b.style.setProperty("--m-par", (p * -24).toFixed(1) + "px");
+      });
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true }
+    );
+    update();
+  }
+
+  // Printing shows everything.
+  window.addEventListener("beforeprint", () =>
+    document.querySelectorAll(".m-r, .m-split, .codeblock, .section-head").forEach((el) => el.classList.add("m-in"))
+  );
+})();
