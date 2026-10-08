@@ -1,3 +1,4 @@
+# Crawlers of every kind, including AI and search-assistant crawlers, may read the public site.
 User-agent: *
 Allow: /
 Disallow: /admin/

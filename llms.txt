@@ -1,0 +1,24 @@
+# QUAICU
+
+> QUAICU Solutions Private Limited builds governed software for accountable business, from Hyderabad, India. Work is delivered with an AI engine, a named person reviews and approves every change, and every action is recorded. Supported by Google for Startups and T-Hub; member of NVIDIA Inception and NASSCOM's 2026 DeepTech cohort.
+
+## Core pages
+- [How it works](https://quaicu.org/how-it-works): the AI engine, human review and the delivery model
+- [Trust](https://quaicu.org/trust): how every delivery stays checked, and the list of sub-processors
+- [Proof](https://quaicu.org/proof): the reusable governance foundation behind every engagement
+- [Managed software support](https://quaicu.org/support): support priced per ticket
+- [Pricing](https://quaicu.org/pricing): small, medium and large ticket prices in USD and INR
+- [Governed platform delivery](https://quaicu.org/builds): new platforms designed, built and launched with the client
+- [How we work](https://quaicu.org/how-we-work): talk, scope, deliver, support
+
+## Who we help
+- [Growing businesses](https://quaicu.org/for/growing-businesses)
+- [Product teams](https://quaicu.org/for/product-teams)
+- [Regulated teams](https://quaicu.org/for/regulated-teams)
+
+## Company
+- [About QUAICU](https://quaicu.org/company): founders Deepak Rathod (Founder & CEO) and Xavier Borah (Co-Founder)
+- [Partnerships](https://quaicu.org/partnerships)
+- [Legal](https://quaicu.org/legal): privacy policy and terms of service
+- [QUAICU Notes](https://quaicu.org/blog/): field notes on governance and accountable software
+- [Contact](https://quaicu.org/contact): hello@quaicu.org

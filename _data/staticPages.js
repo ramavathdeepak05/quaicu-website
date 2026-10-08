@@ -1,10 +1,24 @@
 // Hand-authored pages (served without .html) that the sitemap must include alongside the
 // auto-generated blog. Update this list when you add or remove a page.
 // lastmod comes from each file's last git commit; it is left out when git
-// history is unavailable (e.g. a shallow clone that doesn't reach the file).
+// history is unavailable. A shallow clone (Cloudflare's default) is treated as
+// unavailable, because every file would otherwise report the single cloned commit.
 const { execSync } = require("child_process");
 
+function isShallow() {
+  try {
+    return execSync("git rev-parse --is-shallow-repository", {
+      stdio: ["ignore", "pipe", "ignore"],
+    }).toString().trim() === "true";
+  } catch (e) {
+    return true;
+  }
+}
+
+const shallow = isShallow();
+
 function lastmod(url) {
+  if (shallow) return undefined;
   const file = url === "/" ? "index.html" : url.slice(1) + ".html";
   try {
     const out = execSync(`git log -1 --format=%cs -- "${file}"`, {
