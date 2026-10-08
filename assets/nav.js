@@ -52,7 +52,7 @@
         <div class="foot-col foot-brand">
           <div class="h2">QUAICU.</div>
           <div class="muted" style="max-width: 32ch; font-size: 14px;">
-            Ongoing engineering support, priced per ticket, and new platform builds. Delivered with an AI engine and human oversight.
+            Governed software for accountable business. Delivered with an AI engine, a person approving every change, and a record of every action.
           </div>
           <div class="meta" style="margin-top: 24px;">
             QUAICU Solutions Pvt Ltd<br/>

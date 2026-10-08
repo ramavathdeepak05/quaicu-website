@@ -3,9 +3,9 @@
 module.exports = {
   url: "https://quaicu.org",
   title: "QUAICU",
-  tagline: "Engineering support priced per ticket, and new platform builds.",
+  tagline: "Governed software for accountable business.",
   description:
-    "Ongoing engineering support, priced per ticket, and new platform builds. Delivered with an AI engine and human oversight. Built in Hyderabad, India.",
+    "Governed software for accountable business: support and new platforms delivered with an AI engine, a person approving every change, and a record of every action. Built in Hyderabad, India.",
   author: {
     name: "QUAICU Solutions Private Limited",
     email: "hello@quaicu.org",
