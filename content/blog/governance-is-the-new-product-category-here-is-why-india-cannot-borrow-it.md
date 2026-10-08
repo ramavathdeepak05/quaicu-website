@@ -10,7 +10,9 @@ seoDescription: "Hyperscalers rebuilt their stacks around agent governance in 20
 author: Xavier Borah
 hero: ""
 tags:
-  - note
+  - governance
+  - india
+  - ai
 draft: false
 ---
 

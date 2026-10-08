@@ -56,6 +56,6 @@ collections:
       - { label: "SEO description (optional)", name: "seoDescription", widget: "text", required: false, pattern: ['.{50,160}', "Keep it between 50 and 160 characters."], hint: "Shown in Google results instead of the summary." }
       - { label: "Author", name: "author", widget: "string", default: "QUAICU", required: false }
       - { label: "Hero image", name: "hero", widget: "image", required: false, hint: "Optional. Wide image used as the post hero and OG card." }
-      - { label: "Tags", name: "tags", widget: "list", default: ["note"], hint: "Free-form keywords. Each tag becomes a filter page at /blog/tags/<tag>/." }
+      - { label: "Tags", name: "tags", widget: "list", default: [], hint: "Topic keywords such as governance, audit or data-sovereignty (lowercase, hyphenated). Each tag becomes a filter page at /blog/tags/<tag>/." }
       - { label: "Draft", name: "draft", widget: "boolean", default: true, hint: "Drafts are not built. Untick to publish." }
       - { label: "Body", name: "body", widget: "markdown" }
