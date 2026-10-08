@@ -8,7 +8,10 @@
     "dev": "eleventy --serve --quiet",
     "debug": "DEBUG=Eleventy* eleventy",
     "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "preview": "npm run build && wrangler dev",
+    "seo:report": "node scripts/seo/report.js",
+    "seo:check": "node scripts/seo/check.js",
+    "seo:notify": "node scripts/seo/notify.js"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",

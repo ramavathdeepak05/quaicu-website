@@ -1,0 +1,971 @@
+{
+ "today": "2026-10-08",
+ "current": {
+  "clicks": 8,
+  "impressions": 326
+ },
+ "previous": {
+  "clicks": 16,
+  "impressions": 562
+ },
+ "queries": [
+  {
+   "query": "quaicu",
+   "clicks": 41,
+   "impressions": 617,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 1.0693069306930694,
+    "impressions": 101
+   }
+  },
+  {
+   "query": "gemini spark",
+   "clicks": 0,
+   "impressions": 51,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9.450980392156863,
+    "impressions": 51
+   }
+  },
+  {
+   "query": "google spark",
+   "clicks": 0,
+   "impressions": 13,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 14.384615384615385,
+    "impressions": 13
+   }
+  },
+  {
+   "query": "non bypassable ai governance",
+   "clicks": 0,
+   "impressions": 12,
+   "best": {
+    "page": "https://quaicu.org/architecture.html",
+    "position": 10.5,
+    "impressions": 12
+   }
+  },
+  {
+   "query": "what is gemini spark",
+   "clicks": 0,
+   "impressions": 9,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 17.333333333333332,
+    "impressions": 9
+   }
+  },
+  {
+   "query": "qpiai careers",
+   "clicks": 0,
+   "impressions": 8,
+   "best": {
+    "page": "https://quaicu.org/careers.html",
+    "position": 41.5,
+    "impressions": 8
+   }
+  },
+  {
+   "query": "how does gemini spark work",
+   "clicks": 0,
+   "impressions": 7,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 8.714285714285715,
+    "impressions": 7
+   }
+  },
+  {
+   "query": "put gemini spark to work for you",
+   "clicks": 0,
+   "impressions": 7,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 8.714285714285715,
+    "impressions": 7
+   }
+  },
+  {
+   "query": "quieicu",
+   "clicks": 0,
+   "impressions": 7,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 2,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "spark gemini",
+   "clicks": 0,
+   "impressions": 6,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 4.666666666666666,
+    "impressions": 6
+   }
+  },
+  {
+   "query": "gemini spark explained",
+   "clicks": 0,
+   "impressions": 4,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 4
+   }
+  },
+  {
+   "query": "is gemini spark safe",
+   "clicks": 0,
+   "impressions": 4,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 4
+   }
+  },
+  {
+   "query": "what is gemini spark used for",
+   "clicks": 0,
+   "impressions": 4,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 14.75,
+    "impressions": 4
+   }
+  },
+  {
+   "query": "gemini spark ai",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 19.666666666666668,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "gemini spark vs antigravity",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 7.333333333333333,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "gmail ai agent",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9.666666666666666,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "qaiku",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 10.333333333333334,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "spark gmail",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 2.666666666666667,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "what does google spark do",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 18,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "what is spark in gemini",
+   "clicks": 0,
+   "impressions": 3,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 18,
+    "impressions": 3
+   }
+  },
+  {
+   "query": "alis",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 2,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "founders",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 1,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gem spark ai",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 22.5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "gemini spark ai agent",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 16,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "gemini spark google",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "gemini spark google ai agent",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "gemini spark uk",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 26.5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "how gemini spark works",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 10.5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "how to use gemini spark",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 22,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "is google spark safe",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "qicu",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/company.html",
+    "position": 26,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "qualicu",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 2,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "spark google ai",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 7,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "what does gemini spark do",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 10.5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "what is gemini spark vs chat",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "what is gemini spark?",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 4,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "what model does gemini spark use",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "what's gemini spark",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 28.5,
+    "impressions": 2
+   }
+  },
+  {
+   "query": "where is the office?",
+   "clicks": 0,
+   "impressions": 2,
+   "best": {
+    "page": "https://quaicu.org/company.html",
+    "position": 3,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "+\"gemini spark\" google",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "24/7 ai agents",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 30,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "ai58495",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/products.html",
+    "position": 10,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "antigravity spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "caiu",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 41,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "caui",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 38,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "explain gemini spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemeni spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 25,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark 24/7",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark ai model",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 3,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark ai prompts",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 24,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark app",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark beta",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 14,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark free?",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark google ai",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 4,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark là gì",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 17,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini spark3",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 10,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini sparks",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 45,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "gemini vs gemini spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google gemini spark agent",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 4,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google gemini spark ai agent",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 26,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google gemini spark features",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 5,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google gemini spark personal ai agent",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 1,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google spark ai",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 26,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "google spark what is it",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 10,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "how about spark?",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 7,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "how do i know if i have gemini spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "how much money they have",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 2,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "is it good company?",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/company.html",
+    "position": 4,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "more",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 10,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "quaiu",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/",
+    "position": 9,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "que es gemini spark?",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 7,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "quoika",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/company.html",
+    "position": 4,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "site:blog.google gemini spark personal ai agent",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 6,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "spark google",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 16,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "spark google group",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 24,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what gemini spark can do",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what is gemini spark and how does it work",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what is gemini spark and what can it do",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 11,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what is google spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 31,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what is spark feature in gemini",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 9,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "what is the use of gemini spark",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 2,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "أمثلة",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 5,
+    "impressions": 1
+   }
+  },
+  {
+   "query": "نعم",
+   "clicks": 0,
+   "impressions": 1,
+   "best": {
+    "page": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+    "position": 13,
+    "impressions": 1
+   }
+  }
+ ],
+ "inspected": [
+  {
+   "url": "https://quaicu.org/",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/how-it-works",
+   "verdict": "NEUTRAL",
+   "state": "Discovered - currently not indexed",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/proof",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/trust",
+   "verdict": "NEUTRAL",
+   "state": "Discovered - currently not indexed",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/builds",
+   "verdict": "NEUTRAL",
+   "state": "Crawled - currently not indexed",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/how-we-work",
+   "verdict": "NEUTRAL",
+   "state": "URL is unknown to Google",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/support",
+   "verdict": "NEUTRAL",
+   "state": "Discovered - currently not indexed",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/for/growing-businesses",
+   "verdict": "NEUTRAL",
+   "state": "Discovered - currently not indexed",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/for/product-teams",
+   "verdict": "NEUTRAL",
+   "state": "Discovered - currently not indexed",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/for/regulated-teams",
+   "verdict": "NEUTRAL",
+   "state": "URL is unknown to Google",
+   "crawl": ""
+  },
+  {
+   "url": "https://quaicu.org/company",
+   "verdict": "NEUTRAL",
+   "state": "Crawled - currently not indexed",
+   "crawl": "2026-05-20"
+  },
+  {
+   "url": "https://quaicu.org/partnerships",
+   "verdict": "NEUTRAL",
+   "state": "Duplicate, Google chose different canonical than user",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/council",
+   "verdict": "NEUTRAL",
+   "state": "Duplicate, Google chose different canonical than user",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/careers",
+   "verdict": "NEUTRAL",
+   "state": "Crawled - currently not indexed",
+   "crawl": "2026-05-18"
+  },
+  {
+   "url": "https://quaicu.org/contact",
+   "verdict": "NEUTRAL",
+   "state": "Alternate page with proper canonical tag",
+   "crawl": "2026-10-02"
+  },
+  {
+   "url": "https://quaicu.org/legal",
+   "verdict": "NEUTRAL",
+   "state": "Duplicate, Google chose different canonical than user",
+   "crawl": "2026-10-08"
+  },
+  {
+   "url": "https://quaicu.org/blog/",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-09-30"
+  },
+  {
+   "url": "https://quaicu.org/blog/the-2026-ai-data-crisis-why-public-clouds-are-failing-regulated-institutions/",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-09-26"
+  },
+  {
+   "url": "https://quaicu.org/blog/governance-is-the-new-product-category-here-is-why-india-cannot-borrow-it/",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-09-21"
+  },
+  {
+   "url": "https://quaicu.org/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/",
+   "verdict": "PASS",
+   "state": "Submitted and indexed",
+   "crawl": "2026-09-28"
+  },
+  {
+   "url": "https://quaicu.org/blog/your-ai-copilot-cant-save-you-from-an-audit/",
+   "verdict": "NEUTRAL",
+   "state": "Not found (404)",
+   "crawl": "2026-06-19"
+  }
+ ]
+}

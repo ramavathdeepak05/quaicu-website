@@ -1,0 +1,10 @@
+{
+  "_note": "Blog tags become filter pages at /blog/tags/<tag>/. Reuse these. To add a tag, add it here with a reason, because thin tag pages do not help search.",
+  "allowed": [
+    "announcement", "field-notes", "how-to", "research", "case-study",
+    "alis", "rico", "fero", "polo", "lemo", "ciro",
+    "education", "healthcare", "hospitality", "real-estate", "legal", "banking",
+    "governance", "dpdp", "naac", "accreditation", "audit", "policy",
+    "ai", "ai-agents", "india", "compliance", "data-sovereignty"
+  ]
+}

@@ -157,3 +157,10 @@ They'll receive an email invitation. Once they accept:
 3. They see **Blog Posts** in the sidebar and can start writing
 
 **Important:** Collaborators have write access to the entire repo, not just the blog. For external guest writers who shouldn't have repo access, have them email you a Markdown file and you publish on their behalf.
+
+
+---
+
+## 10 · Weekly SEO run
+
+The weekly pipeline lives in `/seo-weekly` (Claude Code). It pulls a Search Console report, drafts one post and three LinkedIn posts on a branch, runs `npm run seo:check`, and opens a PR. Merging the PR is the approval. See `.claude/commands/seo-weekly.md`. Keyword map: `seo/keywords.md`; allowed tags: `seo/tags.json`.
