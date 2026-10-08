@@ -19,6 +19,6 @@ module.exports = {
   },
   social: {
     twitter: "",
-    linkedin: "",
+    linkedin: "https://www.linkedin.com/company/quaicu/",
   },
 };

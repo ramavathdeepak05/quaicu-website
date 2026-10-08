@@ -91,6 +91,7 @@
             <li><a href="/partnerships">Partnerships</a></li>
             <li><a href="/council">Members Council</a></li>
             <li><a href="/careers">Careers</a></li>
+            <li><a href="https://www.linkedin.com/company/quaicu/" rel="me noopener" target="_blank">LinkedIn</a></li>
           </ul>
         </div>
         <div class="foot-col">
