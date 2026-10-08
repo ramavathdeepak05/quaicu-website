@@ -8,7 +8,8 @@ Thumbs.db
 !.env.example
 .cache/
 .netlify/
-.claude/
+.claude/*
+!.claude/commands/
 
 # wrangler files
 .wrangler
