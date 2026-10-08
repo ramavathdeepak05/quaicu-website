@@ -10,3 +10,6 @@ package-lock.json
 .eleventyignore
 workers
 docs-internal
+# Local drafts and notes that must never be published
+Claude outputs
+DESIGN.md
