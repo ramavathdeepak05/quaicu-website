@@ -4,7 +4,7 @@
   "private": true,
   "description": "QUAICU brutalist static site + Eleventy-powered blog.",
   "scripts": {
-    "build": "eleventy",
+    "build": "eleventy && node scripts/inline-nav.js",
     "dev": "eleventy --serve --quiet",
     "debug": "DEBUG=Eleventy* eleventy",
     "deploy": "npm run build && wrangler deploy",
