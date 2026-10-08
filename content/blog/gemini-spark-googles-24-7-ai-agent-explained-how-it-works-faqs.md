@@ -9,7 +9,8 @@ seoDescription: "Gemini Spark is Google's always-on AI agent that acts across Gm
 author: QUAICU
 hero: /uploads/blog/1000366723.jpg
 tags:
-  - note
+  - ai-agents
+  - ai
 draft: false
 ---
 Imagine an AI that doesn't just answer your questions but actually gets work done for you drafting your emails, organizing your inbox, tracking opportunities, and running tasks while your phone is locked or your laptop is closed. That's the promise of **Gemini Spark**, Google's newest and most ambitious AI agent, unveiled at Google I/O 2026.

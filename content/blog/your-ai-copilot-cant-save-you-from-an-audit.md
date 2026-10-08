@@ -7,7 +7,9 @@ description: "Everyone's excited about AI copilots. But there's a quieter, more
 seoDescription: "AI copilots save time, but regulated institutions must answer a harder question first: who is in charge when the AI acts?"
 author: QUAICU
 tags:
-  - note
+  - governance
+  - audit
+  - ai
 draft: false
 ---
 If you work in a university, a hospital, a bank, or any institution that answers to a regulator, chances are someone in your organisation has already deployed an AI copilot. Maybe it drafts emails, summarises documents, or helps admissions staff move faster. It probably saves a few hours a week and earns enthusiastic feedback in team meetings.

@@ -1,13 +1,14 @@
 # Cloudflare Pages reads this file at the root of the build output (_site/).
 # Format docs: https://developers.cloudflare.com/pages/configuration/headers/
 
-# Hashed asset bundles never change — cache hard.
+# Asset filenames are not hashed, so a changed site.css must reach visitors
+# soon: cache for an hour and revalidate.
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=3600, must-revalidate
 
-# Uploaded media is content-addressed by filename — same caching policy.
+# Uploaded images rarely change under the same name: cache for 30 days.
 /uploads/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=2592000
 
 # HTML must revalidate so new content shows up immediately after deploy.
 /*.html
@@ -31,5 +32,6 @@
 # Security defaults — light touch so we don't break the brutalist site.
 /*
   X-Content-Type-Options: nosniff
+  Strict-Transport-Security: max-age=15552000
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), camera=(), microphone=()

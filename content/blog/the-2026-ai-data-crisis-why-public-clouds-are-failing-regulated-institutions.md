@@ -8,7 +8,10 @@ description: An authoritative analysis of the current enterprise AI security
 seoTitle: "The 2026 AI Data Crisis for Regulated Institutions · QUAICU"
 seoDescription: "Why public cloud AI is failing universities and regulated industries in 2026, and the case for sovereign, on-premise AI systems."
 author: QUAICU
-tags: []
+tags:
+  - data-sovereignty
+  - compliance
+  - ai
 draft: false
 ---
 
