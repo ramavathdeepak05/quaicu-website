@@ -51,6 +51,7 @@ collections:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ" }
       - { label: "Summary (used as meta description + post lead)", name: "description", widget: "text", required: true, pattern: ['.{40,200}', "Aim for 60–160 characters for the best SEO."] }
+      - { label: "Last updated (optional)", name: "updated", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ", required: false, hint: "Set when you materially edit a published post. Feeds the Article dateModified and the sitemap lastmod." }
       - { label: "SEO title (optional)", name: "seoTitle", widget: "string", required: false, hint: "Shown in Google results instead of the title. Keep it under 60 characters including ' · QUAICU'." }
       - { label: "SEO description (optional)", name: "seoDescription", widget: "text", required: false, pattern: ['.{50,160}', "Keep it between 50 and 160 characters."], hint: "Shown in Google results instead of the summary." }
       - { label: "Author", name: "author", widget: "string", default: "QUAICU", required: false }

@@ -16,13 +16,17 @@ eleventyExcludeFromCollections: true
 {%- endfor %}
   <url>
     <loc>{{ site.url }}/blog/</loc>
+    {%- set newest = collections.posts | first %}
+    {%- if newest %}
+    <lastmod>{{ (newest.data.updated or newest.date) | isoDate }}</lastmod>
+    {%- endif %}
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 {%- for post in collections.posts %}
   <url>
     <loc>{{ site.url }}{{ post.url }}</loc>
-    <lastmod>{{ post.date | isoDate }}</lastmod>
+    <lastmod>{{ (post.data.updated or post.date) | isoDate }}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

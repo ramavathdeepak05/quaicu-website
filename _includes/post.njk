@@ -12,7 +12,7 @@ ogType: article
   "description": {{ (description or "") | dump | safe }},
   "image": "{{ absoluteHero }}",
   "datePublished": "{{ page.date | isoDate }}",
-  "dateModified": "{{ page.date | isoDate }}",
+  "dateModified": "{{ (updated or page.date) | isoDate }}",
   "author": {
     "@type": "{% if author and author != 'QUAICU' and author != site.author.name %}Person{% else %}Organization{% endif %}",
     "name": {{ (author or site.author.name) | dump | safe }},
@@ -32,6 +32,15 @@ ogType: article
     "@type": "WebPage",
     "@id": "{{ page.url | absoluteUrl(site.url) }}"
   }
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "QUAICU", "item": "{{ site.url }}/" },
+    { "@type": "ListItem", "position": 2, "name": "Notes", "item": "{{ site.url }}/blog/" },
+    { "@type": "ListItem", "position": 3, "name": {{ title | dump | safe }}, "item": "{{ page.url | absoluteUrl(site.url) }}" }
+  ]
 }</script>
 
 <section class="page-hero post-hero" data-screen-label="01 Post Hero">
@@ -110,10 +119,45 @@ ogType: article
 </section>
 {% endif %}
 
+<section data-screen-label="03b Related Services">
+  <div class="shell">
+    <div class="section-head">
+      <div class="kicker">HOW QUAICU WORKS</div>
+      <div><h2 class="h2">Governed delivery, <span class="muted">in practice</span>.</h2></div>
+    </div>
+    <div class="grid-12" style="row-gap: 24px;">
+      <div class="col-4">
+        <a class="post-nav-card" href="/trust">
+          <div class="kicker">TRUST</div>
+          <h3 class="h3" style="margin-top: 12px;">How every delivery stays checked</h3>
+          <p class="muted" style="font-size: 14px; margin-top: 12px;">Rules that must not vary, a person who signs off, and a record of every action.</p>
+        </a>
+      </div>
+      <div class="col-4">
+        <a class="post-nav-card" href="/support">
+          <div class="kicker">SUPPORT</div>
+          <h3 class="h3" style="margin-top: 12px;">Managed software support</h3>
+          <p class="muted" style="font-size: 14px; margin-top: 12px;">A fixed price per ticket, with a person reviewing every change.</p>
+        </a>
+      </div>
+      <div class="col-4">
+        <a class="post-nav-card" href="/for/regulated-teams">
+          <div class="kicker">REGULATED TEAMS</div>
+          <h3 class="h3" style="margin-top: 12px;">Support for regulated teams</h3>
+          <p class="muted" style="font-size: 14px; margin-top: 12px;">Every change reviewed, every action recorded, for fintech, healthtech and edtech.</p>
+        </a>
+      </div>
+    </div>
+    <p class="muted" style="margin-top: 24px; font-size: 14px;">
+      See <a href="/pricing">pricing</a>, <a href="/how-it-works">how it works</a> or <a href="/for/growing-businesses">support for growing businesses</a>.
+    </p>
+  </div>
+</section>
+
 <section data-screen-label="04 Post CTA">
   <div class="shell">
     <div style="border-top: 2px solid var(--fg); padding-top: 48px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;">
-      <h2 class="h2" style="max-width: 28ch;">Need engineering support or a new platform? Let's talk.</h2>
+      <h2 class="h2" style="max-width: 28ch;">Want software that stays accountable? Let's talk.</h2>
       <div class="row" style="gap: 12px;">
         <a class="btn btn--ghost btn--lg" href="/blog/">All notes<span class="arrow"></span></a>
         <a class="btn btn--primary btn--lg" href="/contact">Talk to us<span class="arrow"></span></a>
