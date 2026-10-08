@@ -23,6 +23,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("robots.txt");
   eleventyConfig.addPassthroughCopy("site.webmanifest");
   eleventyConfig.addPassthroughCopy("llms.txt");
+  // IndexNow ownership key (lets us notify Bing and others of updated URLs)
+  eleventyConfig.addPassthroughCopy("be958357a1fb0c725186ac2b53c2d62b.txt");
   eleventyConfig.addPassthroughCopy({ "admin": "admin" });
   eleventyConfig.addPassthroughCopy("*.html");
   // "Who we help" pages, served at /for/<name>
