@@ -97,7 +97,7 @@
     /* Ecosystem partners grid */
     .partners-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       border: 1px solid var(--rule);
       border-right: 0;
       border-bottom: 0;
@@ -112,6 +112,9 @@
       border-bottom: 1px solid var(--rule);
       background: var(--bg);
       transition: background 200ms ease;
+    }
+    .partner-cell--paper {
+      background: #fafaf7;
     }
     .partner-cell--dark {
       background: var(--ink);
@@ -130,6 +133,7 @@
 
     @media (max-width: 1000px) {
       .partners-grid { grid-template-columns: repeat(3, 1fr); }
+      .partner-cell:last-child { grid-column: 1 / -1; }
     }
     @media (max-width: 560px) {
       .partners-grid { grid-template-columns: repeat(2, 1fr); }
@@ -195,6 +199,7 @@
         <div class="partner-cell"><img src="/uploads/partners/xplorepro.png" width="900" height="190" alt="Xplorepro" loading="lazy" /></div>
         <div class="partner-cell"><img src="/uploads/partners/ai-research-centre.png" width="287" height="293" alt="AI Research Centre" loading="lazy" /></div>
         <div class="partner-cell"><img src="/uploads/partners/t-hub.png" width="369" height="320" alt="T-Hub" loading="lazy" /></div>
+        <div class="partner-cell partner-cell--paper"><img src="/uploads/partners/nasscom-deeptech.png" width="400" height="176" alt="NASSCOM DeepTech" loading="lazy" /></div>
         <div class="partner-cell"><img src="/uploads/partners/google-for-startups.png" width="1015" height="190" alt="Google for Startups" loading="lazy" /></div>
       </div>
     </div>
