@@ -1,25 +1,26 @@
-// 4. The product window from the home page ("Delivery Activity"), live:
-// AI proposes, rules enforce, humans approve. Event names, policies and row
-// wording are the ones in assets/site.js. Marked Demo, like on the site.
+// 7. Governance: the product window from the home page ("Delivery
+// Activity"), live. AI proposes, rules enforce, humans approve. Row wording
+// follows assets/site.js; the events are the business work from the scenes
+// before (syncs, invoices, WhatsApp updates). Marked Demo, like on the site.
 
-import { h, rise, outro, prog, ease, clamp, lerp, pulse, clock, fmtNum, ICON } from "../lib.js";
+import { h, rise, outro, prog, ease, clamp, lerp, pulse, clock, fmtNum, voTimes, ICON } from "../lib.js";
 import { COPY } from "../copy.js";
 
 const ACTIONS = [
-  { op: "triage_ticket", actor: "Support·Intake", policy: "Scope_Check", approver: "Engineer" },
-  { op: "draft_bug_fix", actor: "Support·Engine", policy: "Change_Review", approver: "Engineer" },
-  { op: "deploy_to_production", actor: "Build·Infra", policy: "Dual_Control", approver: "Lead", block: true },
-  { op: "apply_security_patch", actor: "Support·Infra", policy: "Change_Review", approver: "Lead" },
-  { op: "run_db_migration", actor: "Build·Data", policy: "Air_Gap+Dual", approver: "Lead" },
-  { op: "draft_release_notes", actor: "Build·Docs", policy: "Style_Check", approver: "Engineer" },
-  { op: "grant_repo_access", actor: "Support·Access", policy: "Least_Privilege", approver: "Manager" },
-  { op: "ship_release", actor: "Build·Release", policy: "Dual_Control", approver: "Lead" },
-  { op: "request_code_review", actor: "Build·Engine", policy: "HITL_Review", approver: "Engineer" },
-  { op: "update_client", actor: "Support·Manager", policy: "Consent+Throttle", approver: "Manager" },
-  { op: "draft_root_cause", actor: "Support·Engine", policy: "Change_Review", approver: "Engineer" },
-  { op: "deploy_to_staging", actor: "Build·Infra", policy: "Env_Boundary", approver: "Lead" },
-  { op: "verify_backup", actor: "Support·Infra", policy: "Det_Only", approver: "Engineer" },
-  { op: "prepare_ticket_summary", actor: "Support·Manager", policy: "Three_Way_Match", approver: "Manager" },
+  { op: "sync_salesforce_order", actor: "Salesforce", policy: "Field_Mapping", approver: "Ops lead" },
+  { op: "read_invoice_4821", actor: "AI·Finance", policy: "PII_Mask", approver: "Finance lead" },
+  { op: "update_price_list", actor: "AI·Pricing", policy: "Amount_Limit", approver: "Owner", block: true },
+  { op: "post_invoice_to_sap", actor: "AI·Finance", policy: "Dual_Control", approver: "Finance lead" },
+  { op: "send_whatsapp_update", actor: "WhatsApp", policy: "Consent+Throttle", approver: "Ops lead" },
+  { op: "follow_up_lead", actor: "AI·Sales", policy: "Consent+Throttle", approver: "Sales lead" },
+  { op: "triage_support_ticket", actor: "AI·Support", policy: "Scope_Check", approver: "Support lead" },
+  { op: "sync_tally_ledger", actor: "Tally", policy: "Dual_Control", approver: "Finance lead" },
+  { op: "run_weekly_report", actor: "AI·Reports", policy: "Read_Only", approver: "Manager" },
+  { op: "schedule_site_visit", actor: "AI·Real estate", policy: "Consent+Throttle", approver: "Agent" },
+  { op: "summarise_intake_form", actor: "AI·Clinic", policy: "PII_Mask", approver: "Clinician" },
+  { op: "deploy_portal_update", actor: "Build·Release", policy: "Change_Review", approver: "Engineer" },
+  { op: "sync_hubspot_contacts", actor: "HubSpot", policy: "Field_Mapping", approver: "Ops lead" },
+  { op: "draft_quote_reply", actor: "AI·Sales", policy: "Tone_Check", approver: "Sales lead" },
 ];
 
 const CLOCK0 = 2 * 3600 + 14 * 60 + 5; // 02:14:05, continuing the hook
@@ -50,11 +51,14 @@ function schedule(dur, P) {
 }
 
 export default {
-  build({ fmt, dur, opts }) {
+  build({ fmt, dur, opts, vo }) {
     const c = COPY.pipeline;
     const v = fmt === "9x16";
     const k = dur / 14;
-    const P = [0.45, 4.3, 8.2, 11.6].map((x) => x * k);
+    // The phrases land with the voiceover ("AI proposes. Rules enforce. ...").
+    const P3 = voTimes(vo, 3, [0.45 * k, 0.33 * dur, 0.6 * dur]);
+    const swap = dur >= 7 ? Math.max(P3[2] + 1.4, vo && vo.segs[3] ? vo.segs[3][0] : 0.78 * dur) : Infinity;
+    const P = [...P3, Math.min(swap, P3[2] + 1.6)];
     const ev = schedule(dur, P);
 
     const el = h("div", "scene s-pipe");
@@ -67,6 +71,16 @@ export default {
       return i;
     });
     el.append(phr);
+    // After the three phrases: "Every change signed off. Every action on record."
+    const phr2 = h("div", "phr phr2 display");
+    const after = c.after.map((p, i) => {
+      const ln = h("span", "ln");
+      const e = h("span", "ln-i" + (i ? " dim" : ""), p);
+      ln.append(e);
+      phr2.append(ln);
+      return e;
+    });
+    el.append(phr2);
 
     const wrap = h("div", "win-wrap");
     const win = h("div", "win");
@@ -171,12 +185,14 @@ export default {
         phrases.forEach((p, i) => {
           if (t >= P[i]) cur = i;
         });
+        const gone = prog(t, swap - 0.05, 0.35, ease.in);
         phrases.forEach((p, i) => {
-          const pp = prog(t, P[i], 0.75, ease.out);
-          p.style.transform = pp >= 1 ? "" : `translate3d(0, ${(1 - pp) * 112}%, 0)`;
+          const pp = prog(t, P[i], 0.6, ease.out);
+          p.style.transform = pp >= 1 && !gone ? "" : `translate3d(0, ${(1 - pp) * 112 - gone * 112}%, 0)`;
           const bright = t >= P[3] || i === cur;
           p.style.color = bright ? "var(--fg)" : "var(--aw-fg-3)";
         });
+        rise(after, t, swap + 0.15, { stagger: 0.12, d: 0.6 });
 
         // Window enters tilted (as on the site) and settles flat.
         const pin = prog(t, 0.05, 0.9 * Math.max(k, 0.6), ease.out);

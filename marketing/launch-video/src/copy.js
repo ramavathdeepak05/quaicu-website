@@ -1,32 +1,112 @@
-// Every word that appears on screen, in one place.
-// Wording follows the live site (index.html, support.html, builds.html,
-// trust.html). House style: plain, no hype words, no em dashes.
+// Every word that appears on screen, and the voiceover script, in one place.
+// Audience: small and medium businesses that need custom software,
+// integrations (SAP, Salesforce and the rest) or AI workflows. House style:
+// plain, no hype words, no em dashes.
 
 export const COPY = {
   hook: {
-    eyebrow: "02:14 AM · Production",
-    lines: ["Who approved", "that change?"],
-    cmd: "deploy_to_production --env=prod",
-    result: "shipped · approver:",
-    none: "none",
+    // 60s: three lines that land with the voiceover
+    lines: ["Orders in Salesforce.", "Invoices in SAP.", "Your team, in between."],
+    // 30s and 15s: one question
+    question: ["Still copying data", "between SAP and Salesforce?"],
+    left: { app: "Salesforce", view: "Opportunities" },
+    right: { app: "SAP", view: "Billing documents" },
+    rows: [
+      ["Order #4821", "Mehta Retail", "₹4,82,000"],
+      ["Order #4822", "Northwind Clinics", "₹1,16,500"],
+      ["Order #4823", "Skyline Homes", "₹9,40,000"],
+      ["Order #4824", "Apex Supplies", "₹62,300"],
+      ["Order #4825", "Blue Lotus Foods", "₹2,08,900"],
+    ],
+    counter: "Copied by hand today",
   },
 
   tension: {
-    white: ["AI can write", "the code."],
-    grey: ["Someone still has", "to answer for it."],
-    file: "engine · checkout_fix.ts",
-    status: "Generating",
-    flag: "No reviewer",
+    white: ["Everyone wants", "AI now."],
+    grey: ["Who checks", "what it does?"],
+    agent: "AI agent · autopilot",
+    actions: [
+      "Updated 214 price records",
+      "Emailed 1,180 customers",
+      "Changed discount rules",
+      "Deleted 36 duplicate accounts",
+    ],
+    approver: "approved by:",
+    none: "none",
   },
 
   reveal: {
+    eyebrow: "Introducing",
     word: "QUAICU",
-    lines: ["Software you can", "answer for."],
-    sub: "A person approves every change. Every action is on record.",
+    lines: {
+      "16x9": ["Custom software, integrations", "and AI workflows."],
+      "9x16": ["Custom software,", "integrations and", "AI workflows."],
+    },
+    sub: "For small and medium businesses.",
+  },
+
+  build: {
+    num: "01",
+    eyebrow: "Custom software",
+    title: ["Built around", "how you work."],
+    short: "Custom software.",
+    chips: ["Customer portals", "Dashboards", "Internal tools", "Web and mobile apps"],
+    app: "Dealer Portal",
+    nav: ["Overview", "Orders", "Customers", "Inventory", "Reports"],
+    kpis: [
+      ["Orders today", "128"],
+      ["Revenue · month", "₹18.4L"],
+      ["Awaiting approval", "3"],
+    ],
+    rows: [
+      ["#4821", "Mehta Retail", "₹4,82,000", "Approved"],
+      ["#4822", "Northwind Clinics", "₹1,16,500", "Shipped"],
+      ["#4823", "Skyline Homes", "₹9,40,000", "Review"],
+      ["#4824", "Apex Supplies", "₹62,300", "Shipped"],
+    ],
+    stamp: "Reviewed · v1.0 shipped",
+  },
+
+  connect: {
+    num: "02",
+    eyebrow: "Integrations",
+    title: ["Your systems,", "finally in sync."],
+    short: "Integrations.",
+    systems: ["SAP", "Salesforce", "Zoho", "Tally", "HubSpot", "QuickBooks", "WhatsApp Business"],
+    any: "Any official API",
+    log: [
+      ["Salesforce", "Deal won · #4821"],
+      ["SAP", "Sales order 1100482 created"],
+      ["QuickBooks", "Invoice INV-2207 sent"],
+      ["WhatsApp", "Customer notified"],
+    ],
+    approval: "Field mapping change · approved by Lead",
+  },
+
+  automate: {
+    num: "03",
+    eyebrow: "AI workflows",
+    title: ["AI that clears", "the busywork."],
+    short: "AI workflows.",
+    steps: [
+      { k: "Email", v: "invoice_4821.pdf" },
+      { k: "AI reads", fields: [["Vendor", "Apex Supplies"], ["Amount", "₹4,82,000"], ["PO", "PO-1189"]] },
+      { k: "Rule", v: "Over ₹2,00,000 needs approval" },
+      { k: "Finance lead", v: "Approve" },
+      { k: "SAP", v: "Posted" },
+    ],
+    examples: [
+      "Lead follow-up in Salesforce",
+      "Support ticket triage",
+      "Weekly sales reports",
+      "Real estate: site-visit follow-ups",
+      "Clinics: patient intake summaries",
+    ],
   },
 
   pipeline: {
     phrases: ["AI proposes.", "Rules enforce.", "Humans approve."],
+    after: ["Every change signed off.", "Every action on record."],
     title: "Delivery Activity",
     badge: "Demo",
     newEvent: "New event",
@@ -41,16 +121,10 @@ export const COPY = {
     chain: "Hash-chained · Replay-safe",
   },
 
-  ledger: {
-    lines: ["Every action", "is on record."],
-    flash: ["Every action", "on record."],
-    kicker: "Hash-chained · Replay-safe",
-  },
-
-  offerings: {
-    lines: ["Two ways to work", "with QUAICU."],
+  engage: {
+    lines: ["Start with one ticket,", "or a full build."],
     support: {
-      eyebrow: "01 · Engineering support",
+      eyebrow: "Support",
       white: "Priced per ticket.",
       grey: "Pay for the work.",
       stages: ["Raised", "Engine", "Review", "Delivered"],
@@ -58,39 +132,58 @@ export const COPY = {
       done: "Delivered. Billed as one ticket.",
     },
     builds: {
-      eyebrow: "02 · New platform builds",
-      white: "Designed and delivered",
+      eyebrow: "New builds",
+      white: "Scoped and delivered",
       grey: "with you.",
       stages: ["Design", "Build", "Launch"],
       stamp: "Reviewed",
     },
-  },
-
-  hub: {
-    white: ["The engine does", "the lifting."],
-    grey: ["People stay", "accountable."],
-    kicker: "Nothing ships unchecked.",
-    ring: "AI ENGINE",
-    center: ["Relationship", "manager"],
-  },
-
-  proof: {
-    eyebrow: "17.3850° N · 78.4867° E",
-    lines: ["Built in Hyderabad,", "India."],
-    label: "Part of",
-    programs: ["NASSCOM DeepTech 2026", "T-Hub", "NVIDIA Inception", "Google for Startups"],
+    rm: "One relationship manager",
   },
 
   endcard: {
-    eyebrow: "Governed software · Human-approved · Built in India",
+    eyebrow: "Built in Hyderabad · NASSCOM DeepTech 2026",
     lines: ["Software you can", "answer for."],
+    sub: "Custom software · Integrations · AI workflows",
     cta: "Talk to us",
     url: "quaicu.org",
+  },
+
+  thumb: {
+    eyebrow: "Introducing QUAICU",
+    lines: ["Custom software.", "Integrations.", "AI workflows."],
+    tag: "Approved by people",
   },
 
   chrome: {
     meta: "Human-approved · Fully recorded",
     place: "Hyderabad · India · NASSCOM DeepTech 2026",
     url: "quaicu.org",
+    marquee: ["Custom software", "Integrations", "AI workflows", "Human-approved"],
   },
+};
+
+// Voiceover script, line by line, as generated (MiniMax Speech 2.8 HD,
+// voice Determined_Man). "QUAICU" is spoken "Kwai-koo". Captions use these.
+export const VO = {
+  60: [
+    "Orders in Salesforce. Invoices in SAP. Your team, copying data in between.",
+    "Everyone wants AI now. But who checks what it does?",
+    "Introducing QUAICU.",
+    "Custom software, built around how your business works. Portals, dashboards, internal tools.",
+    "Integrations with SAP, Salesforce, Zoho, Tally, HubSpot, QuickBooks, WhatsApp, or anything with an official API.",
+    "AI workflows that clear the busywork. Invoices, leads, support, reports. For real estate, clinics, and more.",
+    "AI proposes. Rules enforce. Humans approve. A person signs off every change, and every action is on record.",
+    "Start with one ticket, or a full build. One relationship manager. You pay for the work.",
+    "QUAICU. Software you can answer for. Talk to us at quaicu.org.",
+  ],
+  30: [
+    "Still copying data between SAP and Salesforce?",
+    "Introducing QUAICU.",
+    "Custom software, built around your business.",
+    "Integrations with SAP, Salesforce, Zoho, Tally, or any official API.",
+    "AI workflows for invoices, leads, and support.",
+    "AI proposes, rules enforce, and a person approves every change.",
+    "QUAICU. Software you can answer for. Talk to us at quaicu.org.",
+  ],
 };

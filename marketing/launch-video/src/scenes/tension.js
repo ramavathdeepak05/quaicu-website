@@ -1,46 +1,12 @@
-// 2. Tension: AI writes code fast, but nobody is on the hook for it.
+// 2. Tension: everyone wants AI, but an AI agent on autopilot changes real
+// business data with nobody signing off.
 
-import { h, lines, rise, show, outro, prog, blink, clamp, ease, pulse } from "../lib.js";
+import { h, lines, rise, show, outro, prog, ease, clamp, blink, pulse, voTimes, ICON } from "../lib.js";
 import { COPY } from "../copy.js";
 
-const CODE = `// TCK-2041 · checkout times out under load
-export async function applyFix(ticket: Ticket) {
-  const diff = await engine.draftFix(ticket);
-  const tests = await engine.writeTests(diff);
-  if (!tests.pass) return engine.retry(ticket);
-
-  await repo.commit(diff, { message: ticket.title });
-  await deploy.toProduction(diff);
-  return { status: "shipped" };
-}
-
-export async function migrate(db: Database) {
-  const plan = await engine.planMigration(db.schema);
-  for (const step of plan.steps) {
-    await db.run(step.sql);
-  }
-  await cache.flush("orders");
-  return plan.summary;
-}
-
-export async function grantAccess(user: User) {
-  await repo.addMember(user, { role: "admin" });
-  await notify.team(\`\${user.name} added\`);
-}`;
-
-const KW = /\b(export|async|function|const|await|return|if|for|of)\b/g;
-
-function highlight(line) {
-  if (line.trim().startsWith("//")) return `<span class="cm">${line}</span>`;
-  return line
-    .replace(/("[^"]*"|`[^`]*`)/g, '<span class="st">$1</span>')
-    .replace(KW, '<span class="kw">$1</span>');
-}
-
 export default {
-  build({ dur }) {
+  build({ dur, vo }) {
     const c = COPY.tension;
-    const k = Math.min(1, dur / 4);
     const el = h("div", "scene s-tension");
 
     const text = h("div", "text");
@@ -48,63 +14,36 @@ export default {
     const a = lines(text, c.white, "display hl");
     const b = lines(text, c.grey.map((t) => ({ text: t, cls: "dim" })), "display hl hl2");
 
-    const panel = h("div", "code-panel");
+    const panel = h("div", "agent");
     panel.innerHTML = `
-      <div class="cp-head">
-        <span class="cp-file">${c.file}</span>
-        <span class="cp-flag"><span class="sq"></span>${c.flag}</span>
-        <span class="cp-status"><span class="lamp"></span>${c.status}</span>
-      </div>
-      <div class="cp-body"><div class="cp-scroll"></div></div>
-      <div class="cp-foot"><span class="cp-count"></span><span>approver: <b>none</b></span></div>`;
+      <div class="ag-head"><span class="ag-name"><span class="lamp"></span>${c.agent}</span><span class="ag-run">RUNNING</span></div>
+      <div class="ag-rows">
+        ${c.actions.map((x) => `<div class="ag-row"><span class="ag-ok">${ICON.check}</span><span class="ag-txt">${x}</span><span class="ag-who">${c.approver} <b>${c.none}</b></span></div>`).join("")}
+      </div>`;
     el.append(panel);
-    const scroll = panel.querySelector(".cp-scroll");
-    const count = panel.querySelector(".cp-count");
-    const flag = panel.querySelector(".cp-flag");
+    const rows = [...panel.querySelectorAll(".ag-row")];
     const lamp = panel.querySelector(".lamp");
 
-    const codeLines = CODE.split("\n");
-    const total = CODE.length;
-    const T = { a: 0.08, b: 1.35 * k, panel: 0.15, code: 0.35, flag: 1.5 * k };
-    const cps = 190;
-    const lineH = 40;
+    const [tA, tB] = voTimes(vo, 2, [0.08, 1.4]);
+    const rowT = rows.map((_, i) => 0.35 + i * Math.min(0.5, (dur - 1.2) / rows.length));
 
     return {
       el,
       update(t) {
-        rise(a.inners, t, T.a, { stagger: 0.1 });
-        rise(b.inners, t, T.b, { stagger: 0.1 });
-        show(panel, t, T.panel, 0.6, 30);
-
-        // Stream the code in, character by character, and keep the newest
-        // line in view.
-        const n = Math.floor(clamp((t - T.code) * cps, 0, total));
-        let left = n, html = "", shown = 0, frac = 0;
-        for (const ln of codeLines) {
-          if (left <= 0) break;
-          const part = ln.slice(0, left);
-          left -= ln.length + 1;
-          shown++;
-          frac = Math.min(1, part.length / Math.max(1, ln.length));
-          const caret = left <= 0 ? `<span class="caret" style="opacity:${blink(t, 3) ? 1 : 0.2}"></span>` : "";
-          html += `<div class="cl">${highlight(part) || "&nbsp;"}${caret}</div>`;
-        }
-        scroll.innerHTML = html;
-        const visible = 13;
-        const y = Math.max(0, shown - 1 + frac - (visible - 1)) * lineH;
-        scroll.style.transform = `translate3d(0, ${-y}px, 0)`;
-        count.textContent = `+${Math.max(0, shown)} lines · 0 reviewed`;
-
-        lamp.style.opacity = 0.35 + 0.65 * pulse(t, 0.7);
-        const pf = prog(t, T.flag, 0.3, ease.out);
-        flag.style.opacity = pf * (blink(t - T.flag, 1.1) ? 1 : 0.55);
-
-        outro(el, t, dur, 0.28);
+        rise(a.inners, t, Math.max(0, tA - 0.05), { stagger: 0.08, d: 0.6 });
+        rise(b.inners, t, Math.max(0, tB - 0.05), { stagger: 0.08, d: 0.6 });
+        show(panel, t, 0.1, 0.5, 30);
+        lamp.style.opacity = 0.3 + 0.7 * pulse(t, 0.6);
+        rows.forEach((r, i) => {
+          const p = prog(t, rowT[i], 0.3, ease.out);
+          r.style.opacity = p;
+          r.style.transform = p >= 1 ? "" : `translate3d(${(1 - p) * 30}px, 0, 0)`;
+          const red = t >= tB ? (blink(t - tB, 1.2) ? 1 : 0.45) : 0.25;
+          r.style.setProperty("--red", red);
+        });
+        outro(el, t, dur, 0.25);
       },
-      cues: () => [
-        { t: T.code, type: "stream", dur: Math.min(dur - T.code - 0.3, total / cps) },
-        { t: T.b, type: "swell" },
-      ],
+      cues: () => [...rowT.map((t) => ({ t, type: "blip" })), { t: tB, type: "alert" }],
     };
   },
 };

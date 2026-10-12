@@ -101,6 +101,22 @@ export function rise(inners, t, t0, { stagger = 0.09, d = 0.8 } = {}) {
   });
 }
 
+// Launch-style kinetic type: the element lands from 116% scale and a green
+// underline flashes under it (CSS: .slam::after reads --u).
+export function slam(el, t, t0, d = 0.38) {
+  const p = clamp((t - t0) / d);
+  el.style.opacity = clamp((t - t0) / 0.08);
+  el.style.transform = p >= 1 ? "" : `scale(${1 + 0.16 * (1 - ease.out(p))})`;
+  el.style.setProperty("--u", t >= t0 ? 1 - clamp((t - t0 - 0.1) / 0.7) : 0);
+}
+
+// Times (scene seconds) at which voiceover phrases start, or fallbacks.
+export function voTimes(vo, n, fallback) {
+  if (vo && vo.segs.length >= n) return vo.segs.slice(0, n).map((s) => s[0]);
+  if (vo && n === 1) return [vo.at];
+  return fallback;
+}
+
 // Fade in while rising dy px. Returns the progress.
 export function show(el, t, t0, d = 0.5, dy = 24, e = ease.out) {
   const p = prog(t, t0, d, e);

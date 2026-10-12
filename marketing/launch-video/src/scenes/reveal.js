@@ -1,17 +1,20 @@
-// 3. Reveal: the logo's green layers stack into place, the real logo lands,
-// then the wordmark and "Software you can answer for."
+// 3. Reveal: "Introducing", then the logo's green layers stack into place and
+// the real logo lands on "QUAICU" in the voiceover (and the music drop),
+// then the wordmark and what QUAICU does.
 
 import { h, lines, rise, show, outro, prog, ease, backOut, clamp, LOGO_SRC } from "../lib.js";
 import { COPY } from "../copy.js";
 
 export default {
-  build({ fmt, dur, opts }) {
+  build({ fmt, dur, opts, vo }) {
     const c = COPY.reveal;
-    const k = clamp(dur / 5, 0.5, 1);
     const short = !!opts.short;
-    const el = h("div", "scene s-reveal");
+    const el = h("div", "scene s-reveal" + (short ? " short" : ""));
     const inner = h("div", "inner");
     el.append(inner);
+
+    const intro = h("div", "intro eyebrow", c.eyebrow);
+    inner.append(intro);
 
     const lock = h("div", "lockup");
     const mark = h("div", "mark");
@@ -26,25 +29,31 @@ export default {
     lock.append(mark, word);
     inner.append(lock);
 
-    const hl = lines(inner, [c.lines[0], { text: c.lines[1], cls: "dim" }], "display hl");
+    const rows = c.lines[fmt];
+    const hl = lines(inner, rows.map((t, i) => (i === rows.length - 1 ? { text: t, cls: "dim" } : t)), "display hl");
     const rule = h("div", "rule");
     inner.append(rule);
     const sub = h("div", "sub", c.sub);
-    if (!short) inner.append(sub);
+    inner.append(sub);
+    if (short) for (const e of [hl.el, rule, sub]) e.style.display = "none";
 
     const [l1, l2, l3] = mark.querySelectorAll(".lay");
     const logo = mark.querySelector(".logo");
     const ring = mark.querySelector(".ring");
     const burst = mark.querySelector(".burst");
 
+    // The logo lands on "QUAICU", about 60% into "Introducing QUAICU".
+    const introAt = vo ? vo.at : 0.15;
+    const hit = vo ? vo.at + (vo.end - vo.at) * 0.6 : 0.8;
     const T = {
-      layers: 0,
-      hit: 0.5 * k,
-      slide: 0.7 * k,
-      word: 0.95 * k,
-      hl: 1.3 * k,
-      rule: 1.95 * k,
-      sub: 2.15 * k,
+      intro: introAt,
+      layers: hit - 0.5,
+      hit,
+      slide: hit + 0.2,
+      word: hit + 0.42,
+      hl: hit + 0.85,
+      rule: hit + 1.45,
+      sub: hit + 1.6,
     };
     const row = fmt === "16x9";
     let offset = null, lift = 0;
@@ -56,10 +65,13 @@ export default {
         if (offset === null) {
           offset = row ? (word.offsetWidth + 40) / 2 : (word.offsetHeight + 28) / 2;
           // Until the headline arrives, the lockup sits at the centre of the frame.
-          lift = (inner.offsetHeight - lock.offsetHeight) / 2;
+          lift = (inner.offsetHeight - (lock.offsetTop + lock.offsetHeight)) / 2;
         }
-        const pUp = prog(t, T.hl - 0.3, 0.75, ease.inOut);
+        const pUp = short ? 0 : prog(t, T.hl - 0.3, 0.75, ease.inOut);
         inner.style.transform = `translate3d(0, calc(-50% + ${lift * (1 - pUp)}px), 0)`;
+        const pi = prog(t, T.intro, 0.35, ease.out);
+        intro.style.opacity = pi;
+        intro.style.letterSpacing = `${0.16 + 0.24 * (1 - pi)}em`;
 
         // Layers converge from their offsets.
         const pL = prog(t, T.layers, T.hit, ease.out);
@@ -90,14 +102,16 @@ export default {
         word.style.opacity = pw > 0 ? 1 : 0;
         word.style.transform = row ? `translate3d(${(1 - pw) * -30}px, 0, 0)` : `translate3d(0, ${(1 - pw) * -24}px, 0)`;
 
-        rise(hl.inners, t, T.hl, { stagger: 0.1 });
-        rule.style.transform = `scaleX(${prog(t, T.rule, 0.6, ease.out)})`;
-        if (!short) show(sub, t, T.sub, 0.6, 16);
+        if (!short) {
+          rise(hl.inners, t, T.hl, { stagger: 0.1 });
+          rule.style.transform = `scaleX(${prog(t, T.rule, 0.6, ease.out)})`;
+          show(sub, t, T.sub, 0.6, 16);
+        }
 
         outro(el, t, dur, 0.3);
       },
       cues: () => [
-        { t: T.hit - 0.45 * k, type: "riser", dur: 0.45 * k },
+        { t: T.intro, type: "hush", until: T.hit },
         { t: T.hit, type: "impact" },
         { t: T.word, type: "shimmer" },
         { t: T.rule, type: "tick" },

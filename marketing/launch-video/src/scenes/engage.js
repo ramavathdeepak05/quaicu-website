@@ -1,15 +1,18 @@
-// 6. The two offerings: support priced per ticket (the ticket journey from
-// support.html) and new platform builds (the build timeline from builds.html).
+// 8. How to start: support priced per ticket (the ticket journey from
+// support.html) or a new build (the build timeline from builds.html), with
+// one relationship manager.
 
-import { h, lines, rise, show, outro, prog, ease, clamp, lerp, ICON } from "../lib.js";
+import { h, lines, rise, show, outro, prog, ease, clamp, lerp, voTimes, ICON } from "../lib.js";
 import { COPY } from "../copy.js";
 
 export default {
-  build({ dur, opts }) {
-    const c = COPY.offerings;
+  build({ dur, opts, vo }) {
+    const c = COPY.engage;
     const short = !!opts.short;
     const el = h("div", "scene s-offer" + (short ? " short" : ""));
     const hl = lines(el, [c.lines[0], { text: c.lines[1], cls: "dim" }], "display hl");
+    const rm = h("div", "rm", `${ICON.person}<span>${c.rm}</span>`);
+    el.append(rm);
 
     const panels = h("div", "panels");
     el.append(panels);
@@ -45,10 +48,9 @@ export default {
     const done = p1.querySelector(".done");
     const phs = [...p2.querySelectorAll(".ph")];
 
-    // Timings
-    const T = short
-      ? { hl: 0.05, p1: 0.35, p2: 0.5, j0: 0.9, j1: dur - 0.75, b0: 0.95, b1: dur - 0.7 }
-      : { hl: 0.05, p1: 0.6, p2: 0.8, j0: 1.5, j1: 5.6, b0: 6.3, b1: 10.6 };
+    // Timings: both panels run together; the RM chip lands with its line.
+    const T = { hl: 0.05, p1: 0.35, p2: 0.5, j0: 0.9, j1: dur * 0.62, b0: 1.0, b1: dur * 0.68 };
+    const tRm = voTimes(vo, 2, [0, dur * 0.5])[1];
     const nSt = nodes.length;
     // Ticket arrival times at each node (dwell longer at Review).
     const w = [0, 1, 1.3, 1];
@@ -71,13 +73,8 @@ export default {
         show(p1, t, T.p1, 0.6, 30);
         show(p2, t, T.p2, 0.6, 30);
 
-        if (!short) {
-          // Focus moves from panel 1 to panel 2, then both settle.
-          const f1 = 1 - 0.5 * prog(t, T.b0 - 0.4, 0.5) + 0.5 * prog(t, T.b1, 0.5);
-          const f2 = 0.45 + 0.55 * prog(t, T.b0 - 0.5, 0.5);
-          p1.style.setProperty("--focus", f1);
-          p2.style.setProperty("--focus", f2);
-        }
+        show(rm, t, tRm, 0.4, 14);
+        rm.style.setProperty("--hot", 1 - prog(t, tRm + 0.15, 0.8, ease.linear));
 
         // Journey: the chip hops node to node.
         let x = 0;
@@ -107,6 +104,7 @@ export default {
       cues: () => [
         ...arrive.map((t, i) => ({ t, type: i === nSt - 1 ? "chime" : "tick" })),
         ...phT.map((p) => ({ t: p.b, type: "approve" })),
+        { t: tRm, type: "tick" },
       ],
     };
   },

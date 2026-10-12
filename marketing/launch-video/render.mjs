@@ -109,6 +109,37 @@ const X264 = [
   "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-color_range", "tv",
 ];
 
+// ---------- captions ----------
+// One cue per sentence when the voiceover take has a pause for each
+// sentence, otherwise one cue per line. Lines wrap at about 42 characters.
+function srtTime(t) {
+  const ms = Math.round(t * 1000);
+  const p = (n, w = 2) => String(n).padStart(w, "0");
+  return `${p(Math.floor(ms / 3600000))}:${p(Math.floor(ms / 60000) % 60)}:${p(Math.floor(ms / 1000) % 60)},${p(ms % 1000, 3)}`;
+}
+function wrap(text, max = 42) {
+  if (text.length <= max) return text;
+  const mid = text.length / 2;
+  let best = -1;
+  for (let i = 0; i < text.length; i++) if (text[i] === " " && (best < 0 || Math.abs(i - mid) < Math.abs(best - mid))) best = i;
+  return best < 0 ? text : text.slice(0, best) + "\n" + text.slice(best + 1);
+}
+function writeSrt(meta, file) {
+  const cues = [];
+  for (const v of meta.vo || []) {
+    const sentences = v.text.split(/(?<=[.?!])\s+/);
+    if (sentences.length > 1 && sentences.length === v.segs.length) {
+      sentences.forEach((s, i) => cues.push([v.segs[i][0], v.segs[i][1], s]));
+    } else {
+      cues.push([v.at, v.end, v.text]);
+    }
+  }
+  if (!cues.length) return false;
+  const body = cues.map(([a, b, text], i) => `${i + 1}\n${srtTime(a)} --> ${srtTime(Math.max(b, a + 0.8))}\n${wrap(text)}\n`).join("\n");
+  fs.writeFileSync(file, body);
+  return true;
+}
+
 // ---------- video ----------
 async function renderVideos(base) {
   fs.mkdirSync(OUT, { recursive: true });
@@ -193,6 +224,9 @@ async function renderVideos(base) {
       mux(video, wav, out, meta.duration);
     }
     console.log("  wrote", path.relative(HERE, out));
+    const srt = out.replace(/\.mp4$/, ".srt");
+    if (writeSrt(meta, srt)) console.log("  wrote", path.relative(HERE, srt));
+    for (const w of meta.warnings || []) console.warn("  warning:", w);
   }
 }
 

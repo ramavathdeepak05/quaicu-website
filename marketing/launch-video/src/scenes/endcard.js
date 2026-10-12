@@ -1,5 +1,6 @@
-// 9. End card, laid out like og-card.png: eyebrow, the headline, a green
-// rule, "Talk to us" and quaicu.org, with the logo. Holds still at the end.
+// 9. End card, laid out like og-card.png: eyebrow, the headline, what we do,
+// a green rule, "Talk to us" and quaicu.org, with the logo. Holds still at
+// the end.
 
 import { h, lines, rise, show, prog, ease, backOut, clamp, ICON, LOGO_SRC } from "../lib.js";
 import { COPY } from "../copy.js";
@@ -19,6 +20,8 @@ export default {
     const eb = h("div", "eyebrow", c.eyebrow);
     inner.append(eb);
     const hl = lines(inner, [c.lines[0], { text: c.lines[1], cls: "dim" }], "display hl");
+    const sub = h("div", "esub", c.sub);
+    inner.append(sub);
     const rule = h("div", "rule");
     inner.append(rule);
     const ctaRow = h("div", "cta-row");
@@ -41,6 +44,7 @@ export default {
 
         show(eb, t, T.eb, 0.5, 12);
         rise(hl.inners, t, T.hl, { stagger: 0.1 });
+        show(sub, t, T.rule - 0.15, 0.5, 10);
         rule.style.transform = `scaleX(${prog(t, T.rule, 0.6, ease.out)})`;
         const pb = clamp((t - T.btn) / 0.5);
         btn.style.opacity = clamp(pb * 2);

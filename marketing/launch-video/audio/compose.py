@@ -2,16 +2,19 @@
 
 usage: python3 audio/compose.py --cues .work/<cut>/cues.json --out score.wav
 
-Everything is synthesised here from sine, saw and noise sources, so the
-soundtrack is original and safe to use in paid ads. The cue file comes from
-the stage (window.__meta): scene boundaries plus every on-screen event
-(typing, approvals, ledger stamps, the logo hit). Music runs at 120 BPM in
-D minor and resolves to F major on the end card. Loudness normalisation
-happens later in render.mjs (ffmpeg loudnorm, -14 LUFS).
+Music and sound effects are synthesised here from sine, saw and noise
+sources, so they are original and safe to use in paid ads. The cue file comes
+from the stage (window.__meta): scene boundaries, every on-screen event
+(rows copied, approvals, the logo hit) and where each voiceover line sits.
+Music runs at 120 BPM in D minor and resolves to F major on the end card; it
+goes quiet for "Introducing", drops on the logo, and ducks under the voice.
+Loudness normalisation happens later in render.mjs (ffmpeg loudnorm, -14 LUFS).
 """
 
 import argparse
 import json
+import os
+import subprocess
 import wave
 
 import numpy as np
@@ -159,6 +162,16 @@ def hat(vel=1.0, length=0.05):
     return x * vel
 
 
+def clap(vel=1.0):
+    n = int(0.22 * SR)
+    t = secs(n)
+    # three quick bursts then a short tail, like hands
+    env = sum(np.exp(-np.maximum(0, t - d) / 0.006) * (t >= d) for d in (0, 0.011, 0.023)) * 0.5
+    env += np.exp(-np.maximum(0, t - 0.03) / 0.07) * (t >= 0.03) * 0.6
+    x = bp(noise(n), 900, 5200, 2) * env
+    return x * vel
+
+
 def pluck(freq, vel=1.0):
     n = int(0.6 * SR)
     t = secs(n)
@@ -258,13 +271,38 @@ SECTION = {
     "hook": "intro",
     "tension": "tension",
     "reveal": "drop",
+    "build": "drive",
+    "connect": "drive",
+    "automate": "drive",
     "pipeline": "drive",
-    "ledger": "drive",
-    "offerings": "drive",
-    "hub": "lift",
-    "proof": "lift",
+    "engage": "lift",
     "endcard": "outro",
 }
+
+VO_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vo")
+
+
+def load_vo(take):
+    """Decode audio/vo/<take>.mp3 to mono float32 at SR."""
+    path = os.path.join(VO_DIR, f"{take}.mp3")
+    raw = subprocess.run(
+        ["ffmpeg", "-v", "error", "-i", path, "-ac", "1", "-ar", str(SR), "-f", "f32le", "-"],
+        capture_output=True, check=True,
+    ).stdout
+    return np.frombuffer(raw, "<f4").astype(np.float64)
+
+
+def compress(x, thresh_db=-24, ratio=3.0, attack=0.005, release=0.12):
+    """Simple feed-forward compressor on a mono signal."""
+    level = np.abs(x)
+    a_att = np.exp(-1 / (attack * SR))
+    a_rel = np.exp(-1 / (release * SR))
+    # Peak follower: fast attack, slower release (two one-pole passes).
+    env = signal.lfilter([1 - a_rel], [1, -a_rel], level)
+    env = np.maximum(env, signal.lfilter([1 - a_att], [1, -a_att], level))
+    env_db = 20 * np.log10(env + 1e-9)
+    over = np.maximum(0, env_db - thresh_db)
+    return x * 10 ** (-over * (1 - 1 / ratio) / 20)
 
 #            pad   bright drone kick  bass  hats  arp   clock
 LEVELS = {
@@ -370,6 +408,8 @@ def compose(meta):
         if sixteenth == 0:
             if lvl(KICK, t0) > 0.02:
                 music.add(t0, kick(), db(-12) * lvl(KICK, t0))
+                if beat_i % 2 == 1:
+                    music.add(t0, clap(), db(-19) * lvl(KICK, t0))
             if lvl(CLOCK, t0) > 0.02:
                 c = click(0.9, 4200 if beat_i % 2 else 3200)
                 music.add(t0, c, db(-21) * lvl(CLOCK, t0), pan=0.2 if beat_i % 2 else -0.2)
@@ -414,35 +454,40 @@ def compose(meta):
         r = riser(1.3)
         sfx.add(end_t - 1.3, r, db(-24))
 
+    # The pre-drop hush: music falls away under "Introducing", a riser leads
+    # into it, and the beat drops on the logo.
+    hush = np.ones(n)
+    for c in cues:
+        if c["type"] != "hush":
+            continue
+        a, b = c["t"] - 0.05, c["until"]
+        length = min(1.4, max(0.5, a))
+        sfx.add(a - length, riser(length), db(-21))
+        i0, i1 = int(a * SR), int(b * SR)
+        hush[i0:i1] = 0.07
+    hush = smooth(hush, 0.04)
+
     last = {}
     for c in cues:
         t0, kind = c["t"], c["type"]
         if kind == "scene":
             continue
         # Keep busy passages from turning into noise.
-        gap = {"blip": 0.16, "pass": 0.22, "approve": 0.2, "stamp": 0.1, "ping": 0.15, "tick": 0.08}.get(kind, 0)
+        gap = {"blip": 0.16, "pass": 0.22, "approve": 0.2, "tick": 0.08, "paste": 0.1}.get(kind, 0)
         if gap and t0 - last.get(kind, -9) < gap:
             continue
         last[kind] = t0
 
-        if kind == "typing":
-            for k in range(c["n"]):
-                tk = t0 + k / c["cps"] + rng.uniform(-0.008, 0.008)
-                sfx.add(tk, click(rng.uniform(0.5, 1.0), rng.uniform(2600, 4200)), db(-27), pan=rng.uniform(-0.2, 0.2))
-        elif kind == "stream":
-            m = int(c["dur"] * 28)
-            for k in range(m):
-                tk = t0 + rng.uniform(0, c["dur"])
-                sfx.add(tk, click(rng.uniform(0.3, 0.8), rng.uniform(3000, 6000)), db(-34), pan=rng.uniform(-0.5, 0.5))
+        if kind == "slam":
+            sfx.add(t0 - 0.12, whoosh(0.22, 0.6, 600, 6000), db(-24))
+            sfx.add(t0, kick(0.7), db(-16))
+        elif kind == "paste":
+            sfx.add(t0, click(1.0, 1600), db(-23))
         elif kind == "alert":
             for k, f in enumerate((660, 520)):
                 sfx.add(t0 + k * 0.11, buzz(f, 0.09), db(-26))
-        elif kind == "swell":
-            sfx.add(t0 - 0.2, whoosh(1.1, 0.85, 200, 2500), db(-27))
-        elif kind == "riser":
-            length = 1.6 if impact_t is None else min(1.6, max(0.6, impact_t - 0.2))
-            end = impact_t if impact_t is not None else t0 + c.get("dur", 0.5)
-            sfx.add(end - length, riser(length), db(-22))
+        elif kind == "flag":
+            sfx.add(t0, buzz(196, 0.12), db(-27))
         elif kind == "impact":
             sfx.add(t0, sub_drop(1.0, 1.8), db(-7))
             nz = lp(noise(int(0.9 * SR)), 2500) * exp_env(int(0.9 * SR), 0.18, 0.001)
@@ -476,22 +521,11 @@ def compose(meta):
                 bl = bell(midi(note), 0.55, 0.6)
                 sfx.add(t0 + k * 0.06, bl, db(-30), pan=0.2)
                 verb.add(t0 + k * 0.06, bl, db(-30))
-        elif kind == "stamp":
-            m = int(0.16 * SR)
-            tt2 = secs(m)
-            f = 70 + 120 * np.exp(-tt2 / 0.02)
-            th = np.sin(2 * np.pi * np.cumsum(f) / SR) * exp_env(m, 0.05, 0.001)
-            sfx.add(t0, th, db(-17))
-            sfx.add(t0, click(1.0, 2600), db(-25))
         elif kind == "chime":
             for k, note in enumerate((81, 85, 88)):
                 bl = bell(midi(note), 1.0, 0.6)
                 sfx.add(t0 + k * 0.07, bl, db(-28), pan=(-0.3, 0, 0.3)[k])
                 verb.add(t0 + k * 0.07, bl, db(-27))
-        elif kind == "ping":
-            m = int(0.25 * SR)
-            x = np.sin(2 * np.pi * 2349 * secs(m)) * exp_env(m, 0.06, 0.001)
-            sfx.add(t0, x, db(-33), pan=rng.uniform(-0.5, 0.5))
         elif kind == "cta":
             sfx.add(t0, click(1.0, 2200), db(-22))
             bl = bell(midi(84), 0.8, 0.6)
@@ -504,18 +538,45 @@ def compose(meta):
     # Music bus tone: less boxiness around 400 Hz, more air on top.
     mbus = biquad(music.buf, "peak", 420, -4.0, 0.8)
     mbus = biquad(mbus, "highshelf", 3200, 4.0)
-    mix = mbus + sfx.buf + wet * db(-4)
+    mbus *= hush[:, None]
+    bed = mbus + sfx.buf + wet * db(-4)
+    bed = hp(bed, 28, 2)
 
-    mix = hp(mix, 28, 2)
+    # Soft-knee limiting on the bed, then set it to -24 dBFS RMS.
+    peak = np.max(np.abs(bed)) or 1.0
+    bed = np.tanh(bed / peak * 1.25) / np.tanh(1.25)
+    bed *= db(-24) / (np.sqrt(np.mean(bed ** 2)) or 1.0)
+
+    # Voiceover: placed line by line, cleaned up, and the bed ducks under it.
+    vo_track = np.zeros(n)
+    duck = np.zeros(n)
+    if meta.get("vo") and meta.get("take"):
+        src = load_vo(meta["take"])
+        for v in meta["vo"]:
+            a, b = int(v["src"][0] * SR), int(v["src"][1] * SR)
+            seg = src[a:b].copy()
+            f = min(len(seg) // 4, int(0.012 * SR))
+            if f:
+                seg[:f] *= np.linspace(0, 1, f)
+                seg[-f:] *= np.linspace(1, 0, f)
+            i0 = int(v["at"] * SR)
+            i1 = min(n, i0 + len(seg))
+            vo_track[i0:i1] += seg[: i1 - i0]
+            duck[max(0, i0 - int(0.08 * SR)):min(n, i1 + int(0.15 * SR))] = 1
+        vo_track = hp(vo_track, 90, 2)
+        vo_track = biquad(vo_track, "peak", 3500, 2.5, 0.9)
+        vo_track = compress(vo_track, thresh_db=-26, ratio=3.0)
+        voiced = np.abs(vo_track) > 1e-4
+        rms = np.sqrt(np.mean(vo_track[voiced] ** 2)) if voiced.any() else 1.0
+        vo_track *= db(-17) / rms
+        duck = smooth(duck, 0.12)
+    gain = 1 - (1 - db(-7)) * duck
+    mix = bed * gain[:, None] + pan2(vo_track, 0) * np.sqrt(2)
+
     # Fade the very end so the last frame doesn't cut off a sound.
-    fade = int(min(1.2, dur * 0.1) * SR)
+    fade = int(min(1.0, dur * 0.08) * SR)
     mix[-fade:] *= np.linspace(1, 0, fade)[:, None] ** 1.5
     mix[: int(0.004 * SR)] *= np.linspace(0, 1, int(0.004 * SR))[:, None]
-
-    # Soft-knee limiting, then peak normalise to -1 dBFS.
-    peak = np.max(np.abs(mix)) or 1.0
-    mix = mix / peak * 1.25
-    mix = np.tanh(mix) / np.tanh(1.25)
     mix *= db(-1) / (np.max(np.abs(mix)) or 1.0)
     return mix
 
