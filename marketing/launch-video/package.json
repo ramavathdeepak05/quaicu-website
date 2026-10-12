@@ -1,0 +1,19 @@
+{
+  "name": "quaicu-launch-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QUAICU launch ad: code-driven motion graphics rendered to MP4 (16:9 and 9:16).",
+  "type": "module",
+  "scripts": {
+    "render": "node render.mjs",
+    "render:all": "node render.mjs --all",
+    "stills": "node render.mjs --all --stills",
+    "thumbs": "node render.mjs --thumbs"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.3.0",
+    "@fontsource/jetbrains-mono": "^5.3.0",
+    "@fontsource/space-grotesk": "^5.3.0",
+    "playwright-core": "1.56.1"
+  }
+}
