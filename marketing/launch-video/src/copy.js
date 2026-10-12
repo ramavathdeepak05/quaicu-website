@@ -45,26 +45,17 @@ export const COPY = {
     sub: "For small and medium businesses.",
   },
 
-  build: {
+  dash: {
     num: "01",
     eyebrow: "Custom software",
-    title: ["Built around", "how you work."],
-    short: "Custom software.",
-    chips: ["Customer portals", "Dashboards", "Internal tools", "Web and mobile apps"],
-    app: "Dealer Portal",
-    nav: ["Overview", "Orders", "Customers", "Inventory", "Reports"],
-    kpis: [
-      ["Orders today", "128"],
-      ["Revenue · month", "₹18.4L"],
-      ["Awaiting approval", "3"],
-    ],
-    rows: [
-      ["#4821", "Mehta Retail", "₹4,82,000", "Approved"],
-      ["#4822", "Northwind Clinics", "₹1,16,500", "Shipped"],
-      ["#4823", "Skyline Homes", "₹9,40,000", "Review"],
-      ["#4824", "Apex Supplies", "₹62,300", "Shipped"],
-    ],
-    stamp: "Reviewed · v1.0 shipped",
+    title: ["Dashboards built around your business."],
+    title9: ["Dashboards built", "around your business."],
+    short: "Dashboards.",
+  },
+
+  live: {
+    lines: ["Every number, live.", "Every change, approved."],
+    stamp: "Approved",
   },
 
   connect: {

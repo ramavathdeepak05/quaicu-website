@@ -6,7 +6,7 @@ import { h, lines, rise, show, outro, prog, ease, clamp, lerp, slam, voTimes, IC
 import { COPY } from "../copy.js";
 
 const CURSOR =
-  '<svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#fafaf7" stroke="#0a0a0a" stroke-width="1.2"/></svg>';
+  '<svg viewBox="0 0 24 24" width="34" height="34"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.3L4 18z" fill="#0a0a0a" stroke="#ffffff" stroke-width="1.4"/></svg>';
 
 export default {
   build({ fmt, dur, opts, vo }) {
@@ -60,10 +60,10 @@ export default {
     const countBox = apps.querySelector(".count");
 
     // One row is carried across every `period` seconds.
-    const period = full ? 0.95 : 0.62;
-    const t0 = full ? 0.7 : 0.45;
+    const period = full ? 0.7 : 0.5;
+    const t0 = full ? 0.55 : 0.4;
     const n = Math.min(c.rows.length, Math.floor((dur - t0 - 0.4) / period));
-    const kinT = voTimes(vo, 3, [0.1, 1.25, 2.4]);
+    const kinT = voTimes(vo, 3, [0.08, 1.0, 1.92]);
 
     let geo = null;
     return {

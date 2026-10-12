@@ -94,7 +94,7 @@ export function lines(parent, rows, cls = "") {
   return { el, inners };
 }
 
-export function rise(inners, t, t0, { stagger = 0.09, d = 0.8 } = {}) {
+export function rise(inners, t, t0, { stagger = 0.08, d = 0.6 } = {}) {
   inners.forEach((el, i) => {
     const p = prog(t, t0 + i * stagger, d, ease.out);
     el.style.transform = p >= 1 ? "" : `translate3d(0, ${(1 - p) * 112}%, 0)`;

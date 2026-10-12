@@ -26,7 +26,7 @@ For tracking, link to `https://quaicu.org/contact?utm_source=<platform>&utm_medi
 > Orders in Salesforce. Invoices in SAP. Your team copying data between them by hand.
 >
 > Introducing QUAICU. We build for small and medium businesses:
-> 1. Custom software built around how you work: portals, dashboards, internal tools.
+> 1. Custom software built around how you work: live dashboards, portals, internal tools.
 > 2. Integrations with SAP, Salesforce, Zoho, Tally, HubSpot, QuickBooks, WhatsApp Business, or anything with an official API.
 > 3. AI workflows that clear the busywork: invoices, lead follow-up, support tickets, reports. For real estate teams, clinics and more.
 >
@@ -140,5 +140,5 @@ To add the voice, see "Voiceover" in `README.md`.
 ## Before you post
 
 - SAP, Salesforce, Zoho, Tally, HubSpot, QuickBooks and WhatsApp are named as text only, with no logos. That is standard practice for saying you integrate with a product. Confirm you're comfortable naming each one in paid ads.
-- The app screens (Dealer Portal, the invoice flow, Delivery Activity) are illustrative, with made-up customers and amounts. Delivery Activity is marked Demo, as on the site.
+- The dashboards and app screens (sales, operations, finance, real estate and clinic dashboards, the invoice flow, Delivery Activity) are illustrative, with made-up businesses, customers and numbers. Delivery Activity is marked Demo, as on the site.
 - The music and sound effects are original, composed in code for this video, so they're free of licensing claims on all three platforms.

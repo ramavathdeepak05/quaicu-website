@@ -44,7 +44,7 @@ export default {
 
     // The logo lands on "QUAICU", about 60% into "Introducing QUAICU".
     const introAt = vo ? vo.at : 0.15;
-    const hit = vo ? vo.at + (vo.end - vo.at) * 0.6 : 0.8;
+    const hit = vo ? vo.at + (vo.end - vo.at) * 0.6 : 0.65;
     const T = {
       intro: introAt,
       layers: hit - 0.5,

@@ -172,6 +172,33 @@ def clap(vel=1.0):
     return x * vel
 
 
+def snare(vel=1.0):
+    n = int(0.18 * SR)
+    t = secs(n)
+    body = np.sin(2 * np.pi * 190 * t) * np.exp(-t / 0.04) * 0.6
+    rattle = bp(noise(n), 1200, 7000, 2) * np.exp(-t / 0.06)
+    return (body + rattle) * vel
+
+
+def roll(length):
+    """Snare roll that speeds up and swells into a drop."""
+    out = np.zeros(int(length * SR) + int(0.2 * SR))
+    t = 0.0
+    while t < length:
+        u = t / length
+        hit = snare(0.25 + 0.75 * u ** 1.6)
+        i = int(t * SR)
+        out[i:i + len(hit)] += hit[: len(out) - i]
+        t += BEAT / (2 if u < 0.4 else 4 if u < 0.75 else 8)
+    return out
+
+
+def crash(vel=1.0, length=1.8):
+    n = int(length * SR)
+    x = hp(noise(n), 3800, 2) * exp_env(n, length / 4.5, 0.002)
+    return x * vel
+
+
 def pluck(freq, vel=1.0):
     n = int(0.6 * SR)
     t = secs(n)
@@ -271,10 +298,11 @@ SECTION = {
     "hook": "intro",
     "tension": "tension",
     "reveal": "drop",
-    "build": "drive",
+    "dash": "drive",
     "connect": "drive",
     "automate": "drive",
     "pipeline": "drive",
+    "live": "drive",
     "engage": "lift",
     "endcard": "outro",
 }
@@ -306,11 +334,11 @@ def compress(x, thresh_db=-24, ratio=3.0, attack=0.005, release=0.12):
 
 #            pad   bright drone kick  bass  hats  arp   clock
 LEVELS = {
-    "intro":   (0.00, 0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 1.00),
-    "tension": (0.55, 0.30, 0.80, 0.00, 0.00, 0.35, 0.30, 0.40),
-    "drop":    (1.00, 0.85, 0.40, 1.00, 1.00, 0.80, 0.80, 0.00),
-    "drive":   (1.00, 0.80, 0.25, 1.00, 1.00, 1.00, 1.00, 0.00),
-    "lift":    (0.90, 0.65, 0.25, 0.00, 0.70, 0.70, 1.00, 0.00),
+    "intro":   (0.45, 0.45, 0.35, 0.90, 0.80, 0.75, 0.55, 0.00),
+    "tension": (0.60, 0.25, 0.80, 0.00, 0.00, 0.35, 0.35, 0.45),
+    "drop":    (1.00, 0.90, 0.30, 1.00, 1.00, 1.00, 1.00, 0.00),
+    "drive":   (1.00, 0.85, 0.20, 1.00, 1.00, 1.00, 1.00, 0.00),
+    "lift":    (0.95, 0.75, 0.20, 0.85, 0.85, 0.85, 1.00, 0.00),
     "outro":   (1.00, 1.00, 0.20, 0.00, 0.00, 0.00, 0.35, 0.00),
 }
 
@@ -421,6 +449,8 @@ def compose(meta):
                 music.add(t0, hat(1.0), db(-16) * lvl(HATS, t0), pan=0.25)
             elif sixteenth in (1, 3):
                 music.add(t0, hat(0.5, 0.03), db(-22) * lvl(HATS, t0), pan=-0.3)
+            elif lvl(KICK, t0) > 0.5:
+                music.add(t0, hat(0.35, 0.025), db(-25) * lvl(HATS, t0), pan=0.1)
             if lvl(KICK, t0) > 0.02:
                 sh = bp(noise(int(0.07 * SR)), 3500, 9000) * exp_env(int(0.07 * SR), 0.018, 0.004)
                 music.add(t0, sh, db(-27) * lvl(KICK, t0) * (1.0 if sixteenth % 2 else 0.6), pan=0.5 if i % 2 else -0.5)
@@ -449,6 +479,12 @@ def compose(meta):
         sfx.add(s["start"] - 0.43, w, db(-21), pan=0.0)
         verb.add(s["start"] - 0.43, w, db(-28))
 
+    # A roll and crash into the dashboard wall.
+    for s in scenes:
+        if s["name"] == "live" and s["start"] > 1.2:
+            sfx.add(s["start"] - 1.0, roll(1.0), db(-19))
+            sfx.add(s["start"], crash(0.9), db(-19))
+
     # Riser into the end card.
     if end_t < dur and end_t > 2:
         r = riser(1.3)
@@ -463,6 +499,7 @@ def compose(meta):
         a, b = c["t"] - 0.05, c["until"]
         length = min(1.4, max(0.5, a))
         sfx.add(a - length, riser(length), db(-21))
+        sfx.add(a - length, roll(length), db(-17))
         i0, i1 = int(a * SR), int(b * SR)
         hush[i0:i1] = 0.07
     hush = smooth(hush, 0.04)
@@ -478,7 +515,9 @@ def compose(meta):
             continue
         last[kind] = t0
 
-        if kind == "slam":
+        if kind == "whip":
+            sfx.add(t0 - 0.16, whoosh(0.3, 0.55, 500, 7000), db(-22), pan=0.3)
+        elif kind == "slam":
             sfx.add(t0 - 0.12, whoosh(0.22, 0.6, 600, 6000), db(-24))
             sfx.add(t0, kick(0.7), db(-16))
         elif kind == "paste":
@@ -490,6 +529,8 @@ def compose(meta):
             sfx.add(t0, buzz(196, 0.12), db(-27))
         elif kind == "impact":
             sfx.add(t0, sub_drop(1.0, 1.8), db(-7))
+            sfx.add(t0, crash(), db(-17))
+            verb.add(t0, crash(0.6), db(-20))
             nz = lp(noise(int(0.9 * SR)), 2500) * exp_env(int(0.9 * SR), 0.18, 0.001)
             sfx.add(t0, nz, db(-21))
             verb.add(t0, nz, db(-16))

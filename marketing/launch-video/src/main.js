@@ -128,14 +128,25 @@ async function main() {
   }
   cues.sort((a, b) => a.t - b.t);
 
+  // While the beat drives (the "what we do" scenes onward), the camera
+  // pushes in slowly through each scene and bumps on every beat.
+  const DRIVE = new Set(["dash", "connect", "automate", "pipeline", "live", "engage"]);
   window.seek = (t) => {
     bg.update(t);
+    let cam = "";
     for (const s of timeline) {
       const lt = t - s.start;
       const on = lt >= 0 && lt < s.dur;
       s.scene.el.style.display = on ? "" : "none";
-      if (on) s.scene.update(lt);
+      if (on) {
+        s.scene.update(lt);
+        if (DRIVE.has(s.name)) {
+          const bump = 0.007 * Math.exp(-(t % BEAT) / 0.09);
+          cam = `scale(${(1 + 0.025 * (lt / s.dur)) * (1 + bump)})`;
+        }
+      }
     }
+    root.style.transform = cam;
     chrome.update(t);
   };
 

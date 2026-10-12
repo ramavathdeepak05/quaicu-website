@@ -15,17 +15,22 @@ This directory is listed in the site's `.eleventyignore` and is not copied into 
 
 ## Story (60s)
 
+Light theme throughout: the site's paper, ink and green, with product screens as white cards.
+
 | # | Scene | What it shows |
 |---|---|---|
 | 1 | `hook` | Orders in Salesforce, invoices in SAP, a person copying rows between them by hand |
 | 2 | `tension` | An AI agent changing business data with no approver |
-| 3 | `reveal` | "Introducing", then QUAICU: custom software, integrations and AI workflows for small and medium businesses |
-| 4 | `build` | 01 Custom software: an order portal assembles and ships after review |
+| 3 | `reveal` | "Introducing", a snare roll and hush, then QUAICU on the drop: custom software, integrations and AI workflows for small and medium businesses |
+| 4 | `dash` | 01 Custom software: a fast montage of live dashboards (sales, operations, finance, real estate, clinics) |
 | 5 | `connect` | 02 Integrations: SAP, Salesforce, Zoho, Tally, HubSpot, QuickBooks, WhatsApp Business and any official API, with a live sync |
 | 6 | `automate` | 03 AI workflows: an invoice read by AI, flagged by a rule, approved by the finance lead, posted to SAP |
 | 7 | `pipeline` | Governance: AI proposes, rules enforce, humans approve, every action on record |
-| 8 | `engage` | Start with one ticket or a full build, with one relationship manager |
-| 9 | `endcard` | "Software you can answer for." and "Talk to us" with quaicu.org |
+| 8 | `live` | "Every number, live." The camera pulls back from one dashboard to a wall of them, each stamped "Approved" |
+| 9 | `engage` | Start with one ticket or a full build, with one relationship manager |
+| 10 | `endcard` | "Software you can answer for." and "Talk to us" with quaicu.org |
+
+Dashboards are built from configs in `src/dashboards.js` by `src/dashboard.js` (KPI tiles, line, bar, donut and funnel charts, tables). All names and numbers in them are illustrative. From the dashboards onward, the camera pushes in slowly and pulses on every beat.
 
 The 30s and 15s cuts are shorter versions of the same story. See `src/cuts.js`.
 

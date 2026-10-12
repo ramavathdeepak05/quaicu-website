@@ -104,7 +104,7 @@ function run(cmd, args, opts = {}) {
 
 const X264 = [
   "-vf", "scale=out_color_matrix=bt709:out_range=tv,format=yuv420p",
-  "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-maxrate", "6M", "-bufsize", "12M", "-profile:v", "high", "-level", "4.2",
+  "-c:v", "libx264", "-preset", "slow", "-crf", "20", "-maxrate", "5M", "-bufsize", "10M", "-profile:v", "high", "-level", "4.2",
   "-g", "30", "-bf", "2", "-x264-params", "aq-mode=3:aq-strength=0.9",
   "-color_primaries", "bt709", "-color_trc", "bt709", "-colorspace", "bt709", "-color_range", "tv",
 ];
