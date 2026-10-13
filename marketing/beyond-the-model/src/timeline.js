@@ -73,7 +73,7 @@ export const CUES = [
   { t: 23.15, k: "record", n: 5, every: 0.16 },
   { t: 24.0, k: "whoosh_out" },
   { t: 24.0, k: "swell", dur: 3.0 },
-  { t: 26.35, k: "power_down" },
+  { t: 26.2, k: "power_down" },
   { t: 27.25, k: "final_pulse" },
   { t: 28.15, k: "impact_final" },
 ];

@@ -106,15 +106,19 @@ export default function build(ctx) {
       camera.lookAt(lerp(1.2, 0, k), lerp(0.95, 0.2, k), lerp(1.2, 0.6, k));
 
       // power down toward black, leaving the core lit
-      const pd = easeInOutCubic(invLerp(2.35, 3.0, t));
-      scene.background.copy(bgLight).lerp(bgDark, pd);
+      // light level falls so the picture dims at an even rate on screen
+      // (display-linear), from full at 26.2 s to black at the cut
+      const u = invLerp(2.2, 3.0, t);
+      const L = 0.94 * Math.pow(1 - u, 1.1) + 0.06 * (1 - smooth(0.75, 1.0, u));
+      const pd = 1 - L;
+      scene.background.copy(bgLight).multiplyScalar(L);
       scene.fog.color.copy(scene.background);
-      floor.material.color.copy(floorLight).lerp(floorDark, pd);
-      scene.environmentIntensity = lerp(1.0, 0.15, pd);
-      key.intensity = lerp(3600, 0, pd);
-      rim1.intensity = lerp(1.6, 0.2, pd);
-      hemi.intensity = lerp(0.55, 0, pd);
-      coreSpot.intensity = lerp(0, 2400, pd);
+      floor.material.color.copy(floorLight).lerp(floorDark, invLerp(0.15, 1.0, u));
+      scene.environmentIntensity = Math.max(0.15, L);
+      key.intensity = 3600 * L;
+      rim1.intensity = 1.6 * L;
+      hemi.intensity = 0.55 * L;
+      coreSpot.intensity = 2400 * smooth(0.25, 0.9, u);
       return look({
         exposure: 1.0,
         aperture: lerp(14, 6, k),

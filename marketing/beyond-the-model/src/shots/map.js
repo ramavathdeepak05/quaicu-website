@@ -146,7 +146,7 @@ export function buildMap(scene, o = {}) {
     m.scale.setScalar(0.85);
     scene.add(m);
     M.tiles.push(m);
-    const k = conduit([x + 0.75, 0.16, z * 0.98], [0.0, 0.16, z * 0.25], { packets: 3, w: 0.18, h: 0.11 });
+    const k = conduit([x + 0.75, 0.16, z * 0.98], [0.0, 0.16, z * 0.25], { packets: 3, w: 0.18, h: 0.11, spec: 0.25, roughness: 0.32 });
     scene.add(k);
     M.dataLinks.push(k);
     M.links.push(k);
@@ -158,7 +158,7 @@ export function buildMap(scene, o = {}) {
   lane.position.set(4.3, 0, -2.75);
   scene.add(lane);
   M.lane = lane;
-  const feed = conduit([1.1, 0.16, -0.5], [1.55, 0.16, -2.75], { packets: 1, w: 0.16, h: 0.1 });
+  const feed = conduit([1.1, 0.16, -0.5], [1.55, 0.16, -2.75], { packets: 1, w: 0.16, h: 0.1, spec: 0.25, roughness: 0.32 });
   scene.add(feed);
   M.links.push(feed);
   const tool = module("terminal");
@@ -190,7 +190,7 @@ export function buildMap(scene, o = {}) {
   scene.add(ev);
   M.tiles.push(ev);
   M.event = ev;
-  const evLink = conduit([1.0, 0.16, 0.5], [RISK[2][0] - 0.6, 0.16, RISK[2][1] - 0.2], { packets: 2, w: 0.16, h: 0.1 });
+  const evLink = conduit([1.0, 0.16, 0.5], [RISK[2][0] - 0.6, 0.16, RISK[2][1] - 0.2], { packets: 2, w: 0.16, h: 0.1, spec: 0.25, roughness: 0.32 });
   scene.add(evLink);
   M.links.push(evLink);
   // event rings that go nowhere

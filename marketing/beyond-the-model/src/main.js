@@ -52,6 +52,7 @@ async function boot() {
     ov.update(t);
     return true;
   };
+  window.__shots = built; // for debugging scripts
   window.__meta = { fps: FPS, duration: DURATION, shots: SHOTS, cues: CUES, w: W, h: H };
   // Pre-build the first requested shot so the first frame is not slow.
   const warm = q.get("warm");

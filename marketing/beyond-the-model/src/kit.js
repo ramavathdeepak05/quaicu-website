@@ -26,7 +26,7 @@ export function glass(o = {}) {
     attenuationDistance: o.attenuation ?? 2.5,
     clearcoat: o.clearcoat ?? 0.7,
     clearcoatRoughness: 0.08,
-    specularIntensity: 1,
+    specularIntensity: o.spec ?? 1,
     envMapIntensity: o.env ?? 1.0,
     transparent: false,
     side: o.side ?? THREE.FrontSide,
@@ -458,7 +458,8 @@ export function tile(icon, o = {}) {
     if (s.iconGlow !== undefined) iconMat.color.copy(hdr(s.iconColor ?? o.iconColor ?? C.emeraldHi, s.iconGlow));
     if (s.glow !== undefined) {
       strip.material.color.copy(hdr(s.color ?? C.emeraldHi, s.glow));
-      if (bu) bu.glowColor.value.copy(hdr(s.color ?? C.emeraldHi, (o.bodyGlow ?? 0.9) * (s.glow / (o.glow ?? 4))));
+      const ref = o.glow ?? 4;
+      if (bu) bu.glowColor.value.copy(hdr(s.color ?? C.emeraldHi, (o.bodyGlow ?? 0.9) * (ref > 0 ? s.glow / ref : 0)));
     }
     if (s.icon) iconMat.map = iconTex(s.icon);
   };
@@ -495,7 +496,8 @@ export function base(o = {}) {
     const col = s.color ?? o.color ?? C.emeraldHi;
     slot.material.color.copy(hdr(col, k));
     seam.material.color.copy(hdr(col, k * 0.5));
-    sp.material.color.copy(hdr(col, (s.spill ?? o.spill ?? 0.35) * (k / (o.glow ?? 3))));
+    const ref = o.glow ?? 3;
+    sp.material.color.copy(hdr(col, (s.spill ?? o.spill ?? 0.35) * (ref > 0 ? k / ref : 0)));
   };
   return g;
 }
@@ -525,7 +527,7 @@ export function conduit(a, b, o = {}) {
   const len = A.distanceTo(B);
   const w = o.w ?? 0.22,
     h = o.h ?? 0.14;
-  const body = new THREE.Mesh(rbox(w, h, len, Math.min(w, h) * 0.25, 3), o.material || glass({ roughness: 0.18, thickness: 0.2, rim: o.rim ?? 0.08, env: 0.6 }));
+  const body = new THREE.Mesh(rbox(w, h, len, Math.min(w, h) * 0.25, 3), o.material || glass({ roughness: o.roughness ?? 0.18, thickness: 0.2, rim: o.rim ?? 0.08, env: 0.6, spec: o.spec ?? 1 }));
   g.add(body);
   const fil = new THREE.Mesh(new THREE.BoxGeometry(w * 0.18, h * 0.18, len * 0.98), emissive(o.color ?? C.emeraldHi, o.glow ?? 1.6));
   g.add(fil);

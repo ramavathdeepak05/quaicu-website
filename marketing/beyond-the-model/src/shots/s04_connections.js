@@ -81,7 +81,7 @@ export default function build(ctx) {
     l.position.set(x, 0.75, z);
     scene.add(l);
     layers.push(l);
-    const sheet = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2.0, 0.012), glass({ roughness: 0.12, thickness: 0.02, rim: 0.25 }));
+    const sheet = new THREE.Mesh(new THREE.BoxGeometry(3.2, 2.0, 0.012), glass({ roughness: 0.12, thickness: 0.02, rim: 0.0, env: 0.25, spec: 0.3 }));
     sheet.position.set(x, 0.75, z + 0.01);
     scene.add(sheet);
   }

@@ -93,7 +93,7 @@ export default function build(ctx) {
       const ok = t >= APPROVE;
       ind.set({ icon: ok ? "checkCircle" : "pause", iconColor: ok ? C.emeraldHi : 0xf2f4f3, iconGlow: ok ? 3.2 + 2 * pulse(t, APPROVE, 0.03, 0.4) : 0.8 + 1.0 * held, glow: ok ? 4 : 1.2 });
       const ring = invLerp(APPROVE, APPROVE + 0.5, t);
-      okRing.scale.setScalar(1 + ring * 1.8);
+      okRing.scale.setScalar(1 + ring * 0.9);
       okRingMat.color.copy(new THREE.Color(C.emeraldHi).multiplyScalar(ok ? 3 * (1 - ring) : 0));
       rv.set({ glow: 2.6 + 1.6 * held * (ok ? 1.6 : 0.6) });
 

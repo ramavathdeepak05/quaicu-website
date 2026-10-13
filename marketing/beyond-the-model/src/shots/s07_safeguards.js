@@ -81,7 +81,7 @@ export default function build(ctx) {
   lg.position.set(6.55, 0, 2.5);
   lg.set({ written: 10, flash: 0 });
   layers[3].add(lg);
-  const evToLedger = conduit([RISK[2][0] + 0.55, 0.16, RISK[2][1]], [6.0, 0.16, 2.5], { packets: 2, w: 0.14, h: 0.09 });
+  const evToLedger = conduit([RISK[2][0] + 0.55, 0.16, RISK[2][1]], [6.0, 0.16, 2.5], { packets: 2, w: 0.14, h: 0.09, spec: 0.25, roughness: 0.32 });
   layers[3].add(evToLedger);
   addFlash(3, 6.0, 2.5, 2.4, 1.8);
   addGuide(3, 6.55, 2.5);
