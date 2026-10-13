@@ -1,0 +1,41 @@
+@font-face { font-family: "Inter"; font-weight: 300; src: url("../node_modules/@fontsource/inter/files/inter-latin-300-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 400; src: url("../node_modules/@fontsource/inter/files/inter-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 500; src: url("../node_modules/@fontsource/inter/files/inter-latin-500-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter"; font-weight: 600; src: url("../node_modules/@fontsource/inter/files/inter-latin-600-normal.woff2") format("woff2"); }
+
+html, body { margin: 0; padding: 0; background: #000; overflow: hidden; }
+#gl { position: absolute; inset: 0; display: block; }
+#overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  font-family: "Inter", system-ui, sans-serif; color: #f7f7f5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Cinematic title: small caps-spaced line with an emerald hairline */
+.title {
+  position: absolute; left: 0; right: 0; text-align: center;
+  font-weight: 500; text-transform: uppercase;
+  font-size: 3.15vh; letter-spacing: 0.42em; text-indent: 0.42em;
+  opacity: 0; white-space: nowrap;
+  text-shadow: 0 0 2.2vh rgba(0, 0, 0, 0.55);
+}
+.title::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 120vh; height: 16vh; transform: translate(-50%, -62%);
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)); z-index: -1;
+}
+.title .rule {
+  display: block; margin: 2.1vh auto 0; width: 6.5vh; height: 0.2vh;
+  background: #00c853; box-shadow: 0 0 1.4vh rgba(0, 200, 83, 0.8);
+  transform-origin: 50% 50%;
+}
+
+/* End card */
+.end { position: absolute; inset: 0; opacity: 0; }
+.end .lockup { position: absolute; left: 50%; top: 40.5%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; }
+.end img { width: 15.5vh; height: 15.5vh; display: block; }
+.end .glow { position: absolute; left: 50%; top: 7.75vh; width: 46vh; height: 46vh; transform: translate(-50%, -50%); background: radial-gradient(closest-side, rgba(0, 200, 83, 0.22), rgba(0, 200, 83, 0.0)); }
+.end .word { margin-top: 3.4vh; font-weight: 600; font-size: 5.2vh; letter-spacing: 0.34em; text-indent: 0.34em; }
+.end .line { position: absolute; left: 0; right: 0; top: 66.5%; text-align: center; font-weight: 500; font-size: 2.35vh; letter-spacing: 0.42em; text-indent: 0.42em; color: #e9ebe8; }
+.end .line .dot { color: #00c853; }
+.end .rule2 { position: absolute; left: 50%; top: 62.2%; width: 5vh; height: 0.2vh; margin-left: -2.5vh; background: #00c853; box-shadow: 0 0 1.2vh rgba(0, 200, 83, 0.7); }
+.end .url { position: absolute; left: 0; right: 0; bottom: 7.2%; text-align: center; font-weight: 400; font-size: 1.95vh; letter-spacing: 0.24em; text-indent: 0.24em; color: #a9aeab; }

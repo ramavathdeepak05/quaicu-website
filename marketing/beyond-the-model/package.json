@@ -1,0 +1,16 @@
+{
+  "name": "quaicu-beyond-the-model",
+  "version": "1.0.0",
+  "private": true,
+  "description": "QUAICU: Beyond the Model. 30-second 3D brand film rendered frame by frame with three.js.",
+  "type": "module",
+  "scripts": {
+    "render": "node render.mjs",
+    "stills": "node render.mjs --stills"
+  },
+  "dependencies": {
+    "@fontsource/inter": "5.2.8",
+    "playwright-core": "1.56.1",
+    "three": "0.170.0"
+  }
+}
