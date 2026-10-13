@@ -10,7 +10,7 @@ Status values: `idea`, `drafted`, `published`, `refresh` (published but weak), `
 |---|---|---|---|
 | quaicu | `/` | published | Branded. Already position 1; 617 impressions in 30 days (2026-10-08 report). |
 | gemini spark | `/blog/gemini-spark-googles-24-7-ai-agent-explained-how-it-works-faqs/` | refresh | Biggest non-brand traffic source: 188 impressions, 0 clicks, positions 4 to 20. Rewrite the SEO title and description for click-through and add a section tying it to governing AI agents (links to `/trust`). Off-brand topic, so do not publish more like it. |
-| non bypassable ai governance | `/trust` | idea | 12 impressions on the old `/architecture` URL, which now redirects to `/trust`. A post on this phrase would fit the brand. |
+| non bypassable ai governance | `/blog/non-bypassable-ai-governance-what-it-means-and-how-to-test-it/` | drafted | 12 impressions on the old `/architecture` URL, which now redirects to `/trust`. Post drafted 2026-10-08, pending review. Supports `/trust`. |
 | AI governance for regulated industries | `/for/regulated-teams` | idea (hypothesis) | Post: what "governed AI" means for banks, hospitals and universities. |
 | human approval for AI actions | `/trust` | idea (hypothesis) | Post: why approval gates matter more than prompt guardrails. |
 | AI audit trail | `/trust` | published | Covered by "Your AI Copilot Can't Save You From an Audit"; consider a follow-up with a checklist. |
