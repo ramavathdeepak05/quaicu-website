@@ -128,12 +128,16 @@ const b64url = (o) => Buffer.from(JSON.stringify(o)).toString("base64").replace(
 
 function target(id) {
   if (VIDEOS[id]) {
-    const dir = path.join(OUT, "campaign");
+    // Campaign videos are 4:5 into out/campaign; a video can set its own
+    // format and folder (the company videos: out/company, 16:9 or 4:5).
+    const v = VIDEOS[id];
+    const fmt = v.format || "4x5";
+    const dir = path.join(OUT, v.out || "campaign");
     const sfx = vo ? "-vo" : "";
     const plan = planFor(id);
     return {
-      query: `video=${id}${plan ? `&timing=${b64url(plan)}` : ""}`, dims: DIMS["4x5"], campaign: true, plan,
-      out: path.join(dir, `${id}-4x5${sfx}.mp4`), cover: path.join(dir, `${id}-cover.jpg`), srt: path.join(dir, `${id}.srt`),
+      query: `video=${id}${plan ? `&timing=${b64url(plan)}` : ""}`, dims: DIMS[fmt], campaign: true, plan,
+      out: path.join(dir, `${id}-${fmt}${sfx}.mp4`), cover: path.join(dir, `${id}-cover.jpg`), srt: path.join(dir, `${id}.srt`),
     };
   }
   return { query: `cut=${id}`, dims: DIMS[CUTS[id].format], out: path.join(OUT, `quaicu-launch-${id.replace(/-(\d+)$/, "-$1s")}.mp4`) };

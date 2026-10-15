@@ -18,6 +18,8 @@
 // fill: true marks a video that still contains [FILL] placeholders; the
 // renderer refuses it unless --allow-fill is passed.
 
+import { COMPANY_VIDEOS } from "./company.js";
+
 const END = ["endcard", 8, {}];
 // Silent end card for the Zelios-style videos: logo, line and URL over the music.
 const END_Z = ["endcard", 8, { enter: "mask", enterDur: 0.8 }];
@@ -380,4 +382,7 @@ export const VIDEOS = {
   },
 };
 
+// The 24 Month Twelve videos ("--video all").
 export const VIDEO_IDS = Object.keys(VIDEOS);
+// The company introduction videos render through the same pipeline.
+Object.assign(VIDEOS, COMPANY_VIDEOS);

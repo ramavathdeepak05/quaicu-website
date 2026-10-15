@@ -16,7 +16,13 @@ import { clamp, LOGO_SRC } from "../../lib.js";
 
 const io = (x) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const blur = (px) => (px > 0.05 ? `blur(${px.toFixed(2)}px)` : "");
-const W = 1080, H = 1350, CX = 540, CY = 640;
+// Stage size and the point the logo mask grows from (where the end card's
+// mark sits). 4:5 by default; zStage("16x9") for the wide videos.
+let W = 1080, H = 1350, CX = 540, CY = 640;
+export function zStage(fmt) {
+  if (fmt === "16x9") [W, H, CX, CY] = [1920, 1080, 960, 450];
+  else [W, H, CX, CY] = [1080, 1350, 540, 640];
+}
 
 function maskClip(p) {
   // A rounded square grows from the logo's size until it covers the frame.
@@ -52,13 +58,14 @@ export function zTransition(s, lt) {
   cam.style.clipPath = clip;
 }
 
-// Small wordmark top left, series label top right. Colours follow the
-// current scene's tone (opts.tone "light" for bright scenes).
-export function buildZChrome(el, { num, timeline, duration }) {
+// Small wordmark top left, series label top right (label: null hides it).
+// Colours follow the current scene's tone (opts.tone "light" for bright scenes).
+export function buildZChrome(el, { num, label, timeline, duration }) {
   el.className = "z-chrome";
+  const text = label === undefined ? `Month Twelve · ${num}` : label;
   el.innerHTML = `
     <div class="z-mark"><img src="${LOGO_SRC}" alt=""><span>QUAICU</span></div>
-    <div class="z-series">Month Twelve · ${num}</div>`;
+    ${text ? `<div class="z-series">${text}</div>` : ""}`;
   const end = timeline.find((s) => s.name === "endcard");
   const endAt = end ? end.start - end.tin / 2 : duration;
   timeline.forEach((s, i) => (s.nextEnter = timeline[i + 1] ? timeline[i + 1].enter : null));

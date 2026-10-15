@@ -1,6 +1,7 @@
 // Stage bootstrap.
 //   ?cut=16x9-60        which cut to build (see cuts.js)
-//   ?video=V01          a Month Twelve campaign video, 4:5 (see campaign/videos.js)
+//   ?video=V01          a Month Twelve campaign video, 4:5 (see campaign/videos.js),
+//                       or a company video (INTRO, 16:9; see campaign/company.js)
 //   &timing=<base64>    the voice-first plan from render.mjs (measured phrase
 //                       lengths); without it the page estimates from word counts
 //   &guides=1           draw the 9:16 ad safe zone
@@ -17,8 +18,9 @@ import { CAMPAIGN_SCENES } from "./campaign/scenes/index.js";
 import { buildCampaignChrome } from "./campaign/chrome.js";
 import { spring } from "./campaign/scenes/common.js";
 import { planTiming } from "./campaign/timing.js";
-import { buildZChrome, zTransition } from "./campaign/z/stage.js";
+import { buildZChrome, zTransition, zStage } from "./campaign/z/stage.js";
 import { Z_SCENES } from "./campaign/z/scenes.js";
+import { COMPANY_SCENES } from "./campaign/z/company.js";
 
 export const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] };
 
@@ -28,7 +30,7 @@ const cutId = videoId || q.get("cut") || "16x9-60";
 const cut = videoId ? campaignCut(videoId) : CUTS[cutId];
 if (!cut) throw new Error("Unknown cut " + cutId);
 const fmt = cut.format;
-const REGISTRY = videoId ? (cut.style === "z" ? { ...CAMPAIGN_SCENES, ...Z_SCENES } : CAMPAIGN_SCENES) : SCENES;
+const REGISTRY = videoId ? (cut.style === "z" ? { ...CAMPAIGN_SCENES, ...Z_SCENES, ...COMPANY_SCENES } : CAMPAIGN_SCENES) : SCENES;
 
 // A campaign video as a cut: 4:5, timed voice-first (each scene as long as
 // its narration), the first scene starts complete so the hook reads on frame
@@ -46,7 +48,7 @@ function campaignCut(id) {
     // opts.animateIn lets an opening scene play its entry instead of starting complete.
     return [name, sc.dur / BEAT, { ...opts, first: i === 0 && !opts.animateIn, section, voAt: sc.voAt, voDur: sc.voDur || [], voEnd: sc.voEnd }];
   });
-  return { format: "4x5", scenes, num: v.badge || id.replace(/^V/, ""), phrases: plan.phrases, style: v.style || "" };
+  return { format: v.format || "4x5", scenes, num: v.badge || id.replace(/^V/, ""), label: v.label, phrases: plan.phrases, style: v.style || "" };
 }
 
 const stage = document.getElementById("stage");
@@ -55,6 +57,7 @@ stage.className = "f-" + fmt + (cut.style ? " " + cut.style : "");
 // cutting. Each scene enters with opts.enter ("blur" | "mask" | "zoom" |
 // "push") over opts.enterDur seconds, straddling its start.
 const Z = cut.style === "z";
+if (Z) zStage(fmt);
 if (q.get("guides")) stage.classList.add("show-guides");
 
 async function loadFonts() {
@@ -100,7 +103,7 @@ async function main() {
   timeline.forEach((s, i) => (s.tout = timeline[i + 1] ? timeline[i + 1].tin : 0));
   const chromeEl = document.getElementById("chrome");
   const chrome = Z
-    ? buildZChrome(chromeEl, { num: cut.num, timeline, duration })
+    ? buildZChrome(chromeEl, { num: cut.num, label: cut.label, timeline, duration })
     : videoId
     ? buildCampaignChrome(chromeEl, { num: cut.num, timeline, duration })
     : buildChrome(chromeEl, { ...ctxBase, timeline });

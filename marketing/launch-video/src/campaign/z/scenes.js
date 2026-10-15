@@ -10,20 +10,20 @@
 import { h, clamp, LOGO_SRC } from "../../lib.js";
 import { E, tw, shiftOf, blurIn, blurOut, richLine, scheduleLine, revealItem, buildBg, cursor, ICON } from "./common.js";
 
-const toneOf = (opts) => opts.tone || (opts.bg === "light" ? "light" : "dark");
-function sceneRoot(opts, cls) {
+export const toneOf = (opts) => opts.tone || (opts.bg === "light" ? "light" : "dark");
+export function sceneRoot(opts, cls) {
   const tone = toneOf(opts);
   const el = h("div", `scene zs ${cls}${tone === "light" ? " light" : ""}`);
   const bg = buildBg(el, opts.bg || "aurora", { tone, blur: opts.blur || 0, grid: !!opts.grid, seed: opts.seed || 1 });
   return { el, bg, tone };
 }
 // Start time for phrase k, or a fallback.
-const vo = (opts, k, fallback) => (opts.voAt && opts.voAt.length > k ? Math.max(0.05, opts.voAt[k] - 0.05) : fallback);
+export const vo = (opts, k, fallback) => (opts.voAt && opts.voAt.length > k ? Math.max(0.05, opts.voAt[k] - 0.05) : fallback);
 
 // Lines that blur in letter by letter. Each line starts with its say phrase
 // when there is one phrase per line; otherwise lines follow each other, and
 // a line given as { text, at: k } waits for phrase k.
-function textBlock(parent, lines, opts, startAt = 0.1) {
+export function textBlock(parent, lines, opts, startAt = 0.1) {
   const rows = lines.map((r) => (typeof r === "string" ? { text: r } : r));
   const L = rows.map((r) => richLine(parent, r.text, "zl" + (r.dim ? " dim" : "")));
   const perLine = opts.voAt && opts.voAt.length === rows.length;
@@ -490,6 +490,8 @@ const zend = {
     const url = h("div", "url zglass", `<i></i>${opts.url || "quaicu.org"}`);
     url.dataset.tf = "translateX(-50%)";
     el.append(url);
+    const prog = opts.programmes ? h("div", "prog", opts.programmes) : null;
+    if (prog) el.append(prog);
     const sq = lock.querySelector(".sq"), img = lock.querySelector("img"), wm = lock.querySelector(".wm"), wmIn = wm.firstChild, mk = lock.querySelector(".mk");
     let wmW = null;
     return {
@@ -515,6 +517,7 @@ const zend = {
         mk.style.transform = `scale(${(1 + 0.02 * Math.sin(t * 1.5)).toFixed(4)})`;
         tag.update(t - 1.45);
         blurIn(url, t, 2.0, { dy: 20 });
+        if (prog) blurIn(prog, t, 2.3, { dy: 16 });
       },
       cues: () => [{ t: 0.0, type: "resolve" }, { t: 0.5, type: "impact" }, { t: 1.05, type: "swell" }, { t: 2.0, type: "cta" }],
     };
