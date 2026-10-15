@@ -10,7 +10,12 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 
 **Line:** Software service that doesn't fade.
 
-**Campaign name:** *Month Twelve*. Most agencies are at their best in month one and slowly decay. We ask buyers to judge a vendor on month twelve instead, and show how QUAICU stays the same: an AI agent that does the repeatable work the same way every time, a named person who reviews every delivery, and a record of every action.
+**Campaign name:** *Month Twelve*. Most agencies are at their best in month one and slowly decay. We ask buyers to judge a vendor on month twelve instead, and show how QUAICU stays the same:
+- **A forward deployed engineer (FDE) for every client.** One engineer who stays with your account, manages the relationship, works in your tools (remote by default, on site when needed) and signs off every delivery.
+- **An AI agent** that works alongside the FDE and does the repeatable work the same way every time.
+- **A record of every action**, so nothing depends on anyone's memory, and anyone covering for your FDE can pick up where they left off.
+
+**How to say it:** "forward deployed engineer" in full in posts for CTOs. In posts for UAE business owners, explain it once: "one engineer who works with your team, manages the work, and signs off everything our AI agent does".
 
 **Why this story:** complaints about agencies were the largest group of buyer problems in the research (about 42 mentions): missed deadlines, vendors going silent, people swapped mid-project, status calls that hide slipped dates, code held hostage. Every post in this campaign answers one of them.
 
@@ -69,7 +74,7 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 | 2 | Thu 29 Oct | Company | V04 | Quote card | "Hold my software and code hostage" | All |
 | 3 | Tue 3 Nov | Deepak | V05 | Stat drop | 10–15% of GenAI pilots reach production | India |
 | 3 | Wed 4 Nov | Xavier | T03 | Text | Demo fatigue | India |
-| 3 | Thu 5 Nov | Company | V06 | Ticket journey | What happens after you raise a ticket | All |
+| 3 | Thu 5 Nov | Company | V06 | Ticket journey | Your forward deployed engineer, and what happens to a ticket | All |
 | 4 | Tue 10 Nov | Deepak | V07 | Kinetic | Judge a vendor on month twelve | All |
 | 4 | Wed 11 Nov | Xavier | T04 | Text | The honest offshore post | US/UK/EU |
 | 4 | Thu 12 Nov | Company | V08 | Quote card | Know who did the work | All |
@@ -85,7 +90,7 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 | 8 | Tue 8 Dec | Deepak | V15 | Quote card | When a chatbot needs a human | UAE |
 | 8 | Wed 9 Dec | Xavier | T08 | Text | Before you replace your spreadsheet | UAE |
 | 8 | Thu 10 Dec | Company | V16 | Stat drop | 13 people will judge your AI project | India |
-| 9 | Tue 15 Dec | Deepak | V17 | Ticket journey (variant) | What our reviewer checks | All |
+| 9 | Tue 15 Dec | Deepak | V17 | Ticket journey (variant) | What your engineer checks before anything ships | All |
 | 9 | Wed 16 Dec | Xavier | T09 | Text | Founder story `[FILL]` | All |
 | 9 | Thu 17 Dec | Company | V18 | Stat drop | 40% of agentic AI projects will be cancelled | India |
 | 10 | Tue 22 Dec | Deepak | V19 | The slide (reprise) | What month twelve should feel like | All |
@@ -108,6 +113,7 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 - [ ] Build the six new video templates (see `video-briefs.md`) and render V01 to V04
 - [ ] Check every figure used in weeks 1 to 4 on its source page (Section 8)
 - [ ] Founders decide what can be said publicly about the internal AI agent
+- [ ] Confirm the FDE promise you're making in public: that an engineer stays with the account, how cover works during leave, and how much notice a client gets before a change of engineer (V20 and V21 rely on this)
 - [ ] Start collecting delivery data for V21 (on-time rate, response times, sign-offs)
 
 ---
@@ -128,7 +134,7 @@ Then the next new client signs. Faces change. The weekly call stays, but the dem
 
 Nobody decides to get worse. It happens when quality depends on who has time this week.
 
-We built QUAICU so it doesn't. Our AI agent does the repeatable work the same way on day 300 as on day one. A named person reviews every delivery before it ships. Every action is on record.
+We built QUAICU so it doesn't. Every client gets a forward deployed engineer who stays with them. Our AI agent does the repeatable work the same way on day 300 as on day one, and that engineer signs off every delivery. Every action is on record.
 
 Judge a vendor on month twelve, not month one.
 
@@ -168,7 +174,7 @@ Two questions to ask before you sign:
 1. Who exactly will work on this in month six?
 2. What happens to quality if one of them leaves?
 
-Our answer: the repeatable work is done by our AI agent, the same way every time, and a named person reviews every delivery. Quality doesn't walk out of the door with one engineer.
+Our answer: every client gets one forward deployed engineer, who stays with the account and signs off every delivery. Our AI agent does the repeatable work alongside them, the same way every time. The person you meet in week one is the person you work with in month six.
 
 #SoftwareDevelopment #Outsourcing
 ```
@@ -270,14 +276,17 @@ If the vendor can't answer, it's a science project.
 
 **V06 · Thu 5 Nov · Company · video V06**
 ```
-What happens after you raise a ticket with us.
+Every QUAICU client gets a forward deployed engineer.
 
-1. Raised: you tell us what you need, in plain words.
-2. Engine: our AI agent takes the repeatable work.
-3. Review: a named person checks it before anything ships.
+One engineer who knows your business, works in your tools, comes on site when it's needed, and is your single point of contact. They work alongside our AI agent.
+
+Here's what happens when you raise a ticket:
+1. Raised: you tell your engineer what you need, in plain words.
+2. Engine: our AI agent does the repeatable work.
+3. Review: your engineer checks it and signs it off.
 4. Delivered: you get the change and a record of what was done.
 
-Same four steps on the first ticket and the five hundredth. That is the point.
+Same engineer, same four steps, on the first ticket and the five hundredth.
 
 #SoftwareDevelopment #ManagedServices
 ```
@@ -308,8 +317,8 @@ The concerns are real, and buyers have written about them for years: time zones,
 
 We are a Hyderabad company. We don't think the answer is to hide that. The answer is specific safeguards:
 
-1. Named people on your work, not a rotating pool.
-2. A person reviews every delivery before it ships.
+1. One forward deployed engineer for your account, not a rotating pool. Working in your tools and hours, and on site when it's needed.
+2. That engineer signs off every delivery before it ships.
 3. Every action is recorded, so you can check what happened while you slept.
 4. Your code and accounts stay in your name.
 
@@ -326,7 +335,7 @@ Buyers have described local agencies that were "just a front to outsource all of
 
 Both can be fine. Not knowing is the problem.
 
-At QUAICU every action is recorded: what our AI agent did, what a person did, and who signed it off. You can read it.
+At QUAICU every action is recorded: what our AI agent did, what your forward deployed engineer did, and when they signed it off. You can read it.
 
 #ArtificialIntelligence #SoftwareDevelopment
 ```
@@ -390,7 +399,7 @@ Everyone talks about AI making software teams faster. We care more about AI maki
 
 Speed peaks when a project is new and everyone is paying attention. Consistency is what's left in month twelve.
 
-Our AI agent does the repeatable work the same way on day 300 as on day one: the same checks, the same steps, nothing forgotten because someone was busy. A named person reviews every delivery.
+Our AI agent does the repeatable work the same way on day 300 as on day one: the same checks, the same steps, nothing forgotten because someone was busy. That frees your forward deployed engineer to spend their time on judgement: understanding your business and signing off every delivery.
 
 Fast in month one is easy. Same in month twelve is the job.
 
@@ -399,16 +408,16 @@ Fast in month one is easy. Same in month twelve is the job.
 
 **T06 · Wed 25 Nov · Xavier · text**
 ```
-If your service depends on one great engineer, it will fade.
+Good service needs two things: a person who knows you, and a system that doesn't forget.
 
-Great people go on leave, change projects or move on. When quality lives in one head, it leaves with them.
+Most vendors offer one or the other. A great engineer who keeps everything in their head, until they go on leave. Or a ticket system where nobody knows your business.
 
-Three things that keep quality in the process instead:
-1. Write the checks down, and run them every time.
-2. Let automation do the repeatable steps, so they don't depend on someone's memory.
-3. Have a second person review every delivery, by name.
+How we combine them:
+1. Every client has one forward deployed engineer who stays with the account and knows the business.
+2. Our AI agent runs the repeatable steps and checks the same way every time, so nothing depends on memory.
+3. Every action is recorded, so if your engineer is away, whoever covers starts from the full history, not from zero.
 
-Heroes are great. Systems are dependable.
+The person brings judgement. The system brings consistency.
 
 #SoftwareEngineering #Leadership
 ```
@@ -439,7 +448,7 @@ It's a fair worry. If you're paid per ticket, closing tickets fast is the easy w
 
 That's why price isn't the only thing that should be fixed. Ours is:
 1. Every ticket has a size, agreed before work starts.
-2. Every delivery is reviewed by a named person.
+2. Every delivery is signed off by your forward deployed engineer, the same person each time.
 3. Every action is recorded, so "closed fast" can't hide "closed badly".
 
 You pay for the work. The review is how you know it's done properly.
@@ -534,14 +543,14 @@ Write your AI proposal for all four, not just the person who asked for it.
 
 **V17 · Tue 15 Dec · Deepak · video V17**
 ```
-What our reviewer checks before anything ships.
+What your forward deployed engineer checks before anything ships.
 
-Every QUAICU delivery is reviewed by a named person. Here's what they look at:
+Every QUAICU delivery is signed off by the client's own forward deployed engineer, after our AI agent has done the repeatable work. Here's what they look at:
 
 1. Does it do what the ticket asked, and nothing else?
 2. Did the automated checks run and pass?
 3. Is anything touching data, payments or access?
-4. Is the change recorded, with what was done by AI and what by a person?
+4. Is the change recorded, with what our AI agent did and what they did?
 5. Would they be comfortable putting their name on it?
 
 Number 5 is the one that matters.
@@ -598,9 +607,9 @@ We'll read every answer.
 ```
 5 terms to put in your next software contract so service can't quietly slip.
 
-1. Named people, and notice before anyone is replaced.
+1. One named engineer for your account, and notice before they're replaced.
 2. Response times that apply in month twelve, not just month one.
-3. A named reviewer for every delivery.
+3. A named person who signs off every delivery.
 4. Code, hosting and accounts in your name.
 5. A record of every change you can read anytime.
 
@@ -638,7 +647,8 @@ We say our service doesn't fade. Here are our numbers.
 
 [FILL: on-time deliveries, last 90 days]
 [FILL: median first-response time]
-[FILL: deliveries reviewed by a named person]
+[FILL: deliveries signed off by the client's forward deployed engineer]
+[FILL: clients still with their original engineer]
 [FILL: the same figures for clients in their 12th month or later]
 
 We'll publish these every quarter. If they slip, you'll see it here first.
@@ -652,7 +662,7 @@ We say our service doesn't fade. So here's what we're going to measure, and publ
 
 1. Deliveries on or before the agreed date
 2. Time to first response
-3. Deliveries reviewed by a named person
+3. Clients still with their original forward deployed engineer
 4. All three, for clients in their 12th month or later
 
 Number 4 is the one that proves it. First numbers next quarter.
@@ -684,9 +694,8 @@ Every action on record. Person or AI.
 
 When something changes in your system, you should be able to see:
 What changed.
-Whether our AI agent or a person did it.
-Who reviewed it.
-When.
+Whether our AI agent or your forward deployed engineer did it.
+When your engineer signed it off.
 
 Not because something will go wrong. Because if it does, you shouldn't have to take anyone's word for what happened.
 
@@ -703,7 +712,7 @@ Judge a vendor on month twelve, not month one.
 A status call is not progress.
 Your code and accounts belong in your name.
 Pilots fail in the handover, not the model.
-A person approves. Every action is on record.
+One engineer who stays. An AI agent that doesn't forget.
 
 Which one would you add?
 
@@ -729,7 +738,7 @@ Software service that doesn't fade.
 
 QUAICU builds and supports software and AI for growing businesses.
 
-Our AI agent does the repeatable work the same way every time. A named person reviews every delivery. Every action is on record. Your code and accounts stay in your name.
+Every client gets a forward deployed engineer who stays with them, on site when it's needed. Our AI agent works alongside them and does the repeatable work the same way every time. Your engineer signs off every delivery. Every action is on record. Your code and accounts stay in your name.
 
 Month one or month twelve, the same.
 

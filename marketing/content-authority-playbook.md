@@ -38,9 +38,12 @@ WHO IT'S FOR (1 person):  PRIMARY: the CTO / head of IT of an Indian mid-market 
                           who needs to know where their data lives.
 THEIR #1 PROBLEM:         Vendors start strong and then decay: deadlines slip, people change,
                           status calls hide real progress. Meanwhile AI pilots stall.
-OUR #1 SOLUTION:          An internal AI agent does the repeatable work the same way every time;
-                          a named person reviews every delivery; every action is recorded; code,
-                          accounts and data stay in the client's name.
+OUR #1 SOLUTION:          A forward deployed engineer (FDE) for every client: one engineer who
+                          stays with the account, manages the relationship, works remote or on
+                          site as needed, and signs off every delivery. An internal AI agent works
+                          alongside them and does the repeatable work the same way every time.
+                          Every action is recorded; code, accounts and data stay in the client's
+                          name.
 OUR PERSPECTIVE (POV):    "Most agencies are at their best in month one and then slowly decay.
                           Service should get better as we learn your business, not worse."
 ONE-LINE NARRATIVE:       Software service that doesn't fade.
@@ -142,7 +145,7 @@ From the research's top 30, reordered so service-decay problems come first. Revi
 ## 6. Perspective
 
 **Master POV:**
-> "Most people think **an agency's first month shows you what you're buying**. But actually **most agencies are at their best in month one and slowly decay: new faces, slipping dates, status calls instead of progress**. Service should get better as a team learns your business, not worse. **Our internal AI agent does the repeatable work the same way on day 300 as on day one, and a named person checks every delivery, so quality doesn't depend on who is having a good week.**"
+> "Most people think **an agency's first month shows you what you're buying**. But actually **most agencies are at their best in month one and slowly decay: new faces, slipping dates, status calls instead of progress**. Service should get better as a team learns your business, not worse. **Every client gets a forward deployed engineer who stays with them and signs off every delivery. Our internal AI agent works alongside them and does the repeatable work the same way on day 300 as on day one, so quality doesn't depend on who is having a good week.**"
 
 | Supporting POV | Backed by |
 |---|---|
@@ -288,7 +291,8 @@ The line is a claim; buyers will want evidence. Publish a monthly delivery recor
 |---|---|
 | Deliveries on or before the agreed date | `[FILL]` |
 | Median first-response time | `[FILL]` |
-| Deliveries reviewed and signed off by a named person | `[FILL]` |
+| Deliveries signed off by the client's forward deployed engineer | `[FILL]` |
+| Clients still with their original forward deployed engineer | `[FILL]` |
 | Same metrics for clients in their 12th+ month | `[FILL]` |
 
 The last row is the one that proves the claim. Never publish a number that isn't from real data.

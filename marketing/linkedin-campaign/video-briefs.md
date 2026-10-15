@@ -51,7 +51,7 @@ Beats are half-seconds (60 beats = 30s). "On screen" is the exact copy.
 |---|---|---|
 | 0–8 | kinetic | "Most agencies are at their best in month one." |
 | 8–30 | slide | Axis "Month 1 … Month 12". Grey line labelled "Typical vendor" sags. Callouts appear along the dip: "New faces" · "Demos stop" · "Dates slip". Tag: `Illustrative` |
-| 30–44 | slide (cont.) | QUAICU line draws flat across. Label: "QUAICU". Caption: "Same steps. Same review. Every month." |
+| 30–44 | slide (cont.) | QUAICU line draws flat across. Label: "QUAICU". Caption: "Same engineer. Same steps. Every month." |
 | 44–52 | kinetic | "Judge a vendor on month twelve." |
 | 52–60 | endcard | Standard |
 
@@ -61,7 +61,7 @@ Beats are half-seconds (60 beats = 30s). "On screen" is the exact copy.
 | 0–14 | myth | Myth: "The team that pitched you is the team that stays." |
 | 14–30 | myth (reality) | Reality: "Senior people win the deal. Then they move to the next one." |
 | 30–44 | kinetic | White: "Ask who works on it" / Grey: "in month six." |
-| 44–52 | kinetic | "Quality shouldn't leave with one engineer." |
+| 44–52 | kinetic | White: "With us: one forward deployed engineer," / Grey: "from week one to month twelve." |
 | 52–60 | endcard | Standard |
 
 ### V03 · Checklist · Tue 27 Oct
@@ -89,13 +89,14 @@ Beats are half-seconds (60 beats = 30s). "On screen" is the exact copy.
 | 42–52 | kinetic | White: "Not a model problem." / Grey: "A delivery problem." |
 | 52–60 | endcard | Standard |
 
-### V06 · Ticket journey · Thu 5 Nov
-Reuses `offerings` (support track only) or `pipeline`.
+### V06 · Your forward deployed engineer · Thu 5 Nov
+Reuses `hub` (the launch video's ring, with the centre relabelled) and `offerings` (support track only).
 | Beats | Scene | On screen |
 |---|---|---|
-| 0–6 | kinetic | "What happens after you raise a ticket" |
-| 6–40 | offerings (support) | Stages: "Raised" → "Engine" → "Review" → "Delivered". Sub-captions: "You tell us what you need" · "Our AI agent does the repeatable work" · "A named person checks it" · "You get the change and the record" |
-| 40–52 | kinetic | White: "Ticket 1 or ticket 500." / Grey: "Same four steps." |
+| 0–8 | kinetic | "Every client gets a forward deployed engineer." |
+| 8–20 | hub | Centre: "Your engineer". Ring: "AI AGENT". Captions: "Knows your business" · "Works in your tools" · "On site when needed" |
+| 20–46 | offerings (support) | Stages: "Raised" → "Engine" → "Review" → "Delivered". Sub-captions: "You tell your engineer" · "Our AI agent does the repeatable work" · "Your engineer signs it off" · "You get the change and the record" |
+| 46–52 | kinetic | White: "Same engineer. Same four steps." / Grey: "Ticket 1 or ticket 500." |
 | 52–60 | endcard | Standard |
 
 ### V07 · Kinetic · Tue 10 Nov (series launch)
@@ -113,7 +114,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 |---|---|---|
 | 0–14 | quotecard | "Just a front to outsource all of the work overseas." Attribution: `From a founder on Hacker News` |
 | 14–24 | kinetic | "Now the question is: person or AI?" |
-| 24–44 | ledger | Ledger rows with an actor column: "AI agent · drafted change" · "Reviewer · approved" · "AI agent · ran checks" |
+| 24–44 | ledger | Ledger rows with an actor column: "AI agent · drafted change" · "AI agent · ran checks" · "Your engineer · signed off" |
 | 44–52 | kinetic | "Both are fine. Not knowing isn't." |
 | 52–60 | endcard | Standard |
 
@@ -138,7 +139,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 |---|---|---|
 | 0–8 | kinetic | "AI makes teams faster. That's not the point." |
 | 8–30 | slide (`variant: "speed"`) | A "Speed" line peaks early and drops. Tag `Illustrative` |
-| 30–44 | slide (cont.) | A flat "Consistency" line draws across. Caption: "Same checks on day 300 as day one" |
+| 30–44 | slide (cont.) | A flat "Consistency" line draws across. Caption: "AI agent: same checks on day 300. Your engineer: free for judgement." |
 | 44–52 | kinetic | White: "Fast in month one is easy." / Grey: "Same in month twelve is the job." |
 | 52–60 | endcard | Standard |
 
@@ -154,7 +155,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 | Beats | Scene | On screen |
 |---|---|---|
 | 0–14 | myth | Myth: "Per-ticket pricing means rushed tickets." |
-| 14–40 | checklist | Title "Reality, if it's done right": "Ticket size agreed first" · "A named person reviews every delivery" · "Every action recorded" |
+| 14–40 | checklist | Title "Reality, if it's done right": "Ticket size agreed first" · "Your engineer signs off every delivery" · "Every action recorded" |
 | 40–52 | kinetic | White: "You pay for the work." / Grey: "The review proves it's done." |
 | 52–60 | endcard | Standard |
 
@@ -185,10 +186,10 @@ Reuses `offerings` (support track only) or `pipeline`.
 | 44–52 | kinetic | "Write your AI proposal for all four." |
 | 52–60 | endcard | Standard |
 
-### V17 · Ticket journey (reviewer) · Tue 15 Dec
+### V17 · Ticket journey (sign-off) · Tue 15 Dec
 | Beats | Scene | On screen |
 |---|---|---|
-| 0–6 | kinetic | "What our reviewer checks" |
+| 0–6 | kinetic | "What your engineer checks before anything ships" |
 | 6–44 | checklist (numbered), over a dimmed `pipeline` window | 1 "Does what the ticket asked" · 2 "Checks ran and passed" · 3 "Touches data, payments or access?" · 4 "Recorded: AI or person" · 5 "Would I put my name on it?" |
 | 44–52 | kinetic | "Number 5 is the one that matters." |
 | 52–60 | endcard | Standard |
@@ -214,7 +215,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 | Beats | Scene | On screen |
 |---|---|---|
 | 0–8 | kinetic | "5 contract terms so service can't slip" |
-| 8–48 | checklist (numbered) | 1 "Named people, notice before changes" · 2 "Response times for month twelve" · 3 "A named reviewer per delivery" · 4 "Code and accounts in your name" · 5 "A change record you can read" |
+| 8–48 | checklist (numbered) | 1 "One named engineer, notice before changes" · 2 "Response times for month twelve" · 3 "A named sign-off per delivery" · 4 "Code and accounts in your name" · 5 "A change record you can read" |
 | 48–52 | kinetic | "Save this for January renewals." |
 | 52–60 | endcard | Standard |
 
@@ -223,7 +224,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 | Beats | Scene | On screen |
 |---|---|---|
 | 0–8 | kinetic | "We say our service doesn't fade. Our numbers:" |
-| 8–44 | statdrop ×4 (quick succession, 9 beats each) | `[FILL]` on-time · `[FILL]` median first response · `[FILL]` reviewed by a named person · `[FILL]` same figures, clients in month 12+ · Source line: `QUAICU delivery data, [period]` |
+| 8–44 | statdrop ×4 (quick succession, 9 beats each) | `[FILL]` on-time · `[FILL]` median first response · `[FILL]` clients still with their original engineer · `[FILL]` same figures, clients in month 12+ · Source line: `QUAICU delivery data, [period]` |
 | 44–52 | kinetic | "Published every quarter." |
 | 52–60 | endcard | Standard |
 
@@ -233,7 +234,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 | Beats | Scene | On screen |
 |---|---|---|
 | 0–8 | kinetic | "Every action on record. Person or AI." |
-| 8–40 | ledger | Rows build: "10:02 · AI agent · drafted fix" · "10:05 · AI agent · ran checks" · "10:40 · Reviewer · approved" · "10:41 · Shipped". Columns: What · Who · When |
+| 8–40 | ledger | Rows build: "10:02 · AI agent · drafted fix" · "10:05 · AI agent · ran checks" · "10:40 · Your engineer · signed off" · "10:41 · Shipped". Columns: What · Who · When |
 | 40–52 | kinetic | White: "If something goes wrong," / Grey: "you shouldn't have to take anyone's word." |
 | 52–60 | endcard | Standard |
 
@@ -241,7 +242,7 @@ Reuses `offerings` (support track only) or `pipeline`.
 | Beats | Scene | On screen |
 |---|---|---|
 | 0–6 | kinetic | "12 weeks of Month Twelve" |
-| 6–48 | kinetic, quick cuts of 8 beats each, each with a small frame from the original video | "Judge a vendor on month twelve." · "A status call is not progress." · "Your code belongs in your name." · "Pilots fail in the handover." · "A person approves. Every action is on record." |
+| 6–48 | kinetic, quick cuts of 8 beats each, each with a small frame from the original video | "Judge a vendor on month twelve." · "A status call is not progress." · "Your code belongs in your name." · "Pilots fail in the handover." · "One engineer who stays. An AI agent that doesn't forget." |
 | 48–52 | kinetic | "Which one would you add?" |
 | 52–60 | endcard | Standard |
 
@@ -251,7 +252,8 @@ Reuses `offerings` (support track only) or `pipeline`.
 |---|---|---|
 | 0–10 | kinetic | "Most agencies are at their best in month one." |
 | 10–30 | slide | Grey line sags, QUAICU line holds. Tag `Illustrative` |
-| 30–54 | pipeline | Delivery Activity window. Phrases: "Our AI agent does the repeatable work." · "A named person reviews every delivery." |
+| 30–42 | hub | Centre: "Your engineer". Ring: "AI AGENT". Phrase: "A forward deployed engineer for every client." |
+| 42–54 | pipeline | Delivery Activity window. Phrases: "Our AI agent does the repeatable work." · "Your engineer signs off every delivery." |
 | 54–66 | ledger | "Every action on record." |
 | 66–78 | kinetic | White: "Month one or month twelve," / Grey: "the same." |
 | 78–90 | endcard | Long version: logo, "Software service that doesn't fade.", "Built in Hyderabad · quaicu.org" |

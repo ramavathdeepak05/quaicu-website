@@ -1,38 +1,38 @@
 date,day,week,voice,id,format,topic,market,time_ist,chars,hook_chars,hashtags,status
-2026-10-20,Tue,1,Deepak,V01,The slide,Agencies are best in month one,All,09:30,666,54,2,ready
+2026-10-20,Tue,1,Deepak,V01,The slide,Agencies are best in month one,All,09:30,722,54,2,ready
 2026-10-21,Wed,1,Xavier,T01,Text,A status call is not progress,All,09:30,625,37,2,ready
-2026-10-22,Thu,1,Company,V02,Myth / reality,The team that pitched you is not the team that stays,All,10:00,671,56,2,ready
+2026-10-22,Thu,1,Company,V02,Myth / reality,The team that pitched you is not the team that stays,All,10:00,761,56,2,ready
 2026-10-27,Tue,2,Deepak,V03,Checklist,6 early signs your vendor is slipping,All,09:30,436,55,2,ready
 2026-10-28,Wed,2,Xavier,T02,Text,Day-one ownership,All,09:30,644,56,2,ready
 2026-10-29,Thu,2,Company,V04,Quote card,"""Hold my software and code hostage""",All,10:00,521,46,2,ready
 2026-11-03,Tue,3,Deepak,V05,Stat drop,10–15% of GenAI pilots reach production,India,09:30,609,99,3,ready
 2026-11-04,Wed,3,Xavier,T03,Text,Demo fatigue,India,09:30,631,121,2,ready
-2026-11-05,Thu,3,Company,V06,Ticket journey,What happens after you raise a ticket,All,10:00,394,46,2,ready
+2026-11-05,Thu,3,Company,V06,Ticket journey,"Your forward deployed engineer, and what happens to a ticket",All,10:00,610,53,2,ready
 2026-11-10,Tue,4,Deepak,V07,Kinetic,Judge a vendor on month twelve,All,09:30,478,46,2,ready
-2026-11-11,Wed,4,Xavier,T04,Text,The honest offshore post,US/UK/EU,09:30,739,53,2,ready
-2026-11-12,Thu,4,Company,V08,Quote card,Know who did the work,All,10:00,422,38,2,ready
+2026-11-11,Wed,4,Xavier,T04,Text,The honest offshore post,US/UK/EU,09:30,830,53,2,ready
+2026-11-12,Thu,4,Company,V08,Quote card,Know who did the work,All,10:00,450,38,2,ready
 2026-11-17,Tue,5,Deepak,V09,Checklist,"Pilot to production, steps 1–4",India,09:30,409,44,2,ready
 2026-11-18,Wed,5,Xavier,T05,Text,Governance is the top AI challenge,India,09:30,573,84,2,ready
 2026-11-19,Thu,5,Company,V10,Checklist,"Pilot to production, steps 5–8",India,10:00,477,44,2,ready
-2026-11-24,Tue,6,Deepak,V11,The slide (variant),"AI for consistency, not just speed",All,09:30,513,99,2,ready
-2026-11-25,Wed,6,Xavier,T06,Text,"Process, not heroes",All,09:30,493,60,2,ready
+2026-11-24,Tue,6,Deepak,V11,The slide (variant),"AI for consistency, not just speed",All,09:30,610,99,2,ready
+2026-11-25,Wed,6,Xavier,T06,Text,"Process, not heroes",All,09:30,700,88,2,ready
 2026-11-26,Thu,6,Company,V12,Checklist,4 data questions for any offshore vendor,UAE,10:00,482,64,3,ready
-2026-12-01,Tue,7,Deepak,V13,Myth / reality,Per-ticket means rushed?,All,09:30,504,50,2,ready
+2026-12-01,Tue,7,Deepak,V13,Myth / reality,Per-ticket means rushed?,All,09:30,549,50,2,ready
 2026-12-02,Wed,7,Xavier,T07,Text,"Retainer, per ticket or per project",All,09:30,659,87,2,ready
 2026-12-03,Thu,7,Company,V14,Kinetic,Banning ChatGPT doesn't work,All,10:00,431,53,2,ready
 2026-12-08,Tue,8,Deepak,V15,Quote card,When a chatbot needs a human,UAE,09:30,589,51,2,ready
 2026-12-09,Wed,8,Xavier,T08,Text,Before you replace your spreadsheet,UAE,09:30,599,89,2,ready
 2026-12-10,Thu,8,Company,V16,Stat drop,13 people will judge your AI project,India,10:00,467,56,2,ready
-2026-12-15,Tue,9,Deepak,V17,Ticket journey (variant),What our reviewer checks,All,09:30,479,47,2,ready
+2026-12-15,Tue,9,Deepak,V17,Ticket journey (variant),What your engineer checks before anything ships,All,09:30,575,65,2,ready
 2026-12-16,Wed,9,Xavier,T09,Text,Founder story `[FILL]`,All,09:30,,,,needs [FILL]
 2026-12-17,Thu,9,Company,V18,Stat drop,40% of agentic AI projects will be cancelled,India,10:00,434,91,2,ready
 2026-12-22,Tue,10,Deepak,V19,The slide (reprise),What month twelve should feel like,All,09:30,398,58,2,ready
 2026-12-23,Wed,10,Xavier,T10,Text,One question,All,09:30,181,34,0,ready
-2026-12-29,Tue,11,Deepak,V20,Checklist,5 contract terms so service can't slip,All,09:30,413,76,2,ready
+2026-12-29,Tue,11,Deepak,V20,Checklist,5 contract terms so service can't slip,All,09:30,442,76,2,ready
 2026-12-30,Wed,11,Xavier,T11,Text,Plan 2027: automate one process first,UAE,09:30,487,65,2,ready
 2027-01-05,Tue,12,Deepak,V21,Delivery record,Our numbers `[FILL]`,All,09:30,,,,needs [FILL]
 2027-01-06,Wed,12,Xavier,T12,Text,DPDP: the engineering work,India,09:30,635,67,3,ready
-2027-01-07,Thu,12,Company,V22,Ledger,Person or AI: every action on record,All,10:00,346,37,2,ready
-2027-01-12,Tue,13,Deepak,V23,Recap,Month Twelve in 30 seconds,All,09:30,325,40,2,ready
+2027-01-07,Thu,12,Company,V22,Ledger,Person or AI: every action on record,All,10:00,379,37,2,ready
+2027-01-12,Tue,13,Deepak,V23,Recap,Month Twelve in 30 seconds,All,09:30,336,40,2,ready
 2027-01-13,Wed,13,Xavier,T13,Text,What 90 days taught us,All,09:30,372,95,0,needs [FILL]
-2027-01-14,Thu,13,Company,V24,Anthem,Software service that doesn't fade (pin it),All,10:00,428,35,2,ready
+2027-01-14,Thu,13,Company,V24,Anthem,Software service that doesn't fade (pin it),All,10:00,547,35,2,ready
