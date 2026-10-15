@@ -75,6 +75,28 @@ def synth(a):
     json.dump(durs, open(a.durations, "w"))
 
 
+def write_srt(path, subs):
+    """Captions: a phrase that doesn't end a sentence ("Put your code,") is
+    merged with the next one, long captions break over two balanced lines,
+    and each caption ends before the next starts."""
+    cues = []
+    for s0, s1, text in subs:
+        if cues and not cues[-1][2].rstrip("”’\"')").endswith((".", "?", "!")):
+            cues[-1] = (cues[-1][0], s1, cues[-1][2] + " " + text)
+        else:
+            cues.append((s0, s1, text))
+    with open(path, "w", encoding="utf-8") as f:
+        for j, (s0, s1, text) in enumerate(cues):
+            end = s1 + 0.15
+            if j + 1 < len(cues):
+                end = min(end, cues[j + 1][0] - 0.02)
+            if len(text) > 42:
+                words = text.split()
+                cut = min(range(1, len(words)), key=lambda k: abs(len(" ".join(words[:k])) - len(text) / 2))
+                text = " ".join(words[:cut]) + "\n" + " ".join(words[cut:])
+            f.write(f"{j + 1}\n{srt_time(s0)} --> {srt_time(end)}\n{text}\n\n")
+
+
 def assemble(a):
     plan = json.load(open(a.assemble))
     dur = plan["duration"]
@@ -92,9 +114,7 @@ def assemble(a):
     out = out / peak * 0.89  # about -1 dBFS; loudness is set when mixing
     sf.write(a.out, np.stack([out, out], axis=1), SR_OUT, subtype="PCM_16")
     if a.srt:
-        with open(a.srt, "w", encoding="utf-8") as f:
-            for j, (s0, s1, text) in enumerate(subs, 1):
-                f.write(f"{j}\n{srt_time(s0)} --> {srt_time(s1 + 0.15)}\n{text}\n\n")
+        write_srt(a.srt, subs)
     # Report silences longer than half a second between phrases.
     gaps = [round(subs[i + 1][0] - subs[i][1], 2) for i in range(len(subs) - 1)]
     print(f"  {len(subs)} phrases, longest gap {max(gaps) if gaps else 0:.2f}s, voice ends {subs[-1][1]:.2f}s of {dur:.2f}s")

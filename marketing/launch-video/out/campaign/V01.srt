@@ -1,28 +1,27 @@
 1
-00:00:00,050 --> 00:00:02,649
-Most agencies are at their best in month one.
+00:00:00,050 --> 00:00:03,048
+Month one with a new tech
+partner is usually great.
 
 2
-00:00:02,808 --> 00:00:06,125
-Then new faces arrive, demos stop, and dates start to slip.
+00:00:03,225 --> 00:00:04,247
+Quick replies.
 
 3
-00:00:06,115 --> 00:00:09,022
-With QUAICU, the line stays flat, month after month.
+00:00:04,267 --> 00:00:06,084
+Senior people on every call.
 
 4
-00:00:09,267 --> 00:00:10,824
-Your engineer stays with you,
+00:00:06,350 --> 00:00:10,649
+By month six? New faces, slower
+replies, and everything’s “next week.”
 
 5
-00:00:10,814 --> 00:00:13,331
-and our AI agent never forgets a step.
+00:00:10,669 --> 00:00:13,678
+With QUAICU, one engineer
+stays with you the whole way.
 
 6
-00:00:13,433 --> 00:00:15,222
-Judge a vendor on month twelve.
-
-7
-00:00:15,308 --> 00:00:17,729
-QUAICU. Software service that doesn’t fade.
+00:00:13,850 --> 00:00:15,832
+So month twelve feels like month one.
 
