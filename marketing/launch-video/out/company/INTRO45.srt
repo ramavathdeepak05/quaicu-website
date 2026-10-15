@@ -1,0 +1,85 @@
+1
+00:00:00,050 --> 00:00:03,778
+AI made building software cheap.
+Running it is another story.
+
+2
+00:00:03,850 --> 00:00:06,798
+Type what you want, and you’ll
+have an app by the afternoon.
+
+3
+00:00:06,975 --> 00:00:08,447
+It looks great in the demo.
+
+4
+00:00:08,467 --> 00:00:09,772
+Then you have to run it.
+
+5
+00:00:09,892 --> 00:00:12,103
+Something breaks, and nobody knows why.
+
+6
+00:00:12,123 --> 00:00:13,733
+It slows down as you grow.
+
+7
+00:00:13,753 --> 00:00:15,359
+And nobody’s sure it’s secure.
+
+8
+00:00:15,517 --> 00:00:16,951
+The tool can write code.
+
+9
+00:00:16,971 --> 00:00:18,742
+It can’t tell you if it’s the right code.
+
+10
+00:00:18,850 --> 00:00:21,323
+An agency can, at agency prices.
+
+11
+00:00:21,558 --> 00:00:23,084
+That’s where QUAICU comes in.
+
+12
+00:00:23,850 --> 00:00:26,581
+We use AI to work faster, so you pay less.
+
+13
+00:00:26,767 --> 00:00:32,274
+And experienced engineers make the calls that matter:
+how it’s built, how it’s secured, and how it grows.
+
+14
+00:00:32,808 --> 00:00:35,680
+We started out building
+AI governance technology.
+
+15
+00:00:35,700 --> 00:00:38,745
+That work earned us a place
+in NASSCOM’s DeepTech cohort.
+
+16
+00:00:38,765 --> 00:00:43,710
+We’re also part of NVIDIA Inception, and
+supported by Google for Startups and T-Hub.
+
+17
+00:00:44,475 --> 00:00:50,096
+It’s also why every change we make is reviewed
+before it ships, and every decision is written down.
+
+18
+00:00:50,308 --> 00:00:56,064
+Which means your software keeps running long after launch,
+and nothing about it lives only in one person’s head.
+
+19
+00:00:56,142 --> 00:00:58,563
+QUAICU. Software service
+that doesn’t fade.
+

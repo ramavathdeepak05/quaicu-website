@@ -49,7 +49,7 @@ export const COMPANY_VIDEOS = {
     ...base, title: "QUAICU company introduction, cutdown (4:5)", format: "4x5",
     scenes: [
       ["zt", 6, { lines: ["AI made building", "software *cheap.*"], size: "xl", seed: 1, section: "intro", say: "AI made building software cheap." }],
-      ["zapp", 6, { bg: "light", state: "break", section: "tension", caption: "Running it is *another story.*", say: "Running it is another story.", min: 2.6 }],
+      ["zapp", 6, { bg: "light", state: "break", section: "tension", caption: "Running it is *another story.*", say: "Running it is another story.", min: 2 }],
       ["zqueue", 8, { bg: "light", enter: "push", section: "drive", say: "QUAICU uses AI to work faster," }],
       ["zdecide", 8, { bg: "light", section: "drive", say: ["and experienced engineers to make the calls that matter."] }],
       END(),

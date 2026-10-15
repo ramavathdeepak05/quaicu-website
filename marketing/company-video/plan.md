@@ -1,6 +1,6 @@
 # QUAICU company introduction video: plan
 
-Status: **first full render** of the 16:9 master. Styleframes in `styleframes/`.
+Status: **rendered**: 16:9 master (59.8s), 4:5 (59.8s) and the cutdown (13.3s), in `marketing/launch-video/out/company/` with captions (`.srt`) and covers. Styleframes in `styleframes/`.
 
 Build: `node render.mjs --video INTRO --vo` (16:9), `--video INTRO45` (4:5), `--video INTROCUT` (cutdown) from `marketing/launch-video`; data in `src/campaign/company.js`, scenes in `src/campaign/z/company.js`. Output goes to `marketing/launch-video/out/company/`.
 
@@ -34,7 +34,7 @@ No tool or agency is named. "An AI tool" carries the comparison, does not date, 
 |---|---|---|---|
 | Master | 16:9, 1920x1080 | about 60s | Website homepage, sales calls, pitch decks, events |
 | LinkedIn | 4:5, 1080x1350 | about 60s | Company page featured video |
-| Cutdown | 4:5, 1080x1350 | about 16s | LinkedIn posts and ads |
+| Cutdown | 4:5, 1080x1350 | about 13s | LinkedIn posts and ads |
 
 All versions: voiceover and music at -14 LUFS, a caption file (`.srt`) and a cover image. The on-screen text tells the story on its own, so it works muted on the homepage and on an event screen.
 
@@ -58,7 +58,7 @@ All versions: voiceover and music at -14 LUFS, a caption file (`.srt`) and a cov
 
 About 175 words, which Kokoro speaks in about 51 seconds. With the scene changes and the end card it lands at about 60 seconds; the final timing follows the recorded voice, as in V01 to V04.
 
-## 5. Cutdown (4:5, about 16s)
+## 5. Cutdown (4:5, about 13s)
 
 | Voiceover | On screen |
 |---|---|

@@ -180,7 +180,8 @@ const zapp = {
         { icon: "gauge", title: "Page is slow", sub: "Getting slower as traffic grows", tone: "warn" },
         { icon: "lock", title: "Security warning", sub: "Admin page is open to anyone", tone: "bad" },
       ];
-      const spacing = Math.max(0.55, (dur - 0.9) / 3);
+      // One warning per phrase; without enough phrases (the cutdown), in quick succession.
+      const spacing = Math.max(0.45, (dur - 0.9) / 3);
       const at = items.map((_, k) => vo(opts, k, 0.2 + k * spacing) + 0.15);
       const toasts = items.map((it) => toast(stack, it));
       at.forEach((a) => cues.push({ t: a, type: "alert" }));
