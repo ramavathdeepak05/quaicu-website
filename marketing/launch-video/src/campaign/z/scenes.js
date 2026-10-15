@@ -21,7 +21,8 @@ function sceneRoot(opts, cls) {
 const vo = (opts, k, fallback) => (opts.voAt && opts.voAt.length > k ? Math.max(0.05, opts.voAt[k] - 0.05) : fallback);
 
 // Lines that blur in letter by letter. Each line starts with its say phrase
-// when there is one phrase per line; otherwise lines follow each other.
+// when there is one phrase per line; otherwise lines follow each other, and
+// a line given as { text, at: k } waits for phrase k.
 function textBlock(parent, lines, opts, startAt = 0.1) {
   const rows = lines.map((r) => (typeof r === "string" ? { text: r } : r));
   const L = rows.map((r) => richLine(parent, r.text, "zl" + (r.dim ? " dim" : "")));
@@ -29,6 +30,7 @@ function textBlock(parent, lines, opts, startAt = 0.1) {
   let t = vo(opts, 0, startAt);
   const at = L.map((l, k) => {
     if (perLine) t = Math.max(t, vo(opts, k, t));
+    else if (rows[k].at != null) t = Math.max(t, vo(opts, rows[k].at, t));
     const s = scheduleLine(l.items, t);
     t = s[s.length - 1] + 0.18;
     return s;
@@ -281,6 +283,7 @@ const zquote = {
   build({ dur, opts }) {
     const { el, bg } = sceneRoot(opts, "zquote");
     const card = h("div", "card zglass");
+    card.dataset.tf = "translateY(-50%)";
     card.innerHTML = `<div class="who"><div class="av">${opts.initial || "B"}</div><div class="nm">${opts.name || "A buyer"}<small>${opts.source || "From a buyer review"}</small></div></div><div class="bubble"></div>`;
     el.append(card);
     const bubble = card.querySelector(".bubble");
@@ -313,6 +316,7 @@ const zmyth = {
   build({ dur, opts }) {
     const { el, bg } = sceneRoot(opts, "zmyth");
     const card = h("div", "card zglass white");
+    card.dataset.tf = "translateY(-50%)";
     card.innerHTML = `<div class="tag m">✕ Myth</div><div class="tag r">✓ Reality</div><div class="txt m"><span class="strike">${opts.myth}</span></div><div class="txt r"></div>`;
     el.append(card);
     const tagM = card.querySelector(".tag.m"), tagR = card.querySelector(".tag.r");
@@ -437,18 +441,20 @@ const zcon = {
 // ---------------------------------------------------------------- one engineer, week 1 to month 12
 const zteam = {
   build({ dur, opts }) {
-    const { el, bg } = sceneRoot(opts, "zteam");
+    // Without the agent pill (agent: false) the card sits centred.
+    const { el, bg } = sceneRoot(opts, "zteam" + (opts.agent === false ? " solo" : ""));
     const card = h("div", "card zglass");
+    if (opts.agent === false) card.dataset.tf = "translateY(-50%)";
     const ticks = [1, 3, 6, 9, 12];
     card.innerHTML = `
       <div class="prof"><div class="av">${ICON.user}</div><div class="nm"><small>${opts.role || "Forward deployed engineer"}</small>${opts.name || "One engineer, start to finish"}</div></div>
       <div class="line"><div class="rail"><b></b></div>
-        ${ticks.map((m) => `<div class="tick" style="left:${((m - 1) / 11) * 100}%"></div><div class="tl" style="left:${((m - 1) / 11) * 100}%">${m === 1 ? "WEEK 1" : "M" + m}</div>`).join("")}
+        ${ticks.map((m) => `<div class="tick" style="left:${((m - 1) / 11) * 100}%"></div><div class="tl" style="left:${((m - 1) / 11) * 100}%">${m === 1 ? opts.from || "WEEK 1" : "M" + m}</div>`).join("")}
         <div class="pin">${ICON.user}</div>
       </div>`;
     el.append(card);
-    const agent = h("div", "agent zglass", `<div class="k">${ICON.sparkle}</div><div>${opts.agent || "Plus an AI agent on every ticket"}</div>`);
-    el.append(agent);
+    const agent = opts.agent === false ? null : h("div", "agent zglass", `<div class="k">${ICON.sparkle}</div><div>${opts.agent || "Plus an AI agent on every ticket"}</div>`);
+    if (agent) el.append(agent);
     const rail = card.querySelector(".rail b"), pin = card.querySelector(".pin"), tEls = [...card.querySelectorAll(".tick")];
     const A = vo(opts, 0, 0.1), B = vo(opts, 1, dur * 0.45);
     const shift = shiftOf(opts);
@@ -462,7 +468,7 @@ const zteam = {
         rail.style.transform = `scaleX(${p.toFixed(4)})`;
         pin.style.left = `${(p * 100).toFixed(2)}%`;
         tEls.forEach((k, i) => k.classList.toggle("on", p >= (ticks[i] - 1) / 11 - 0.001));
-        blurIn(agent, t, B + 0.5, { dy: 30 });
+        if (agent) blurIn(agent, t, B + 0.5, { dy: 30 });
       },
       cues: () => [{ t: A, type: "phrase" }, { t: B, type: "swell" }, { t: B + 0.5, type: "pass" }],
     };
@@ -482,6 +488,7 @@ const zend = {
     el.append(tagEl);
     const tag = textBlock(tagEl, [opts.line || "Software service that *doesn’t fade.*"], {}, 0);
     const url = h("div", "url zglass", `<i></i>${opts.url || "quaicu.org"}`);
+    url.dataset.tf = "translateX(-50%)";
     el.append(url);
     const sq = lock.querySelector(".sq"), img = lock.querySelector("img"), wm = lock.querySelector(".wm"), wmIn = wm.firstChild, mk = lock.querySelector(".mk");
     let wmW = null;
@@ -514,4 +521,83 @@ const zend = {
   },
 };
 
-export const Z_SCENES = { zt, zchart, zcar, zstack, zquote, zmyth, zvs, zcon, zteam, endcard: zend };
+// ---------------------------------------------------------------- chat
+// A short chat between "you" and someone else, sitting above a composer.
+// Each message lands at a time tied to the narration: { at: phrase index,
+// end: true } lands it just before that phrase finishes (for the punchline),
+// otherwise as it starts. "You" messages are typed into the composer first
+// and sent; the other side shows typing dots before replying. Every bubble
+// keeps its place from the start, so nothing jumps as messages arrive.
+const zchat = {
+  build({ dur, opts }) {
+    const { el, bg } = sceneRoot(opts, "zchat");
+    const card = h("div", "card zglass");
+    card.dataset.tf = "translateY(-50%)";
+    card.innerHTML = `<div class="hd"><div class="av">${opts.initials || "AG"}</div><div class="nm">${opts.with || "Your agency"}<small><i></i>${opts.status || "Online"}</small></div></div><div class="msgs"></div><div class="cmp"><span class="ph">Message</span><span class="tx"></span><b class="send">${ICON.arrow}</b></div>`;
+    el.append(card);
+    const box = card.querySelector(".msgs");
+    const cmp = card.querySelector(".cmp"), cmpTx = cmp.querySelector(".tx"), cmpPh = cmp.querySelector(".ph"), send = cmp.querySelector(".send");
+    const when = (m) => {
+      const k = m.at || 0;
+      const a = vo(opts, k, 0.4 + k * 1.2);
+      const d = opts.voDur && opts.voDur[k] != null ? opts.voDur[k] : 1.5;
+      return m.end ? Math.max(a + 0.3, a + d - (m.lead != null ? m.lead : 0.9)) : a + (m.delay || 0);
+    };
+    const msgs = opts.messages.map((m) => {
+      const you = m.from === "you";
+      const slot = h("div", `slot ${you ? "you" : "them"}`);
+      const b = h("div", `msg ${you ? "you" : "them"}`, m.text);
+      const dots = you ? null : h("div", "msg them dots", "<i></i><i></i><i></i>");
+      slot.append(b);
+      if (dots) slot.append(dots);
+      box.append(slot);
+      return { b, dots, at: when(m), you, text: m.text };
+    });
+    msgs.forEach((m, i) => {
+      const prev = i ? msgs[i - 1].at + 0.3 : 0.35;
+      if (m.you) {
+        m.typeTo = m.at - 0.08;
+        m.typeFrom = Math.max(prev, m.typeTo - Math.min(0.9, m.text.length / 40));
+      } else {
+        m.dotsFrom = Math.max(prev, m.at - 1.1);
+      }
+    });
+    const shift = shiftOf(opts);
+    return {
+      el,
+      update(t) {
+        const te = t + shift;
+        bg.update(t);
+        blurIn(card, te, 0, { dy: 60, s0: 0.95 });
+        // The composer shows the "you" message being typed, then clears as it sends.
+        const typing = msgs.find((m) => m.you && te >= m.typeFrom && te < m.at);
+        if (typing) {
+          const n = Math.ceil(clamp((te - typing.typeFrom) / Math.max(0.05, typing.typeTo - typing.typeFrom)) * typing.text.length);
+          cmpTx.textContent = typing.text.slice(0, n);
+        } else cmpTx.textContent = "";
+        cmpPh.style.display = typing ? "none" : "";
+        cmp.classList.toggle("on", !!typing);
+        let pulse = 0;
+        for (const m of msgs) if (m.you) { const k = te - m.at + 0.05; if (k > 0 && k < 0.4) pulse = Math.max(pulse, Math.sin((k / 0.4) * Math.PI)); }
+        send.style.transform = `scale(${(1 + 0.2 * pulse).toFixed(3)})`;
+        msgs.forEach((m) => {
+          if (m.dots) {
+            const on = te >= m.dotsFrom && te < m.at;
+            m.dots.style.display = on ? "" : "none";
+            if (on) {
+              blurIn(m.dots, te, m.dotsFrom, { d: 0.35, dy: 14, blur: 8, s0: 0.8 });
+              [...m.dots.children].forEach((d, j) => (d.style.opacity = Math.floor(te * 6) % 3 === j ? 1 : 0.35));
+            }
+          }
+          blurIn(m.b, te, m.at, m.you ? { dy: 90, s0: 0.9, d: 0.6 } : { dy: 24, dx: -40, s0: 0.92 });
+        });
+      },
+      cues: () => [
+        ...msgs.filter((m) => m.you).map((m) => ({ t: m.typeFrom, type: "typing", n: m.text.length, cps: m.text.length / Math.max(0.05, m.typeTo - m.typeFrom) })),
+        ...msgs.map((m) => ({ t: m.at, type: m.you ? "pass" : "block" })),
+      ],
+    };
+  },
+};
+
+export const Z_SCENES = { zt, zchart, zcar, zstack, zquote, zmyth, zvs, zcon, zteam, zchat, endcard: zend };

@@ -234,6 +234,7 @@
 
 /* ---------- team timeline ---------- */
 .zteam .card { position: absolute; left: 70px; right: 70px; top: 230px; padding: 44px 46px 50px; }
+.zteam.solo .card { top: 50%; transform: translateY(-50%); }
 .zteam .prof { display: flex; align-items: center; gap: 28px; }
 .zteam .av { width: 136px; height: 136px; border-radius: 50%; background: linear-gradient(140deg, #2bd47f, #0fa6a0); display: grid; place-items: center; color: #fff; flex: none; box-shadow: 0 0 0 8px rgba(43, 212, 127, 0.18); }
 .zteam .av .zi { width: 70px; height: 70px; }
@@ -264,3 +265,27 @@
 .zend .tag { position: absolute; left: 80px; right: 80px; top: 760px; text-align: center; font-size: 72px; font-weight: 600; letter-spacing: -0.035em; line-height: 1.06; text-wrap: balance; }
 .zend .url { position: absolute; left: 50%; top: 1000px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 18px 30px; border-radius: 99px; font-family: "JetBrains Mono", monospace; font-size: 34px; letter-spacing: 0.04em; }
 .zend .url i { width: 12px; height: 12px; border-radius: 50%; background: var(--zg); display: block; box-shadow: 0 0 12px var(--zg); }
+
+/* ---------- chat ---------- */
+.zchat .card { position: absolute; left: 70px; right: 70px; top: 50%; transform: translateY(-50%); padding: 34px 34px 34px; height: 780px; display: flex; flex-direction: column; }
+.zchat .hd { display: flex; align-items: center; gap: 20px; padding-bottom: 26px; border-bottom: 1.5px solid rgba(255, 255, 255, 0.14); }
+.zchat .av { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(140deg, #8f9a95, #4b5852); display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 28px; letter-spacing: 0.02em; }
+.zchat .nm { font-size: 36px; font-weight: 600; }
+.zchat .nm small { display: flex; align-items: center; gap: 10px; font-size: 22px; font-weight: 500; color: rgba(244, 251, 247, 0.6); margin-top: 4px; }
+.zchat .nm small i { width: 12px; height: 12px; border-radius: 50%; background: #2bd47f; box-shadow: 0 0 10px rgba(43, 212, 127, 0.8); }
+/* messages sit at the bottom, just above the composer, like a real chat */
+.zchat .msgs { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; padding-bottom: 28px; }
+.zchat .slot { position: relative; display: flex; }
+.zchat .slot.you { justify-content: flex-end; }
+.zchat .msg { max-width: 80%; padding: 26px 32px; border-radius: 34px; font-size: 52px; font-weight: 600; letter-spacing: -0.025em; line-height: 1.12; text-wrap: balance; }
+.zchat .msg.you { background: linear-gradient(150deg, #2bd47f, #0a9a57); color: #fff; border-bottom-right-radius: 10px; transform-origin: 100% 100%; }
+.zchat .msg.them { background: rgba(255, 255, 255, 0.94); color: var(--zink); border-bottom-left-radius: 10px; transform-origin: 0 100%; }
+.zchat .msg.dots { position: absolute; left: 0; top: 0; display: flex; gap: 12px; padding: 30px 32px; }
+.zchat .msg.dots i { width: 16px; height: 16px; border-radius: 50%; background: #6b7c73; display: block; }
+.zchat .cmp { display: flex; align-items: center; gap: 16px; min-height: 96px; padding: 14px 14px 14px 32px; border-radius: 99px; background: rgba(255, 255, 255, 0.08); border: 1.5px solid rgba(255, 255, 255, 0.18); font-size: 34px; font-weight: 500; }
+.zchat .cmp.on { border-color: rgba(43, 212, 127, 0.6); }
+.zchat .cmp .ph { color: rgba(244, 251, 247, 0.45); }
+.zchat .cmp .tx { color: var(--zw); white-space: nowrap; overflow: hidden; }
+.zchat .cmp.on .tx::after { content: ""; display: inline-block; width: 3px; height: 1em; margin-left: 3px; vertical-align: -0.14em; background: #2bd47f; }
+.zchat .cmp .send { margin-left: auto; width: 66px; height: 66px; border-radius: 50%; background: linear-gradient(150deg, #2bd47f, #0a9a57); display: grid; place-items: center; color: #fff; flex: none; }
+.zchat .cmp .send .zi { width: 34px; height: 34px; }

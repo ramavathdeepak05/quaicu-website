@@ -258,9 +258,11 @@ async function renderVideos(base) {
       mux(video, wav, out, meta.duration);
     }
     console.log("  wrote", path.relative(HERE, out));
-    // Campaign videos also get a cover: frame 0, where the hook is already complete.
+    // Campaign videos also get a cover: frame 0, where the hook is already
+    // complete, or the video's coverAt (seconds) when its opening animates.
     if (tg.cover) {
-      run("ffmpeg", ["-y", "-loglevel", "error", "-i", out, "-frames:v", "1", "-q:v", "2", tg.cover]);
+      const at = String((VIDEOS[id] && VIDEOS[id].coverAt) || 0);
+      run("ffmpeg", ["-y", "-loglevel", "error", "-ss", at, "-i", out, "-frames:v", "1", "-q:v", "2", tg.cover]);
       console.log("  wrote", path.relative(HERE, tg.cover));
     }
   }

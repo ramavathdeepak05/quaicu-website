@@ -43,7 +43,8 @@ function campaignCut(id) {
   const scenes = v.scenes.map(([name, , opts = {}], i) => {
     const section = opts.section || (name === "endcard" ? "outro" : i === 0 ? "lift" : "drive");
     const sc = plan.scenes[i];
-    return [name, sc.dur / BEAT, { ...opts, first: i === 0, section, voAt: sc.voAt, voEnd: sc.voEnd }];
+    // opts.animateIn lets an opening scene play its entry instead of starting complete.
+    return [name, sc.dur / BEAT, { ...opts, first: i === 0 && !opts.animateIn, section, voAt: sc.voAt, voDur: sc.voDur || [], voEnd: sc.voEnd }];
   });
   return { format: "4x5", scenes, num: v.badge || id.replace(/^V/, ""), phrases: plan.phrases, style: v.style || "" };
 }

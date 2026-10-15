@@ -67,12 +67,12 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 
 | Wk | Date | Voice | ID | Format | Topic | Market |
 |---|---|---|---|---|---|---|
-| 1 | Tue 20 Oct | Deepak | V01 | The slide | Agencies are best in month one | All |
+| 1 | Tue 20 Oct | Deepak | V01 | The slide | Month one is usually great | All |
 | 1 | Wed 21 Oct | Xavier | T01 | Text | A status call is not progress | All |
-| 1 | Thu 22 Oct | Company | V02 | Myth / reality | The team that pitched you is not the team that stays | All |
-| 2 | Tue 27 Oct | Deepak | V03 | Checklist | 6 early signs your vendor is slipping | All |
+| 1 | Thu 22 Oct | Company | V02 | Kinetic | Ask who works on this in six months | All |
+| 2 | Tue 27 Oct | Deepak | V03 | Checklist | Signs your software partner is slipping | All |
 | 2 | Wed 28 Oct | Xavier | T02 | Text | Day-one ownership | All |
-| 2 | Thu 29 Oct | Company | V04 | Quote card | "Hold my software and code hostage" | All |
+| 2 | Thu 29 Oct | Company | V04 | Chat | "Pay us first": keep your code in your name | All |
 | 3 | Tue 3 Nov | Deepak | V05 | Stat drop | 10–15% of GenAI pilots reach production | India |
 | 3 | Wed 4 Nov | Xavier | T03 | Text | Demo fatigue | India |
 | 3 | Thu 5 Nov | Company | V06 | Ticket journey | Your forward deployed engineer, and what happens to a ticket | All |

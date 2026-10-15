@@ -20,11 +20,14 @@ export const tw = (t, t0, d, e = E.expo) => e(clamp((t - t0) / d));
 // the hook is complete on frame 0.
 export const shiftOf = (opts) => (opts.first ? 30 : 0);
 
+// An element whose CSS centres it with a transform keeps that transform in
+// data-tf, so the entrance composes with it instead of replacing it.
 export function blurIn(el, t, at, { d = 0.75, blur = 16, dy = 26, dx = 0, s0 = 1, e = E.expo } = {}) {
   const p = tw(t, at, d, e);
+  const base = el.dataset.tf || "";
   el.style.opacity = clamp(p * 1.3);
   el.style.filter = p >= 0.995 ? "" : `blur(${((1 - p) * blur).toFixed(2)}px)`;
-  el.style.transform = p >= 0.995 ? "" : `translate3d(${((1 - p) * dx).toFixed(1)}px, ${((1 - p) * dy).toFixed(1)}px, 0) scale(${(s0 + (1 - s0) * p).toFixed(4)})`;
+  el.style.transform = p >= 0.995 ? base : `${base} translate3d(${((1 - p) * dx).toFixed(1)}px, ${((1 - p) * dy).toFixed(1)}px, 0) scale(${(s0 + (1 - s0) * p).toFixed(4)})`;
   return p;
 }
 

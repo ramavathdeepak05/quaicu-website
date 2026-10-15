@@ -1,10 +1,10 @@
 date,day,week,voice,id,format,topic,market,time_ist,chars,hook_chars,hashtags,status
-2026-10-20,Tue,1,Deepak,V01,The slide,Agencies are best in month one,All,09:30,722,54,2,ready
+2026-10-20,Tue,1,Deepak,V01,The slide,Month one is usually great,All,09:30,722,54,2,ready
 2026-10-21,Wed,1,Xavier,T01,Text,A status call is not progress,All,09:30,625,37,2,ready
-2026-10-22,Thu,1,Company,V02,Myth / reality,The team that pitched you is not the team that stays,All,10:00,761,56,2,ready
-2026-10-27,Tue,2,Deepak,V03,Checklist,6 early signs your vendor is slipping,All,09:30,436,55,2,ready
+2026-10-22,Thu,1,Company,V02,Kinetic,Ask who works on this in six months,All,10:00,761,56,2,ready
+2026-10-27,Tue,2,Deepak,V03,Checklist,Signs your software partner is slipping,All,09:30,436,55,2,ready
 2026-10-28,Wed,2,Xavier,T02,Text,Day-one ownership,All,09:30,644,56,2,ready
-2026-10-29,Thu,2,Company,V04,Quote card,"""Hold my software and code hostage""",All,10:00,521,46,2,ready
+2026-10-29,Thu,2,Company,V04,Chat,"""Pay us first"": keep your code in your name",All,10:00,521,46,2,ready
 2026-11-03,Tue,3,Deepak,V05,Stat drop,10–15% of GenAI pilots reach production,India,09:30,609,99,3,ready
 2026-11-04,Wed,3,Xavier,T03,Text,Demo fatigue,India,09:30,631,121,2,ready
 2026-11-05,Thu,3,Company,V06,Ticket journey,"Your forward deployed engineer, and what happens to a ticket",All,10:00,610,53,2,ready

@@ -46,40 +46,45 @@ Six new data-driven templates, added as `src/scenes/<name>.js` with their copy i
 
 Beats are half-seconds (60 beats = 30s). "On screen" is the exact copy.
 
-### V01 · The slide · Tue 20 Oct
-| Beats | Scene | On screen |
-|---|---|---|
-| 0–8 | kinetic | "Most agencies are at their best in month one." |
-| 8–30 | slide | Axis "Month 1 … Month 12". Grey line labelled "Typical vendor" sags. Callouts appear along the dip: "New faces" · "Demos stop" · "Dates slip". Tag: `Illustrative` |
-| 30–44 | slide (cont.) | QUAICU line draws flat across. Label: "QUAICU". Caption: "Same engineer. Same steps. Every month." |
-| 44–52 | kinetic | "Judge a vendor on month twelve." |
-| 52–60 | endcard | Standard |
+### V01 to V04: rebuilt with voiceover
 
-### V02 · Myth / reality · Thu 22 Oct
-| Beats | Scene | On screen |
-|---|---|---|
-| 0–14 | myth | Myth: "The team that pitched you is the team that stays." |
-| 14–30 | myth (reality) | Reality: "Senior people win the deal. Then they move to the next one." |
-| 30–44 | kinetic | White: "Ask who works on it" / Grey: "in month six." |
-| 44–52 | kinetic | White: "With us: one forward deployed engineer," / Grey: "from week one to month twelve." |
-| 52–60 | endcard | Standard |
+V01 to V04 were rebuilt after review: Zelios-style motion graphics in the QUAICU colours, a Kokoro voiceover written as plain speech, 15 to 20 seconds each, and a silent end card. Scenes are timed to the voice, so the times below are from the render plan, not beats. The words live in `marketing/launch-video/src/campaign/videos.js`; keep the two in step. Each render also writes a caption file (`out/campaign/VNN.srt`) to upload with the video, so it still works muted.
 
-### V03 · Checklist · Tue 27 Oct
-| Beats | Scene | On screen |
-|---|---|---|
-| 0–6 | kinetic | "6 signs your vendor is starting to slip" |
-| 6–48 | checklist (numbered) | 1 "Status calls, no demos" · 2 "A new name every month" · 3 "'Next week' for everything" · 4 "Replies take a day, not an hour" · 5 "Old bugs come back" · 6 "Invoices you can't match to work" |
-| 48–52 | kinetic | "One is a bad week. Three is a pattern." |
-| 52–60 | endcard | Standard |
+### V01 · Month one is usually great · Tue 20 Oct
+| Time | Scene | Voiceover | On screen |
+|---|---|---|---|
+| 0–3.1s | text (aurora) | "Month one with a new tech partner is usually great." | "Month one with a new tech partner is usually great." |
+| 3.1–6.2s | text (light) | "Quick replies. Senior people on every call." | "Quick replies" with a "Just now" chip / "Senior people on every call." |
+| 6.2–13.8s | chart | "By month six? New faces, slower replies, and everything's 'next week.' With QUAICU, one engineer stays with you the whole way." | "Service quality, month 1 to 12", tag `Illustrative`. Grey "Typical vendor" line sags past "New faces" · "Slower replies" · "Next week"; the QUAICU line draws flat. Caption: "One engineer, the whole way." |
+| 13.8–15.8s | text (photo) | "So month twelve feels like month one." | "So month twelve feels like month one." |
+| 15.8–19.8s | end card | (music only) | Standard |
 
-### V04 · Quote card · Thu 29 Oct
-| Beats | Scene | On screen |
-|---|---|---|
-| 0–16 | quotecard | "Trying to hold my software and code hostage." Attribution: `From a buyer review` |
-| 16–24 | kinetic | "It happens when the vendor owns the accounts." |
-| 24–46 | checklist | Title "In your name from day one": "Code repository" · "Domain" · "Hosting and cloud" · "App store accounts" |
-| 46–52 | kinetic | "Your vendor gets access. You keep ownership." |
-| 52–60 | endcard | Standard |
+### V02 · Ask one question · Thu 22 Oct
+| Time | Scene | Voiceover | On screen |
+|---|---|---|---|
+| 0–3.3s | text (aurora) | "Before you sign with a software agency, ask one question." | Same as the voiceover |
+| 3.3–5.8s | text (light) | "Who's actually working on this in six months?" | Same as the voiceover |
+| 5.8–8.5s | then and now | "Usually, it's not the people who pitched you." | "Pitch day: The senior team" / "Month six: Whoever is free" |
+| 8.5–13.1s | engineer card | "At QUAICU, you get one engineer from day one. They learn your business, and they stay." | "Forward deployed engineer: One engineer, from day one", with a timeline from Day 1 to M12 |
+| 13.1–17.1s | end card | (music only) | Standard |
+
+### V03 · Is your partner slipping? · Tue 27 Oct
+| Time | Scene | Voiceover | On screen |
+|---|---|---|---|
+| 0–2.3s | text (aurora) | "How do you know your software partner is slipping?" | Same as the voiceover |
+| 2.3–4.2s | text (light) | "It's rarely one big thing." | Same as the voiceover |
+| 4.2–11.3s | carousel | "The calls keep happening, but there's nothing new to see. A new name turns up on your project. Bugs you already reported come back." | "Signs to watch": "Calls, but nothing new to see" · "A new name on your project" · "Old bugs come back" |
+| 11.3–14.2s | text (light) | "One of these is a bad week. Three is a pattern." | "One is a bad week. Three is a pattern." |
+| 14.2–18.2s | end card | (music only) | Standard |
+
+### V04 · Pay us first · Thu 29 Oct
+| Time | Scene | Voiceover | On screen |
+|---|---|---|---|
+| 0–4.4s | chat | "Picture this. You ask your agency for your code, and they say: pay us first." | A chat with "Your agency". You type and send "Hi, can we get our code back?"; the reply is "Sure. Pay us first." Cover frame at 3.9s |
+| 4.4–6.9s | text (light) | "It happens. And it's easy to prevent." | Same as the voiceover |
+| 6.9–11.3s | settings panel | "Put your code, your domain and your hosting in your own name, from day one." | "In your name from day one": "Code repository" · "Domain" · "Hosting and cloud", each switched from "In the agency's name" to "In your name" |
+| 11.3–14.4s | text (aurora) | "Your agency gets access. You keep ownership." | Same as the voiceover |
+| 14.4–18.4s | end card | (music only) | Standard |
 
 ### V05 · Stat drop · Tue 3 Nov
 | Beats | Scene | On screen |

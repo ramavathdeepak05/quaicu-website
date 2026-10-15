@@ -19,103 +19,99 @@
 // renderer refuses it unless --allow-fill is passed.
 
 const END = ["endcard", 8, {}];
-// End card with the spoken sign-off (voice-first videos).
-const END_SAY = ["endcard", 8, { say: "QUAICU. Software service that doesn\u2019t fade." }];
+// Silent end card for the Zelios-style videos: logo, line and URL over the music.
+const END_Z = ["endcard", 8, { enter: "mask", enterDur: 0.8 }];
 
 export const VIDEOS = {
   // V01-V04: Zelios style, voice-first, 15-20s each. Beat counts are
   // ignored for scenes with say (they last as long as their narration).
+  // The narration is plain speech, like telling a friend; the end card is
+  // silent. A line given as { text, at: k } waits for phrase k.
   V01: {
-    title: "Agencies are best in month one",
+    title: "Month one is usually great",
     style: "z",
     scenes: [
-      ["zt", 6, { lines: ["Most agencies are at", "their best in *month one.*"], size: "l", seed: 1, say: "Most agencies are at their best in month one." }],
-      ["zchart", 20, {
-        bg: "photo:pexels-harshit-mehta-2161164138-37260298.webp", blur: 6, grid: true,
-        callouts: [{ m: 4, text: "New faces" }, { m: 7, text: "Demos stop" }, { m: 10, text: "Dates slip" }],
-        caption: "With QUAICU, the line *stays flat.*",
-        say: ["Then new faces arrive, demos stop, and dates start to slip.", "With QUAICU, the line stays flat, month after month."],
-        min: 5.8,
+      ["zt", 6, { lines: ["Month one with a", "new tech partner", "is usually *great.*"], size: "l", seed: 1, say: "Month one with a new tech partner is usually great." }],
+      ["zt", 6, {
+        bg: "light", lines: ["Quick replies [[chat|Just now]]", { text: "Senior people on", at: 1 }, "*every call.*"], size: "l",
+        say: ["Quick replies.", "Senior people on every call."],
       }],
-      ["zcon", 10, {
-        bg: "light", enter: "zoom",
-        captions: ["Your engineer *stays.*", "Your AI agent *never forgets.*"],
-        say: ["Your engineer stays with you,", "and our AI agent never forgets a step."],
+      ["zchart", 20, {
+        bg: "photo:pexels-harshit-mehta-2161164138-37260298.webp", blur: 6, grid: true, enter: "push",
+        callouts: [{ m: 4, text: "New faces" }, { m: 7, text: "Slower replies" }, { m: 10.2, text: "“Next week”" }],
+        caption: "One engineer, *the whole way.*",
+        say: ["By month six? New faces, slower replies, and everything’s “next week.”", "With QUAICU, one engineer stays with you the whole way."],
         min: 4,
       }],
-      ["zt", 8, { bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light", lines: ["Judge a vendor on", "*month twelve.*"], size: "xl", say: "Judge a vendor on month twelve." }],
-      ["endcard", 8, { enter: "mask", enterDur: 0.8, say: "QUAICU. Software service that doesn\u2019t fade." }],
+      ["zt", 8, { bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light", enter: "zoom", lines: ["So month twelve", "feels like", "*month one.*"], size: "xl", say: "So month twelve feels like month one." }],
+      END_Z,
     ],
   },
 
   V02: {
-    title: "The team that pitched you",
+    title: "Ask one question",
     style: "z",
     scenes: [
-      ["zmyth", 16, {
-        bg: "photo:pexels-minimoy-35757487.webp", tone: "light", blur: 4,
-        myth: "The team that pitched you is the team that stays.",
-        reality: "Senior people win the deal, then *move on.*",
-        say: ["Myth: the team that pitched you is the team that stays.", "Reality: senior people win the deal, then move on."],
-      }],
+      ["zt", 6, { lines: ["Before you sign with", "a software agency,", "ask *one question.*"], size: "l", seed: 2, say: "Before you sign with a software agency, ask one question." }],
+      ["zt", 6, { bg: "light", lines: ["Who’s actually", "working on this", "in *six months?*"], size: "l", say: "Who’s actually working on this in six months?" }],
       ["zvs", 12, {
-        seed: 2, enter: "push",
-        a: { when: "Month 1", what: "The senior team" }, b: { when: "Month 6", what: "Whoever is free" },
-        say: ["Month one, you get the senior team.", "By month six, whoever is free."],
+        seed: 3, enter: "push",
+        a: { when: "Pitch day", what: "The senior team" }, b: { when: "Month six", what: "Whoever is free" },
+        say: "Usually, it’s not the people who pitched you.",
       }],
       ["zteam", 12, {
-        bg: "photo:pexels-jakobjin-14452236.webp", blur: 5, enter: "zoom",
-        role: "Forward deployed engineer", name: "One engineer, week one to month twelve",
-        say: ["With QUAICU, one forward deployed engineer stays with you,", "from week one to month twelve."],
-        min: 4.5,
+        bg: "photo:pexels-jakobjin-14452236.webp", blur: 5, enter: "zoom", agent: false, from: "DAY 1",
+        role: "Forward deployed engineer", name: "One engineer, from day one",
+        say: ["At QUAICU, you get one engineer from day one.", "They learn your business, and they stay."],
       }],
-      END_SAY,
+      END_Z,
     ],
   },
 
   V03: {
-    title: "6 signs your vendor is slipping",
+    title: "Is your partner slipping?",
     style: "z",
     scenes: [
-      ["zt", 6, { lines: ["6 signs your vendor", "is *starting to slip*"], size: "l", seed: 4, say: "Six signs your vendor is starting to slip." }],
-      ["zcar", 30, {
-        seed: 2, enter: "zoom", label: "Is your vendor slipping?",
+      ["zt", 6, { lines: ["How do you know your", "software partner", "is *slipping?*"], size: "m", seed: 4, say: "How do you know your software partner is slipping?" }],
+      ["zt", 6, { bg: "light", lines: ["It’s rarely", "*one big thing.*"], size: "xl", say: "It’s rarely one big thing." }],
+      ["zcar", 20, {
+        seed: 2, enter: "zoom", label: "Signs to watch",
         items: [
-          { icon: "video", text: "Status calls, no demos" },
-          { icon: "swap", text: "A new name every month" },
-          { icon: "clock", text: "\u201CNext week\u201D for everything" },
-          { icon: "chat", text: "Replies take a day, not an hour" },
+          { icon: "video", text: "Calls, but nothing new to see" },
+          { icon: "swap", text: "A new name on your project" },
           { icon: "bug", text: "Old bugs come back" },
-          { icon: "receipt", text: "Invoices you can\u2019t match to work" },
         ],
-        say: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can\u2019t match to work."],
+        say: ["The calls keep happening, but there’s nothing new to see.", "A new name turns up on your project.", "Bugs you already reported come back."],
       }],
-      ["zt", 8, { bg: "light", grid: true, enter: "mask", lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", say: ["One is a bad week.", "Three is a pattern."] }],
-      END_SAY,
+      ["zt", 8, { bg: "light", grid: true, enter: "push", lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", say: ["One of these is a bad week.", "Three is a pattern."] }],
+      END_Z,
     ],
   },
 
   V04: {
-    title: "Code held hostage",
+    title: "Pay us first",
     style: "z",
+    // The chat plays in, so the cover is taken once both messages are up.
+    coverAt: 3.9,
     scenes: [
-      ["zquote", 10, {
-        bg: "photo:pexels-rrodriguesim-16960661.webp", blur: 5,
-        quote: "Trying to hold my software and code hostage.", name: "A software buyer", source: "From a buyer review",
-        say: "From a buyer review: trying to hold my software and code hostage.",
-        min: 3.4,
+      ["zchat", 10, {
+        bg: "photo:pexels-rrodriguesim-16960661.webp", blur: 5, animateIn: true,
+        messages: [
+          { from: "you", text: "Hi, can we get our code back?", at: 1 },
+          { from: "them", text: "Sure. Pay us first.", at: 1, end: true },
+        ],
+        say: ["Picture this.", "You ask your agency for your code, and they say: pay us first."],
       }],
-      ["zt", 6, { seed: 3, lines: ["It happens when", "the vendor [[key|Admin]]", "*owns the accounts.*"], size: "l", say: "It happens when the vendor owns the accounts." }],
-      ["zstack", 18, {
-        bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light", enter: "push",
+      ["zt", 6, { bg: "light", enter: "push", lines: ["It happens.", { text: "And it’s", at: 1 }, "*easy to prevent.*"], size: "l", say: ["It happens.", "And it’s easy to prevent."] }],
+      ["zstack", 16, {
+        bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light",
         eyebrow: "Ownership", title: "In your name from day one",
-        items: [{ icon: "code", text: "Code repository" }, { icon: "globe", text: "Domain" }, { icon: "cloud", text: "Hosting and cloud" }, { icon: "grid", text: "App store accounts" }],
-        before: "In the vendor\u2019s name", after: "In your name",
-        say: ["Keep your code,", "your domain,", "your hosting,", "and your app store accounts in your name."],
-        min: 5,
+        items: [{ icon: "code", text: "Code repository" }, { icon: "globe", text: "Domain" }, { icon: "cloud", text: "Hosting and cloud" }],
+        before: "In the agency’s name", after: "In your name",
+        say: ["Put your code,", "your domain", "and your hosting in your own name, from day one."],
       }],
-      ["zt", 8, { seed: 5, enter: "zoom", lines: ["Your vendor gets access.", "*You keep ownership.*"], size: "l", say: ["Your vendor gets access.", "You keep ownership."] }],
-      END_SAY,
+      ["zt", 8, { seed: 5, enter: "zoom", lines: ["Your agency", "gets access.", { text: "*You keep ownership.*", at: 1 }], size: "l", say: ["Your agency gets access.", "You keep ownership."] }],
+      END_Z,
     ],
   },
 

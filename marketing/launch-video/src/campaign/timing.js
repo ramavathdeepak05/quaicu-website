@@ -32,7 +32,7 @@ export function phrasesOf(video) {
 export const estimate = (text, speed = 1.1) => text.split(/\s+/).filter(Boolean).length / (WPS * speed) + 0.12;
 
 // durations: seconds per phrase in phrasesOf order (measured), or null to estimate.
-// Returns { scenes: [{ dur, voAt: [s], voEnd }], phrases: [{ t, dur, text }], duration }
+// Returns { scenes: [{ dur, voAt: [s], voDur: [s], voEnd }], phrases: [{ t, dur, text }], duration }
 export function planTiming(video, durations = null, { speed = 1.1 } = {}) {
   const scenes = [];
   const phrases = [];
@@ -41,22 +41,24 @@ export function planTiming(video, durations = null, { speed = 1.1 } = {}) {
     const says = sayList(opts);
     if (!says.length) {
       const dur = beats * 0.5; // unnarrated scenes count beats at the launch video's 120 BPM
-      scenes.push({ dur, voAt: [], voEnd: 0 });
+      scenes.push({ dur, voAt: [], voDur: [], voEnd: 0 });
       t += dur;
       return;
     }
     let local = i === 0 ? LEAD_FIRST : LEAD;
     const voAt = [];
+    const voDur = [];
     says.forEach((text, k) => {
       const d = durations ? durations[pi] : estimate(text, speed);
       voAt.push(+local.toFixed(3));
+      voDur.push(+d.toFixed(3));
       phrases.push({ t: +(t + local).toFixed(3), dur: +d.toFixed(3), text });
       local += d + (k < says.length - 1 ? GAP : 0);
       pi++;
     });
     const min = opts.min != null ? opts.min : name === "endcard" ? 3 : 1.5;
     const dur = Math.ceil(Math.max(min, local + (name === "endcard" ? END_HOLD : TAIL)) / Q - 1e-6) * Q;
-    scenes.push({ dur, voAt, voEnd: +local.toFixed(3) });
+    scenes.push({ dur, voAt, voDur, voEnd: +local.toFixed(3) });
     t += dur;
   });
   return { scenes, phrases, duration: +t.toFixed(3) };
