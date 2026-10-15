@@ -5,10 +5,14 @@
 //   node render.mjs --all --stills        contact-sheet stills instead of video
 //   node render.mjs --thumbs              YouTube thumbnail + Reels/Shorts cover
 //   node render.mjs --all --score         compose the soundtrack only (.work/<cut>/score.wav)
+//   node render.mjs --video V01           render a Month Twelve campaign video (4:5, repeatable)
+//   node render.mjs --video all           render every campaign video
+//   node render.mjs --video V01 --stills  quick stills of one campaign video
 //
 // Options: --workers N (default 4), --guides (draw the 9:16 safe zone),
 //          --music file.wav (use a licensed track instead of the composed score),
-//          --no-audio, --at 1.5,3.2 (stills at these times).
+//          --no-audio, --at 1.5,3.2 (stills at these times),
+//          --allow-fill (render campaign videos that still contain [FILL] placeholders).
 //
 // Each frame is a screenshot of the stage after window.seek(t), so frames
 // are exact and the result is the same on every run.
@@ -21,6 +25,7 @@ import os from "node:os";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { CUTS, VIDEO_CUTS, FPS } from "./src/cuts.js";
+import { VIDEOS, VIDEO_IDS } from "./src/campaign/videos.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../..");
@@ -37,7 +42,12 @@ const opt = (n, d) => {
 };
 const optAll = (n) => argv.flatMap((a, i) => (a === n ? [argv[i + 1]] : []));
 const workers = +opt("--workers", Math.min(4, os.cpus().length));
-const cutsArg = flag("--all") ? VIDEO_CUTS : optAll("--cut");
+const videoArg = optAll("--video").flatMap((v) => (v === "all" ? VIDEO_IDS : [v]));
+for (const v of videoArg) if (!VIDEOS[v]) throw new Error(`Unknown campaign video ${v}. Known: ${VIDEO_IDS.join(", ")}`);
+const allowFill = flag("--allow-fill");
+const skipped = videoArg.filter((v) => VIDEOS[v].fill && !allowFill && !flag("--stills"));
+if (skipped.length) console.log(`Skipping ${skipped.join(", ")}: still has [FILL] placeholders (pass --allow-fill to render anyway).`);
+const cutsArg = [...(flag("--all") ? VIDEO_CUTS : optAll("--cut")), ...videoArg.filter((v) => !skipped.includes(v))];
 const guides = flag("--guides");
 const music = opt("--music", null);
 
@@ -77,12 +87,23 @@ async function launch() {
   });
 }
 
+// A launch cut (by cut id) or a campaign video (by V-number): page query,
+// frame size and output files.
+const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] };
+function target(id) {
+  if (VIDEOS[id]) {
+    const dir = path.join(OUT, "campaign");
+    return { query: `video=${id}`, dims: DIMS["4x5"], out: path.join(dir, `${id}-4x5.mp4`), cover: path.join(dir, `${id}-cover.jpg`) };
+  }
+  return { query: `cut=${id}`, dims: DIMS[CUTS[id].format], out: path.join(OUT, `quaicu-launch-${id.replace(/-(\d+)$/, "-$1s")}.mp4`) };
+}
+
 async function openCut(browser, base, cutId, extra = "") {
-  const cut = CUTS[cutId];
-  const [W, H] = cut.format === "16x9" ? [1920, 1080] : [1080, 1920];
+  const tg = target(cutId);
+  const [W, H] = tg.dims;
   const page = await browser.newPage({ viewport: { width: W, height: H }, deviceScaleFactor: 1 });
   page.on("pageerror", (e) => console.error(`[${cutId}] page error:`, e.message));
-  const url = `${base}/marketing/launch-video/src/index.html?cut=${cutId}${guides ? "&guides=1" : ""}${extra}`;
+  const url = `${base}/marketing/launch-video/src/index.html?${tg.query}${guides ? "&guides=1" : ""}${extra}`;
   await page.goto(url);
   await page.waitForFunction(() => window.__ready || window.__error, null, { timeout: 30000 });
   const err = await page.evaluate(() => window.__error);
@@ -182,7 +203,9 @@ async function renderVideos(base) {
     const video = path.join(dir, "video.mp4");
     run("ffmpeg", ["-y", "-loglevel", "error", "-f", "concat", "-safe", "0", "-i", path.join(dir, "chunks.txt"), "-c", "copy", video]);
 
-    const out = path.join(OUT, `quaicu-launch-${id.replace(/-(\d+)$/, "-$1s")}.mp4`);
+    const tg = target(id);
+    const out = tg.out;
+    fs.mkdirSync(path.dirname(out), { recursive: true });
     if (flag("--no-audio")) {
       run("ffmpeg", ["-y", "-loglevel", "error", "-i", video, "-c", "copy", "-movflags", "+faststart", out]);
     } else {
@@ -193,6 +216,11 @@ async function renderVideos(base) {
       mux(video, wav, out, meta.duration);
     }
     console.log("  wrote", path.relative(HERE, out));
+    // Campaign videos also get a cover: frame 0, where the hook is already complete.
+    if (tg.cover) {
+      run("ffmpeg", ["-y", "-loglevel", "error", "-i", out, "-frames:v", "1", "-q:v", "2", tg.cover]);
+      console.log("  wrote", path.relative(HERE, tg.cover));
+    }
   }
 }
 
@@ -263,7 +291,7 @@ try {
     if (flag("--stills")) await renderStills(base);
     else await renderVideos(base);
   }
-  if (!flag("--thumbs") && !cutsArg.length) console.log("Nothing to do. Try --all, --cut 9x16-15 or --thumbs.");
+  if (!flag("--thumbs") && !cutsArg.length) console.log("Nothing to do. Try --all, --cut 9x16-15, --video V01 or --thumbs.");
 } finally {
   server.close();
 }

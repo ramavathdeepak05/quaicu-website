@@ -5,8 +5,7 @@ export function buildBackground(el, { fmt }) {
   const grid = el.querySelector(".grid");
   const g1 = el.querySelector(".g1");
   const g2 = el.querySelector(".g2");
-  const W = fmt === "16x9" ? 1920 : 1080;
-  const H = fmt === "16x9" ? 1080 : 1920;
+  const [W, H] = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] }[fmt];
 
   return {
     update(t) {

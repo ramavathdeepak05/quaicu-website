@@ -298,7 +298,7 @@ def compose(meta):
     def section_at(t):
         for s in scenes:
             if s["start"] <= t < s["start"] + s["dur"]:
-                sec = SECTION.get(s["name"], "drive")
+                sec = s.get("section") or SECTION.get(s["name"], "drive")
                 if sec == "drop" and impact_t is not None and t < impact_t:
                     return "tension"
                 return sec

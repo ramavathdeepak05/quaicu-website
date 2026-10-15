@@ -1,5 +1,6 @@
 // Stage bootstrap.
 //   ?cut=16x9-60        which cut to build (see cuts.js)
+//   ?video=V01          a Month Twelve campaign video, 4:5 (see campaign/videos.js)
 //   &guides=1           draw the 9:16 ad safe zone
 //   &play=1             preview in real time in a normal browser
 //
@@ -9,12 +10,31 @@ import { CUTS, BEAT } from "./cuts.js";
 import { SCENES } from "./scenes/index.js";
 import { buildBackground } from "./background.js";
 import { buildChrome } from "./chrome.js";
+import { VIDEOS } from "./campaign/videos.js";
+import { CAMPAIGN_SCENES } from "./campaign/scenes/index.js";
+import { buildCampaignChrome } from "./campaign/chrome.js";
+
+export const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] };
 
 const q = new URLSearchParams(location.search);
-const cutId = q.get("cut") || "16x9-60";
-const cut = CUTS[cutId];
+const videoId = q.get("video");
+const cutId = videoId || q.get("cut") || "16x9-60";
+const cut = videoId ? campaignCut(videoId) : CUTS[cutId];
 if (!cut) throw new Error("Unknown cut " + cutId);
 const fmt = cut.format;
+const REGISTRY = videoId ? CAMPAIGN_SCENES : SCENES;
+
+// A campaign video as a cut: 4:5, the first scene starts complete so the hook
+// reads on frame 0, and each scene names its music section for the score.
+function campaignCut(id) {
+  const v = VIDEOS[id];
+  if (!v) return null;
+  const scenes = v.scenes.map(([name, beats, opts = {}], i) => {
+    const section = opts.section || (name === "endcard" ? "outro" : i === 0 ? "tension" : "lift");
+    return [name, beats, { ...opts, first: i === 0, section }];
+  });
+  return { format: "4x5", scenes, num: v.badge || id.replace(/^V/, "") };
+}
 
 const stage = document.getElementById("stage");
 stage.className = "f-" + fmt;
@@ -41,14 +61,18 @@ async function main() {
   let start = 0;
   for (const [name, beats, opts = {}] of cut.scenes) {
     const dur = beats * BEAT;
-    const scene = SCENES[name].build({ ...ctxBase, dur, opts });
+    if (!REGISTRY[name]) throw new Error("Unknown scene " + name);
+    const scene = REGISTRY[name].build({ ...ctxBase, dur, opts });
     scene.el.style.display = "none";
     root.append(scene.el);
-    timeline.push({ name, start, dur, scene });
+    timeline.push({ name, start, dur, scene, section: opts.section });
     start += dur;
   }
   const duration = start;
-  const chrome = buildChrome(document.getElementById("chrome"), { ...ctxBase, timeline });
+  const chromeEl = document.getElementById("chrome");
+  const chrome = videoId
+    ? buildCampaignChrome(chromeEl, { num: cut.num, timeline, duration })
+    : buildChrome(chromeEl, { ...ctxBase, timeline });
 
   // Images must be decoded before the first screenshot.
   await Promise.all([...document.images].map((img) => img.decode().catch(() => {})));
@@ -77,9 +101,9 @@ async function main() {
     cut: cutId,
     format: fmt,
     duration,
-    width: fmt === "16x9" ? 1920 : 1080,
-    height: fmt === "16x9" ? 1080 : 1920,
-    scenes: timeline.map(({ name, start, dur }) => ({ name, start, dur })),
+    width: DIMS[fmt][0],
+    height: DIMS[fmt][1],
+    scenes: timeline.map(({ name, start, dur, section }) => ({ name, start, dur, ...(section ? { section } : {}) })),
     cues,
   };
   window.seek(+(q.get("t") || 0));
