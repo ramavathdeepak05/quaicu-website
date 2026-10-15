@@ -1,0 +1,36 @@
+1
+00:00:00,150 --> 00:00:02,559
+Six signs your vendor is starting to slip.
+
+2
+00:00:03,300 --> 00:00:05,203
+Status calls, but no demos.
+
+3
+00:00:05,123 --> 00:00:06,645
+A new name every month.
+
+4
+00:00:06,800 --> 00:00:08,420
+Next week, for everything.
+
+5
+00:00:08,550 --> 00:00:10,496
+Replies take a day, not an hour.
+
+6
+00:00:10,416 --> 00:00:11,758
+Old bugs come back.
+
+7
+00:00:12,050 --> 00:00:13,965
+Invoices you can’t match to work.
+
+8
+00:00:18,150 --> 00:00:20,622
+One is a bad week. Three is a pattern.
+
+9
+00:00:22,150 --> 00:00:24,621
+QUAICU. Software service that doesn’t fade.
+

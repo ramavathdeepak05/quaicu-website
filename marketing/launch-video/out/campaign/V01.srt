@@ -1,0 +1,28 @@
+1
+00:00:00,150 --> 00:00:02,800
+Most agencies are at their best in month one.
+
+2
+00:00:03,300 --> 00:00:06,263
+Then new faces arrive. Demos stop. Dates slip.
+
+3
+00:00:09,100 --> 00:00:11,119
+With QUAICU, the line stays flat.
+
+4
+00:00:14,150 --> 00:00:16,889
+Same engineer. Same steps. Every month.
+
+5
+00:00:18,150 --> 00:00:21,945
+One engineer who stays, with an AI agent that doesn’t forget.
+
+6
+00:00:22,150 --> 00:00:23,989
+Judge a vendor on month twelve.
+
+7
+00:00:26,150 --> 00:00:28,621
+QUAICU. Software service that doesn’t fade.
+

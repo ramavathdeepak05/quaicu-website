@@ -1,0 +1,32 @@
+1
+00:00:00,200 --> 00:00:04,198
+From a real buyer review: trying to hold my software and code hostage.
+
+2
+00:00:05,150 --> 00:00:07,496
+It happens when the vendor owns the accounts.
+
+3
+00:00:08,550 --> 00:00:10,135
+Your code repository.
+
+4
+00:00:10,055 --> 00:00:11,062
+Your domain.
+
+5
+00:00:11,550 --> 00:00:13,014
+Your hosting and cloud.
+
+6
+00:00:13,050 --> 00:00:14,478
+Your app store accounts.
+
+7
+00:00:17,150 --> 00:00:19,689
+Your vendor gets access. You keep ownership.
+
+8
+00:00:21,150 --> 00:00:23,621
+QUAICU. Software service that doesn’t fade.
+
