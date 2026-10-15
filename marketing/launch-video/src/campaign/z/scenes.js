@@ -424,7 +424,8 @@ const zcon = {
         blurIn(e3, t, B + 1.2, { dy: 14 });
         blurIn(capEl, te, A, { dy: 20, s0: 0.94 });
         caps.forEach((c, k) => {
-          c.line.style.display = k === (t >= B - 0.15 && caps.length > 1 ? 1 : 0) ? "" : "none";
+          // Swap lines as the second line starts revealing, so the bar is never empty.
+          c.line.style.display = k === (caps.length > 1 && t >= capAt[1][0] + 0.12 ? 1 : 0) ? "" : "none";
           c.items.forEach((it, i) => revealItem(it, k === 0 ? te : t, capAt[k][i]));
         });
       },

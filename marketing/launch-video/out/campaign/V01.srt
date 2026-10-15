@@ -7,22 +7,22 @@ Most agencies are at their best in month one.
 Then new faces arrive, demos stop, and dates start to slip.
 
 3
-00:00:06,115 --> 00:00:08,084
-With QUAICU, the line stays flat.
+00:00:06,115 --> 00:00:09,022
+With QUAICU, the line stays flat, month after month.
 
 4
-00:00:09,475 --> 00:00:10,795
-Your engineer stays,
+00:00:09,267 --> 00:00:10,824
+Your engineer stays with you,
 
 5
-00:00:10,785 --> 00:00:12,832
-and our AI agent never forgets.
+00:00:10,814 --> 00:00:13,331
+and our AI agent never forgets a step.
 
 6
-00:00:14,267 --> 00:00:16,056
+00:00:13,433 --> 00:00:15,222
 Judge a vendor on month twelve.
 
 7
-00:00:16,142 --> 00:00:18,563
+00:00:15,308 --> 00:00:17,729
 QUAICU. Software service that doesn’t fade.
 

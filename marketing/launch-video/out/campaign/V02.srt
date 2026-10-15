@@ -1,28 +1,28 @@
 1
-00:00:00,150 --> 00:00:02,988
+00:00:00,050 --> 00:00:02,838
 Myth: the team that pitched you is the team that stays.
 
 2
-00:00:03,100 --> 00:00:07,020
-Reality: senior people win the deal, then move on to the next one.
+00:00:02,828 --> 00:00:05,800
+Reality: senior people win the deal, then move on.
 
 3
-00:00:08,150 --> 00:00:09,902
-Month one: the senior team.
+00:00:05,933 --> 00:00:07,863
+Month one, you get the senior team.
 
 4
-00:00:11,150 --> 00:00:12,848
-Month six: whoever is free.
+00:00:07,853 --> 00:00:09,619
+By month six, whoever is free.
 
 5
-00:00:14,150 --> 00:00:16,194
-So ask who works on it in month six.
+00:00:09,892 --> 00:00:13,157
+With QUAICU, one forward deployed engineer stays with you,
 
 6
-00:00:18,150 --> 00:00:22,153
-With us: one forward deployed engineer, from week one to month twelve.
+00:00:13,147 --> 00:00:14,804
+from week one to month twelve.
 
 7
-00:00:23,150 --> 00:00:25,621
+00:00:14,892 --> 00:00:17,313
 QUAICU. Software service that doesn’t fade.
 
