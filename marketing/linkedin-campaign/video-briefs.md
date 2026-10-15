@@ -30,7 +30,7 @@ Six new data-driven templates, added as `src/scenes/<name>.js` with their copy i
 | Template | What it does |
 |---|---|
 | `slide` | The signature chart. X axis Month 1 to Month 12. A grey "Typical vendor" line starts high and sags with small dips; a QUAICU line draws in and stays flat. Labels appear at the line ends. Options: `variant: "speed"` (adds a third "Speed" line that peaks early, for V11), `reprise: true` (QUAICU line only, with check marks at month 12, for V19). |
-| `checklist` | A title, then items arriving one at a time with a tick, about 4 beats apart. Option `numbered`. Items stay on screen so the final frame is screenshot-able. |
+| `checklist` | A title, then items arriving one at a time with a tick, about 4 beats apart. Option `numbered`. Option `ladder` (used in V08): steps drawn as a descending ladder joined by arrows, supporting two branches side by side. Items stay on screen so the final frame is screenshot-able. |
 | `statdrop` | A large number counts up (or a range snaps in), a one-line label below, a source line at the bottom. |
 | `quotecard` | A quote types in, character by character, in large type with quote marks. Attribution line below. Then the quote dims and a response line slides in. |
 | `myth` | "Myth" label and the myth line; a strike-through draws across it; "Reality" label and the reality line replace it. |
@@ -109,14 +109,17 @@ Reuses `hub` (the launch video's ring, with the centre relabelled) and `offering
 | 46–52 | kinetic | Badge reveal: "MONTH TWELVE · a new series" |
 | 52–60 | endcard | Standard |
 
-### V08 · Quote card · Thu 12 Nov
+### V08 · Escalation · Thu 12 Nov
+Reuses the launch video's `hook` scene (02:14 AM terminal) and the `checklist` template with the `ladder` option (steps drawn as a descending ladder joined by arrows, each lighting up in turn).
 | Beats | Scene | On screen |
 |---|---|---|
-| 0–14 | quotecard | "Just a front to outsource all of the work overseas." Attribution: `From a founder on Hacker News` |
-| 14–24 | kinetic | "Now the question is: person or AI?" |
-| 24–44 | ledger | Ledger rows with an actor column: "AI agent · drafted change" · "AI agent · ran checks" · "Your engineer · signed off" |
-| 44–52 | kinetic | "Both are fine. Not knowing isn't." |
+| 0–8 | hook | Eyebrow "02:14 AM · Production". Lines: "Production is down." / "What happens next?" |
+| 8–22 | checklist (`ladder`), branch 1 | "Minor bug" → "AI agent prepares the fix" → "A person approves it" (sub: "Your engineer, or on-call when they're away") |
+| 22–42 | checklist (`ladder`), branch 2 | "Major issue" → "AI alerts your engineer" → "Unavailable? Next available engineer" → "Or our internal team" → "Taken over" |
+| 42–52 | kinetic | White: "Nobody waits until Monday" / Grey: "because one person was offline." |
 | 52–60 | endcard | Standard |
+
+Caption at the bottom during beats 8–42: "Your engineer decides what counts as minor or major."
 
 ### V09 · Checklist · Tue 17 Nov
 | Beats | Scene | On screen |
@@ -253,7 +256,7 @@ Reuses `hub` (the launch video's ring, with the centre relabelled) and `offering
 | 0–10 | kinetic | "Most agencies are at their best in month one." |
 | 10–30 | slide | Grey line sags, QUAICU line holds. Tag `Illustrative` |
 | 30–42 | hub | Centre: "Your engineer". Ring: "AI AGENT". Phrase: "A forward deployed engineer for every client." |
-| 42–54 | pipeline | Delivery Activity window. Phrases: "Our AI agent does the repeatable work." · "Your engineer signs off every delivery." |
+| 42–54 | pipeline | Delivery Activity window. Phrases: "Our AI agent does the repeatable work." · "Minor bugs fixed. Major issues escalated." · "A person approves every fix." |
 | 54–66 | ledger | "Every action on record." |
 | 66–78 | kinetic | White: "Month one or month twelve," / Grey: "the same." |
 | 78–90 | endcard | Long version: logo, "Software service that doesn't fade.", "Built in Hyderabad · quaicu.org" |

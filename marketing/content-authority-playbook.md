@@ -42,6 +42,10 @@ OUR #1 SOLUTION:          A forward deployed engineer (FDE) for every client: on
                           stays with the account, manages the relationship, works remote or on
                           site as needed, and signs off every delivery. An internal AI agent works
                           alongside them and does the repeatable work the same way every time.
+                          The FDE classifies issues: the AI fixes minor bugs for a person to
+                          approve (the FDE, or the on-call team out of hours) and alerts the FDE
+                          to major issues. If the FDE is unavailable, the issue goes to the next
+                          available FDE or relationship manager, or to the internal team.
                           Every action is recorded; code, accounts and data stay in the client's
                           name.
 OUR PERSPECTIVE (POV):    "Most agencies are at their best in month one and then slowly decay.

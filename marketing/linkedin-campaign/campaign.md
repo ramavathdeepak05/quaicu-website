@@ -12,7 +12,8 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 
 **Campaign name:** *Month Twelve*. Most agencies are at their best in month one and slowly decay. We ask buyers to judge a vendor on month twelve instead, and show how QUAICU stays the same:
 - **A forward deployed engineer (FDE) for every client.** One engineer who stays with your account, manages the relationship, works in your tools (remote by default, on site when needed) and signs off every delivery.
-- **An AI agent** that works alongside the FDE and does the repeatable work the same way every time.
+- **An AI agent** that works alongside the FDE and does the repeatable work the same way every time. It fixes minor bugs for a person to approve, and alerts the FDE the moment something major breaks.
+- **Nobody waits on one person.** The FDE decides what counts as minor or major. If the FDE is away, a major issue goes to the next available FDE or relationship manager, or to the internal team, and out-of-hours approvals go to the on-call team.
 - **A record of every action**, so nothing depends on anyone's memory, and anyone covering for your FDE can pick up where they left off.
 
 **How to say it:** "forward deployed engineer" in full in posts for CTOs. In posts for UAE business owners, explain it once: "one engineer who works with your team, manages the work, and signs off everything our AI agent does".
@@ -77,7 +78,7 @@ Built on `marketing/content-authority-playbook.md` and `marketing/research/2026-
 | 3 | Thu 5 Nov | Company | V06 | Ticket journey | Your forward deployed engineer, and what happens to a ticket | All |
 | 4 | Tue 10 Nov | Deepak | V07 | Kinetic | Judge a vendor on month twelve | All |
 | 4 | Wed 11 Nov | Xavier | T04 | Text | The honest offshore post | US/UK/EU |
-| 4 | Thu 12 Nov | Company | V08 | Quote card | Know who did the work | All |
+| 4 | Thu 12 Nov | Company | V08 | Escalation | 2:14 AM: what happens when production breaks | All |
 | 5 | Tue 17 Nov | Deepak | V09 | Checklist | Pilot to production, steps 1–4 | India |
 | 5 | Wed 18 Nov | Xavier | T05 | Text | Governance is the top AI challenge | India |
 | 5 | Thu 19 Nov | Company | V10 | Checklist | Pilot to production, steps 5–8 | India |
@@ -318,7 +319,7 @@ The concerns are real, and buyers have written about them for years: time zones,
 We are a Hyderabad company. We don't think the answer is to hide that. The answer is specific safeguards:
 
 1. One forward deployed engineer for your account, not a rotating pool. Working in your tools and hours, and on site when it's needed.
-2. That engineer signs off every delivery before it ships.
+2. That engineer signs off every delivery before it ships, and if they are away our on-call team covers.
 3. Every action is recorded, so you can check what happened while you slept.
 4. Your code and accounts stay in your name.
 
@@ -329,15 +330,20 @@ Ask any offshore vendor, including us, to show each of these.
 
 **V08 · Thu 12 Nov · Company · video V08**
 ```
-Do you know who actually did the work?
+It's 2:14 AM and production is down. What happens next?
 
-Buyers have described local agencies that were "just a front to outsource all of the work overseas." Now there is a new version of the question: was it a person or an AI?
+Too often: an alert nobody sees until morning, then a ticket, then a meeting.
 
-Both can be fine. Not knowing is the problem.
+Here's how it works at QUAICU:
 
-At QUAICU every action is recorded: what our AI agent did, what your forward deployed engineer did, and when they signed it off. You can read it.
+1. Your forward deployed engineer decides, for your system, what counts as a minor bug and what counts as a major issue.
+2. Minor bugs: our AI agent prepares the fix, and a person approves it before it ships. Your engineer, or our on-call engineer when they're away.
+3. Major issues and outages: the AI alerts your engineer straight away.
+4. If they're unavailable, it goes to the next available engineer or our internal team, who take it over.
 
-#ArtificialIntelligence #SoftwareDevelopment
+Nobody waits until Monday because one person was offline.
+
+#SoftwareDevelopment #IncidentManagement
 ```
 
 ### Week 5: Month Twelve
@@ -448,7 +454,7 @@ It's a fair worry. If you're paid per ticket, closing tickets fast is the easy w
 
 That's why price isn't the only thing that should be fixed. Ours is:
 1. Every ticket has a size, agreed before work starts.
-2. Every delivery is signed off by your forward deployed engineer, the same person each time.
+2. Every delivery is approved by a person: your forward deployed engineer, or our on-call engineer when they're away.
 3. Every action is recorded, so "closed fast" can't hide "closed badly".
 
 You pay for the work. The review is how you know it's done properly.
@@ -545,7 +551,7 @@ Write your AI proposal for all four, not just the person who asked for it.
 ```
 What your forward deployed engineer checks before anything ships.
 
-Every QUAICU delivery is signed off by the client's own forward deployed engineer, after our AI agent has done the repeatable work. Here's what they look at:
+Every QUAICU delivery is signed off by the client's own forward deployed engineer (or our on-call engineer when they're away), after our AI agent has done the repeatable work. Here's what they look at:
 
 1. Does it do what the ticket asked, and nothing else?
 2. Did the automated checks run and pass?
@@ -738,7 +744,7 @@ Software service that doesn't fade.
 
 QUAICU builds and supports software and AI for growing businesses.
 
-Every client gets a forward deployed engineer who stays with them, on site when it's needed. Our AI agent works alongside them and does the repeatable work the same way every time. Your engineer signs off every delivery. Every action is on record. Your code and accounts stay in your name.
+Every client gets a forward deployed engineer who stays with them, on site when it's needed. Our AI agent works alongside them, fixes minor bugs for your engineer to approve, and alerts them the moment something major breaks. If they're away, the next available engineer takes over. Every action is on record. Your code and accounts stay in your name.
 
 Month one or month twelve, the same.
 
@@ -777,7 +783,8 @@ Check each of these on its source page (links in `marketing/research/2026-10-mar
 | T02, V04 | Review quotes on code held hostage and apps removed from the server (items 32, 34) |
 | V05 | NASSCOM: 10–15% of GenAI proofs of concept reach production |
 | T03 | MIT study quote "dozens of demos"; the speaker's role is reported inconsistently, so it says "a technology leader" |
-| T04, V08 | Hacker News threads: "just a front to outsource", Friday bug fixed Tuesday |
+| T04 | Hacker News thread: Friday bug fixed Tuesday |
+| V08 | Your own process: minor and major issues are classified by the FDE, minor fixes are approved by a person before shipping, and out-of-hours escalation works as described. Make sure every client's setup matches before posting. |
 | T05 | IBM: 53% governance frameworks, 51% expertise and integration |
 | V12 | Saudi PDPL: remote access from abroad counts as a transfer |
 | V15 | Air Canada tribunal quote; merchant chatbot review (item 24) |
