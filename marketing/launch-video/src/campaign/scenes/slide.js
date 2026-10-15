@@ -116,9 +116,12 @@ export default {
     const T = {
       grey: 0.5,
       greyD: Math.min(3.6, dur * 0.3),
-      green: opts.greenAt != null ? opts.greenAt : reprise ? 0.5 : dur * 0.45,
+      // With two say phrases, the green line starts with the second one.
+      green: opts.voAt && opts.voAt.length > 1 ? opts.voAt[1] : opts.greenAt != null ? opts.greenAt : reprise ? 0.5 : dur * 0.45,
       greenD: reprise ? 1.6 : 1.2,
     };
+    // The grey line finishes falling just before the green line arrives.
+    if (!reprise) T.greyD = Math.min(3.6, Math.max(1.2, T.green - T.grey - 0.3));
     T.cap = T.green + T.greenD + 0.2;
     T.checks = T.green + T.greenD * 0.6;
     const ckGap = checks.length ? clamp((dur - 1.2 - T.checks) / checks.length, 0.4, 1.2) : 0;

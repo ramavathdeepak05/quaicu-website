@@ -29,6 +29,7 @@ export default {
     });
     const t0 = 0.75;
     const gap = Math.max(0.5, snap(clamp((dur * 0.7 - t0) / Math.max(1, caps.length), 0.5, 1.5)));
+    const capAt = caps.map((_, i) => (opts.voAt && opts.voAt.length === caps.length ? Math.max(0.3, opts.voAt[i]) : t0 + i * gap));
 
     let aw = null, ah = null;
     return {
@@ -45,11 +46,11 @@ export default {
         const a = -Math.PI * 0.85 + t * 1.1 + (1 - spring(te, 0.3, 1.6, 0.7)) * -1.2;
         agent.style.transform = `translate3d(${310 + Math.cos(a) * 310 - aw / 2}px, ${310 + Math.sin(a) * 310 - ah / 2}px, 0)`;
         agent.style.opacity = clamp((te - 0.3) / 0.12);
-        capEls.forEach((e, i) => pop(e, te, t0 + i * gap, { dy: 40 }));
+        capEls.forEach((e, i) => pop(e, te, capAt[i], { dy: 40 }));
         tick(t, te);
         exit(el, t, dur);
       },
-      cues: () => [{ t: 0.05, type: "stamp" }, { t: 0.3, type: "shimmer" }, ...capEls.map((_, i) => ({ t: t0 + i * gap, type: "pass" }))],
+      cues: () => [{ t: 0.05, type: "stamp" }, { t: 0.3, type: "shimmer" }, ...capEls.map((_, i) => ({ t: capAt[i], type: "pass" }))],
     };
   },
 };

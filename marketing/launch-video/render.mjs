@@ -28,6 +28,7 @@ import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { CUTS, VIDEO_CUTS, FPS } from "./src/cuts.js";
 import { VIDEOS, VIDEO_IDS } from "./src/campaign/videos.js";
+import { phrasesOf, planTiming } from "./src/campaign/timing.js";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(HERE, "../..");
@@ -94,12 +95,42 @@ async function launch() {
 // A launch cut (by cut id) or a campaign video (by V-number): page query,
 // frame size and output files.
 const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] };
+// Voice-first timing for campaign videos: speak and measure every phrase
+// (cached in .work/vo-cache), plan the scene lengths from those measurements,
+// and hand the plan to the page. Without --vo the page's estimate is used.
+const PLANS = {};
+const voSpeed = +opt("--vo-speed", "1.1");
+function planFor(id) {
+  if (PLANS[id] !== undefined) return PLANS[id];
+  if (!vo) return (PLANS[id] = null);
+  const dir = path.join(WORK, id);
+  fs.mkdirSync(dir, { recursive: true });
+  const phrases = phrasesOf(VIDEOS[id]);
+  fs.writeFileSync(path.join(dir, "phrases.json"), JSON.stringify(phrases, null, 1));
+  console.log(`Voice for ${id}: ${phrases.length} phrases`);
+  run("python3", [path.join(HERE, "audio", "voice.py"), "--synth", path.join(dir, "phrases.json"), "--durations", path.join(dir, "durations.json"),
+    "--voice", voice, "--speed", String(voSpeed)], { stdio: ["ignore", "inherit", "pipe"] });
+  const durs = JSON.parse(fs.readFileSync(path.join(dir, "durations.json"), "utf8"));
+  const plan = planTiming(VIDEOS[id], durs, { speed: voSpeed });
+  fs.writeFileSync(path.join(dir, "timing.json"), JSON.stringify(plan, null, 1));
+  console.log(`  planned ${plan.duration.toFixed(2)}s across ${plan.scenes.length} scenes`);
+  return (PLANS[id] = plan);
+}
+// Campaign videos use the upbeat music bed (audio/music.py) when it exists;
+// the launch cuts keep their own score (audio/compose.py).
+const scoreScript = (id) => {
+  const m = path.join(HERE, "audio", "music.py");
+  return VIDEOS[id] && fs.existsSync(m) && !flag("--old-score") ? m : path.join(HERE, "audio", "compose.py");
+};
+const b64url = (o) => Buffer.from(JSON.stringify(o)).toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+
 function target(id) {
   if (VIDEOS[id]) {
     const dir = path.join(OUT, "campaign");
     const sfx = vo ? "-vo" : "";
+    const plan = planFor(id);
     return {
-      query: `video=${id}`, dims: DIMS["4x5"], campaign: true,
+      query: `video=${id}${plan ? `&timing=${b64url(plan)}` : ""}`, dims: DIMS["4x5"], campaign: true, plan,
       out: path.join(dir, `${id}-4x5${sfx}.mp4`), cover: path.join(dir, `${id}-cover.jpg`), srt: path.join(dir, `${id}.srt`),
     };
   }
@@ -164,7 +195,7 @@ async function renderVideos(base) {
   if (flag("--score")) {
     for (const id of cutsArg) {
       const dir = path.join(WORK, id);
-      run("python3", [path.join(HERE, "audio", "compose.py"), "--cues", path.join(dir, "cues.json"), "--out", path.join(dir, "score.wav")], { stdio: ["ignore", "inherit", "pipe"] });
+      run("python3", [scoreScript(id), "--cues", path.join(dir, "cues.json"), "--out", path.join(dir, "score.wav")], { stdio: ["ignore", "inherit", "pipe"] });
     }
     return;
   }
@@ -219,7 +250,7 @@ async function renderVideos(base) {
     } else {
       let wav = music || path.join(dir, "score.wav");
       if (!music) {
-        run("python3", [path.join(HERE, "audio", "compose.py"), "--cues", path.join(dir, "cues.json"), "--out", wav], { stdio: ["ignore", "inherit", "pipe"] });
+        run("python3", [scoreScript(id), "--cues", path.join(dir, "cues.json"), "--out", wav], { stdio: ["ignore", "inherit", "pipe"] });
       }
       if (vo && tg.campaign) wav = addVoice(dir, wav, tg, voice);
       mux(video, wav, out, meta.duration);
@@ -253,8 +284,8 @@ function mux(video, wav, out, duration) {
 // whenever the voice speaks (sidechain), then the mix goes to mux().
 function addVoice(dir, score, tg, voiceName) {
   const voWav = path.join(dir, "vo.wav");
-  run("python3", [path.join(HERE, "audio", "voice.py"), "--cues", path.join(dir, "cues.json"), "--out", voWav, "--srt", tg.srt, "--voice", voiceName, "--speed", opt("--vo-speed", "1.1")],
-    { stdio: ["ignore", "inherit", "pipe"] });
+  run("python3", [path.join(HERE, "audio", "voice.py"), "--assemble", path.join(dir, "timing.json"), "--out", voWav, "--srt", tg.srt,
+    "--voice", voiceName, "--speed", String(voSpeed)], { stdio: ["ignore", "inherit", "pipe"] });
   const mix = path.join(dir, "mix.wav");
   run("ffmpeg", [
     "-y", "-loglevel", "error", "-i", score, "-i", voWav, "-filter_complex",

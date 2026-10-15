@@ -6,88 +6,116 @@
 // The first scene of each video is rendered already complete, so the hook is
 // readable on frame 0. House style: plain words, no hype, no em dashes.
 //
-// vo (on any scene) is the voiceover line for render --vo: a string spoken as
-// the scene starts, or [{ at, text }]. checklist also takes voItems, one line
-// per item, spoken as each item lands. Keep spoken words close to the screen.
+// say (on any scene) is its narration: a string, or one phrase per beat of
+// the scene (carousel card, chart line, text line...). Scenes with say are
+// timed voice-first (src/campaign/timing.js): each lasts as long as its
+// phrases, so narration runs without gaps, and the scene gets opts.voAt so
+// its animation lands with the words. min sets a minimum length (s).
+//
+// style: "z" marks the Zelios-style videos (src/campaign/z/): glass UI,
+// luminous light, blur-in type, overlapping transitions (opts.enter).
 //
 // fill: true marks a video that still contains [FILL] placeholders; the
 // renderer refuses it unless --allow-fill is passed.
 
 const END = ["endcard", 8, {}];
-// End card with the spoken sign-off, for videos rendered with --vo.
-const END_VO = ["endcard", 8, { vo: "QUAICU. Software service that doesn’t fade." }];
+// End card with the spoken sign-off (voice-first videos).
+const END_SAY = ["endcard", 8, { say: "QUAICU. Software service that doesn\u2019t fade." }];
 
 export const VIDEOS = {
+  // V01-V04: Zelios style, voice-first, 15-20s each. Beat counts are
+  // ignored for scenes with say (they last as long as their narration).
   V01: {
     title: "Agencies are best in month one",
+    style: "z",
     scenes: [
-      ["kinetic", 6, { lines: ["Most agencies are", "*at their best*", "in month one."], size: "l", vo: "Most agencies are at their best in month one." }],
-      ["slide", 22, {
+      ["zt", 6, { lines: ["Most agencies are at", "their best in *month one.*"], size: "l", seed: 1, say: "Most agencies are at their best in month one." }],
+      ["zchart", 20, {
+        bg: "photo:pexels-harshit-mehta-2161164138-37260298.webp", blur: 6, grid: true,
         callouts: [{ m: 4, text: "New faces" }, { m: 7, text: "Demos stop" }, { m: 10, text: "Dates slip" }],
-        greenAt: 6,
-        caption: "With QUAICU, the line stays flat.",
-        vo: [
-          { at: 0.3, text: "Then new faces arrive. Demos stop. Dates slip." },
-          { at: 6.1, text: "With QUAICU, the line stays flat." },
-        ],
+        caption: "With QUAICU, the line *stays flat.*",
+        say: ["Then new faces arrive, demos stop, and dates start to slip.", "With QUAICU, the line stays flat."],
+        min: 6.5,
       }],
-      ["kinetic", 8, { lines: ["Same *engineer.*", "Same *steps.*", "Every *month.*"], size: "xl", vo: "Same engineer. Same steps. Every month." }],
-      ["orbit", 8, { center: "Your<br>engineer", ring: "AI AGENT", captions: ["One engineer who stays."], vo: "One engineer who stays, with an AI agent that doesn’t forget." }],
-      ["kinetic", 8, { lines: ["Judge a vendor on", "*month twelve.*"], size: "xl", vo: "Judge a vendor on month twelve." }],
-      END_VO,
+      ["zcon", 10, {
+        bg: "light", enter: "zoom",
+        captions: ["Your engineer *stays.*", "Your AI agent *never forgets.*"],
+        say: ["Your engineer stays,", "and our AI agent never forgets."],
+        min: 4.6,
+      }],
+      ["zt", 8, { bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light", lines: ["Judge a vendor on", "*month twelve.*"], size: "xl", say: "Judge a vendor on month twelve." }],
+      ["endcard", 8, { enter: "mask", enterDur: 0.8, say: "QUAICU. Software service that doesn\u2019t fade." }],
     ],
   },
 
   V02: {
     title: "The team that pitched you",
+    style: "z",
     scenes: [
-      ["myth", 16, {
+      ["zmyth", 16, {
+        bg: "photo:pexels-minimoy-35757487.webp", tone: "light", blur: 4,
         myth: "The team that pitched you is the team that stays.",
-        reality: "Senior people win the deal. Then they move on to the next one.",
-        vo: [
-          { at: 0.15, text: "Myth: the team that pitched you is the team that stays." },
-          { at: 3.1, text: "Reality: senior people win the deal, then move on to the next one." },
-        ],
+        reality: "Senior people win the deal, then *move on.*",
+        say: ["Myth: the team that pitched you is the team that stays.", "Reality: senior people win the deal, then move on."],
       }],
-      ["kinetic", 6, { lines: ["Month one:", "*the senior team.*"], size: "xl", vo: "Month one: the senior team." }],
-      ["kinetic", 6, { lines: ["Month six:", { text: "whoever is free.", dim: true }], size: "xl", vo: "Month six: whoever is free." }],
-      ["kinetic", 8, { lines: ["So ask who works on it", "in *month six.*"], size: "l", vo: "So ask who works on it in month six." }],
-      ["orbit", 10, {
-        center: "Your<br>engineer", ring: "AI AGENT", captions: ["One forward deployed engineer", "From week one to month twelve"],
-        vo: "With us: one forward deployed engineer, from week one to month twelve.",
+      ["zvs", 12, {
+        seed: 2, enter: "push",
+        a: { when: "Month 1", what: "The senior team" }, b: { when: "Month 6", what: "Whoever is free" },
+        say: ["Month one, you get the senior team.", "By month six, whoever is free."],
       }],
-      END_VO,
+      ["zteam", 12, {
+        bg: "photo:pexels-jakobjin-14452236.webp", blur: 5, enter: "zoom",
+        role: "Forward deployed engineer", name: "One engineer, week one to month twelve",
+        say: ["With QUAICU, one forward deployed engineer stays with you,", "from week one to month twelve."],
+        min: 4.5,
+      }],
+      END_SAY,
     ],
   },
 
   V03: {
     title: "6 signs your vendor is slipping",
+    style: "z",
     scenes: [
-      ["kinetic", 6, { lines: ["6 signs your vendor is", "*starting to slip*"], size: "l", vo: "Six signs your vendor is starting to slip." }],
-      ["checklist", 30, {
-        numbered: true,
-        items: ["Status calls, no demos", "A new name every month", "\u201CNext week\u201D for everything", "Replies take a day, not an hour", "Old bugs come back", "Invoices you can\u2019t match to work"],
-        voItems: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can\u2019t match to work."],
+      ["zt", 6, { lines: ["6 signs your vendor", "is *starting to slip*"], size: "l", seed: 4, say: "Six signs your vendor is starting to slip." }],
+      ["zcar", 30, {
+        seed: 2, enter: "zoom", label: "Is your vendor slipping?",
+        items: [
+          { icon: "video", text: "Status calls, no demos" },
+          { icon: "swap", text: "A new name every month" },
+          { icon: "clock", text: "\u201CNext week\u201D for everything" },
+          { icon: "chat", text: "Replies take a day, not an hour" },
+          { icon: "bug", text: "Old bugs come back" },
+          { icon: "receipt", text: "Invoices you can\u2019t match to work" },
+        ],
+        say: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can\u2019t match to work."],
       }],
-      ["kinetic", 8, { lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", vo: "One is a bad week. Three is a pattern." }],
-      END_VO,
+      ["zt", 8, { bg: "light", enter: "mask", lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", say: ["One is a bad week.", "Three is a pattern."] }],
+      END_SAY,
     ],
   },
 
   V04: {
     title: "Code held hostage",
+    style: "z",
     scenes: [
-      ["quotecard", 10, {
-        quote: "Trying to hold my software and code hostage.", attribution: "From a buyer review",
-        vo: [{ at: 0.2, text: "From a real buyer review: trying to hold my software and code hostage." }],
+      ["zquote", 10, {
+        bg: "photo:pexels-rrodriguesim-16960661.webp", blur: 5,
+        quote: "Trying to hold my software and code hostage.", name: "A software buyer", source: "From a buyer review",
+        say: "From a buyer review: trying to hold my software and code hostage.",
+        min: 4.2,
       }],
-      ["kinetic", 6, { lines: ["It happens when the vendor", "*owns the accounts.*"], size: "l", vo: "It happens when the vendor owns the accounts." }],
-      ["checklist", 18, {
-        title: "In your name from day one", items: ["Code repository", "Domain", "Hosting and cloud", "App store accounts"],
-        voItems: ["Your code repository.", "Your domain.", "Your hosting and cloud.", "Your app store accounts."],
+      ["zt", 6, { seed: 3, lines: ["It happens when", "the vendor [[key|Admin]]", "*owns the accounts.*"], size: "l", say: "It happens when the vendor owns the accounts." }],
+      ["zstack", 18, {
+        bg: "photo:pexels-imvitordiniz-20336862.webp", tone: "light", enter: "push",
+        eyebrow: "Ownership", title: "In your name from day one",
+        items: [{ icon: "code", text: "Code repository" }, { icon: "globe", text: "Domain" }, { icon: "cloud", text: "Hosting and cloud" }, { icon: "grid", text: "App store accounts" }],
+        before: "In the vendor\u2019s name", after: "In your name",
+        say: ["Keep your code,", "your domain,", "your hosting,", "and your app store accounts in your name."],
+        min: 5,
       }],
-      ["kinetic", 8, { lines: ["Your vendor gets access.", "*You keep ownership.*"], size: "l", vo: "Your vendor gets access. You keep ownership." }],
-      END_VO,
+      ["zt", 8, { seed: 5, enter: "zoom", lines: ["Your vendor gets access.", "*You keep ownership.*"], size: "l", say: ["Your vendor gets access.", "You keep ownership."] }],
+      END_SAY,
     ],
   },
 

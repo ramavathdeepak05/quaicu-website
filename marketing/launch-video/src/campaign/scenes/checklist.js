@@ -3,7 +3,8 @@
 // stay on screen so the last frame can be screenshot.
 //
 // opts: title, items [string], numbered, start (first number), caption, source,
-//       voItems [string] (voiceover: one line per item, timed to the item),
+//       voAt (from the voice-first plan: with one say phrase per item, each
+//       item lands as its phrase starts),
 //       cursor (default true)
 // opts.ladder: { head, tone "alert", steps [string | {text, sub}] } draws the
 //   steps as a descending ladder joined by lines that fill in turn.
@@ -45,8 +46,9 @@ export default {
     // Items arrive on the beat; leave about a quarter of the scene to read.
     const t0 = title ? 0.5 : 0.25;
     const gap = Math.max(0.5, snap(clamp((dur * 0.74 - t0) / items.length, 0.5, 2.2)));
-    const at = items.map((_, i) => t0 + i * gap);
-    const click = at.map((a) => a + Math.min(0.5, gap * 0.6));
+    const synced = opts.voAt && opts.voAt.length === items.length;
+    const at = items.map((_, i) => (synced ? Math.max(i === 0 ? 0.05 : 0, opts.voAt[i] - 0.05) : t0 + i * gap));
+    const click = at.map((a, i) => a + Math.min(0.45, ((at[i + 1] ?? a + gap) - a) * 0.6));
 
     let pos = null;
     return {
@@ -87,8 +89,6 @@ export default {
       cues: () => [
         ...at.map((a) => ({ t: a, type: "phrase" })),
         ...click.map((c) => ({ t: c, type: "approve" })),
-        // opts.voItems: one narration line per item, spoken as the item lands.
-        ...(opts.voItems || []).map((text, i) => ({ t: at[i] + 0.05, type: "vo", text })),
       ],
     };
   },

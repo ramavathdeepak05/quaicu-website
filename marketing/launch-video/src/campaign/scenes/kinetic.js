@@ -33,7 +33,13 @@ export default {
     const eb = opts.eyebrow ? h("div", "c-eyebrow", opts.eyebrow) : null;
     if (eb) box.append(eb);
     const words = wordLines(box, opts.lines);
-    const at = scheduleWords(words, eb ? 0.2 : 0.05, Math.max(0.5, dur * 0.35));
+    let at = scheduleWords(words, eb ? 0.2 : 0.05, Math.max(0.5, dur * 0.35));
+    // With one say phrase per line, each line starts as its phrase does.
+    const nLines = opts.lines.length;
+    if (opts.voAt && opts.voAt.length === nLines && nLines > 1) {
+      const lineStart = (li) => at[words.findIndex((w) => w.line === li)];
+      at = at.map((a, i) => a - lineStart(words[i].line) + Math.max(0.05, opts.voAt[words[i].line] - 0.05));
+    }
     const last = at[at.length - 1] || 0;
     const hlAt = Math.min(dur - 0.5, last + 0.3);
 
