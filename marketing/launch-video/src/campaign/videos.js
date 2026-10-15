@@ -6,23 +6,33 @@
 // The first scene of each video is rendered already complete, so the hook is
 // readable on frame 0. House style: plain words, no hype, no em dashes.
 //
+// vo (on any scene) is the voiceover line for render --vo: a string spoken as
+// the scene starts, or [{ at, text }]. checklist also takes voItems, one line
+// per item, spoken as each item lands. Keep spoken words close to the screen.
+//
 // fill: true marks a video that still contains [FILL] placeholders; the
 // renderer refuses it unless --allow-fill is passed.
 
 const END = ["endcard", 8, {}];
+// End card with the spoken sign-off, for videos rendered with --vo.
+const END_VO = ["endcard", 8, { vo: "QUAICU. Software service that doesn’t fade." }];
 
 export const VIDEOS = {
   V01: {
     title: "Agencies are best in month one",
     scenes: [
-      ["kinetic", 8, { lines: ["Most agencies are at their best", { text: "in month one.", dim: true }] }],
+      ["kinetic", 8, { lines: ["Most agencies are at their best", { text: "in month one.", dim: true }], vo: "Most agencies are at their best in month one." }],
       ["slide", 36, {
         callouts: [{ m: 4, text: "New faces" }, { m: 7, text: "Demos stop" }, { m: 10, text: "Dates slip" }],
         greenAt: 10.5,
         caption: "Same engineer. Same steps. Every month.",
+        vo: [
+          { at: 0.8, text: "Then new faces arrive. The demos stop. The dates slip." },
+          { at: 10.7, text: "With QUAICU, the line stays flat. Same engineer. Same steps. Every month." },
+        ],
       }],
-      ["kinetic", 8, { lines: ["Judge a vendor", "on month twelve."], size: "xl" }],
-      END,
+      ["kinetic", 8, { lines: ["Judge a vendor", "on month twelve."], size: "xl", vo: "Judge a vendor on month twelve." }],
+      END_VO,
     ],
   },
 
@@ -32,34 +42,45 @@ export const VIDEOS = {
       ["myth", 30, {
         myth: "The team that pitched you is the team that stays.",
         reality: "Senior people win the deal. Then they move to the next one.",
+        vo: [
+          { at: 0.15, text: "Myth: the team that pitched you is the team that stays." },
+          { at: 5.4, text: "Reality: senior people win the deal, then move on to the next one." },
+        ],
       }],
-      ["kinetic", 14, { lines: ["Ask who works on it", { text: "in month six.", dim: true }], size: "xl" }],
-      ["kinetic", 8, { lines: ["With us: one forward deployed engineer,", { text: "from week one to month twelve.", dim: true }], size: "m" }],
-      END,
+      ["kinetic", 14, { lines: ["Ask who works on it", { text: "in month six.", dim: true }], size: "xl", vo: "So ask who works on it in month six." }],
+      ["kinetic", 8, { lines: ["With us: one forward deployed engineer,", { text: "from week one to month twelve.", dim: true }], size: "m", vo: "With us, one engineer, from week one to month twelve." }],
+      END_VO,
     ],
   },
 
   V03: {
     title: "6 signs your vendor is slipping",
     scenes: [
-      ["kinetic", 6, { lines: ["6 signs your vendor", { text: "is starting to slip", dim: true }] }],
+      ["kinetic", 6, { lines: ["6 signs your vendor", { text: "is starting to slip", dim: true }], vo: "Six signs your vendor is starting to slip." }],
       ["checklist", 38, {
         numbered: true,
         items: ["Status calls, no demos", "A new name every month", "“Next week” for everything", "Replies take a day, not an hour", "Old bugs come back", "Invoices you can’t match to work"],
+        voItems: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can’t match to work."],
       }],
-      ["kinetic", 8, { lines: ["One is a bad week.", { text: "Three is a pattern.", dim: true }] }],
-      END,
+      ["kinetic", 8, { lines: ["One is a bad week.", { text: "Three is a pattern.", dim: true }], vo: "One is a bad week. Three is a pattern." }],
+      END_VO,
     ],
   },
 
   V04: {
     title: "Code held hostage",
     scenes: [
-      ["quotecard", 16, { quote: "Trying to hold my software and code hostage.", attribution: "From a buyer review" }],
-      ["kinetic", 8, { lines: ["It happens when the vendor", { text: "owns the accounts.", dim: true }], size: "m" }],
-      ["checklist", 20, { title: "In your name from day one", items: ["Code repository", "Domain", "Hosting and cloud", "App store accounts"] }],
-      ["kinetic", 8, { lines: ["Your vendor gets access.", { text: "You keep ownership.", dim: true }], size: "m" }],
-      END,
+      ["quotecard", 16, {
+        quote: "Trying to hold my software and code hostage.", attribution: "From a buyer review",
+        vo: [{ at: 0.3, text: "From a real buyer review: trying to hold my software and code hostage." }],
+      }],
+      ["kinetic", 8, { lines: ["It happens when the vendor", { text: "owns the accounts.", dim: true }], size: "m", vo: "It happens when the vendor owns the accounts." }],
+      ["checklist", 20, {
+        title: "In your name from day one", items: ["Code repository", "Domain", "Hosting and cloud", "App store accounts"],
+        vo: [{ at: 0.2, text: "Keep the code, the domain, the hosting and the app store accounts in your name, from day one." }],
+      }],
+      ["kinetic", 8, { lines: ["Your vendor gets access.", { text: "You keep ownership.", dim: true }], size: "m", vo: "Your vendor gets access. You keep ownership." }],
+      END_VO,
     ],
   },
 

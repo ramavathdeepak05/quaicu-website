@@ -1,7 +1,8 @@
 // Checklist: a title, then items arriving one at a time with a tick (or a
 // number). Everything stays on screen so the last frame can be screenshot.
 //
-// opts: title, items [string], numbered, start (first number), caption, source
+// opts: title, items [string], numbered, start (first number), caption, source,
+//       voItems [string] (voiceover: one line per item, timed to the item)
 // opts.ladder: { head, tone "alert", steps [string | {text, sub}] } draws the
 //   steps as a descending ladder joined by arrows that light up in turn.
 
@@ -55,7 +56,11 @@ export default {
         tick(t, te, at[at.length - 1] + 0.6);
         outro(el, t, dur, 0.28);
       },
-      cues: () => at.map((a) => ({ t: a + 0.12, type: opts.numbered ? "pass" : "tick" })),
+      cues: () => [
+        ...at.map((a) => ({ t: a + 0.12, type: opts.numbered ? "pass" : "tick" })),
+        // opts.voItems: one narration line per item, spoken as the item lands.
+        ...(opts.voItems || []).map((text, i) => ({ t: at[i] + 0.05, type: "vo", text })),
+      ],
     };
   },
 };

@@ -65,7 +65,7 @@ async function main() {
     const scene = REGISTRY[name].build({ ...ctxBase, dur, opts });
     scene.el.style.display = "none";
     root.append(scene.el);
-    timeline.push({ name, start, dur, scene, section: opts.section });
+    timeline.push({ name, start, dur, scene, section: opts.section, opts });
     start += dur;
   }
   const duration = start;
@@ -83,6 +83,11 @@ async function main() {
     for (const c of s.scene.cues ? s.scene.cues() : []) {
       cues.push({ ...c, t: +(s.start + c.t).toFixed(4), scene: s.name });
     }
+    // Voiceover lines (campaign videos): opts.vo is a string spoken as the
+    // scene starts, or [{ at, text }] at seconds into the scene.
+    const vo = s.opts && s.opts.vo;
+    const voLines = typeof vo === "string" ? [{ at: 0.15, text: vo }] : vo || [];
+    for (const l of voLines) cues.push({ t: +(s.start + l.at).toFixed(4), type: "vo", text: l.text, scene: s.name });
   }
   cues.sort((a, b) => a.t - b.t);
 

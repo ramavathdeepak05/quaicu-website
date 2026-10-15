@@ -12,7 +12,9 @@
 // Options: --workers N (default 4), --guides (draw the 9:16 safe zone),
 //          --music file.wav (use a licensed track instead of the composed score),
 //          --no-audio, --at 1.5,3.2 (stills at these times),
-//          --allow-fill (render campaign videos that still contain [FILL] placeholders).
+//          --allow-fill (render campaign videos that still contain [FILL] placeholders),
+//          --vo (campaign videos: Kokoro voiceover, ducked music, SRT captions; output *-vo.mp4),
+//          --voice af_heart (Kokoro voice for --vo).
 //
 // Each frame is a screenshot of the stage after window.seek(t), so frames
 // are exact and the result is the same on every run.
@@ -50,6 +52,8 @@ if (skipped.length) console.log(`Skipping ${skipped.join(", ")}: still has [FILL
 const cutsArg = [...(flag("--all") ? VIDEO_CUTS : optAll("--cut")), ...videoArg.filter((v) => !skipped.includes(v))];
 const guides = flag("--guides");
 const music = opt("--music", null);
+const vo = flag("--vo");
+const voice = opt("--voice", "af_heart");
 
 // ---------- static server (repo root, so the page can load the brand logo) ----------
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".mjs": "text/javascript", ".css": "text/css", ".png": "image/png", ".woff2": "font/woff2", ".json": "application/json", ".svg": "image/svg+xml" };
@@ -93,7 +97,11 @@ const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] }
 function target(id) {
   if (VIDEOS[id]) {
     const dir = path.join(OUT, "campaign");
-    return { query: `video=${id}`, dims: DIMS["4x5"], out: path.join(dir, `${id}-4x5.mp4`), cover: path.join(dir, `${id}-cover.jpg`) };
+    const sfx = vo ? "-vo" : "";
+    return {
+      query: `video=${id}`, dims: DIMS["4x5"], campaign: true,
+      out: path.join(dir, `${id}-4x5${sfx}.mp4`), cover: path.join(dir, `${id}-cover.jpg`), srt: path.join(dir, `${id}.srt`),
+    };
   }
   return { query: `cut=${id}`, dims: DIMS[CUTS[id].format], out: path.join(OUT, `quaicu-launch-${id.replace(/-(\d+)$/, "-$1s")}.mp4`) };
 }
@@ -209,10 +217,11 @@ async function renderVideos(base) {
     if (flag("--no-audio")) {
       run("ffmpeg", ["-y", "-loglevel", "error", "-i", video, "-c", "copy", "-movflags", "+faststart", out]);
     } else {
-      const wav = music || path.join(dir, "score.wav");
+      let wav = music || path.join(dir, "score.wav");
       if (!music) {
         run("python3", [path.join(HERE, "audio", "compose.py"), "--cues", path.join(dir, "cues.json"), "--out", wav], { stdio: ["ignore", "inherit", "pipe"] });
       }
+      if (vo && tg.campaign) wav = addVoice(dir, wav, tg, voice);
       mux(video, wav, out, meta.duration);
     }
     console.log("  wrote", path.relative(HERE, out));
@@ -238,6 +247,23 @@ function mux(video, wav, out, duration) {
     "-af", af, "-c:a", "aac", "-b:a", "256k", "-ar", "48000", "-ac", "2",
     "-t", String(duration), "-movflags", "+faststart", out,
   ]);
+}
+
+// Kokoro narration over the score: the music sits lower and ducks further
+// whenever the voice speaks (sidechain), then the mix goes to mux().
+function addVoice(dir, score, tg, voiceName) {
+  const voWav = path.join(dir, "vo.wav");
+  run("python3", [path.join(HERE, "audio", "voice.py"), "--cues", path.join(dir, "cues.json"), "--out", voWav, "--srt", tg.srt, "--voice", voiceName],
+    { stdio: ["ignore", "inherit", "pipe"] });
+  const mix = path.join(dir, "mix.wav");
+  run("ffmpeg", [
+    "-y", "-loglevel", "error", "-i", score, "-i", voWav, "-filter_complex",
+    "[0:a]volume=0.5[m];[1:a]asplit=2[v1][v2];[m][v1]sidechaincompress=threshold=0.02:ratio=6:attack=15:release=400:makeup=1[md];" +
+      "[md][v2]amix=inputs=2:duration=first:normalize=0:weights=1 1.6[a]",
+    "-map", "[a]", "-ar", "48000", mix,
+  ]);
+  console.log("  wrote", path.relative(HERE, tg.srt));
+  return mix;
 }
 
 // ---------- stills ----------
