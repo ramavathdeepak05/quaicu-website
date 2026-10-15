@@ -1,6 +1,6 @@
 # QUAICU company introduction video: plan
 
-Status: **draft 2, for review**. Nothing is built until the script and the open questions below are agreed.
+Status: **script agreed** (draft 3). Next: styleframes.
 
 ## 1. Positioning
 
@@ -40,28 +40,26 @@ All versions: voiceover and music at -14 LUFS, a caption file (`.srt`) and a cov
 
 | # | Voiceover | On screen |
 |---|---|---|
-| 1 | "If you need software built, you've usually got two options." | Two glass cards side by side, "Agency" and "AI tool". Line: "Two ways to get software built." |
-| 2 | "Hire an agency, and pay agency prices." | The agency card: a quote whose line items keep coming and whose total keeps climbing |
-| 3 | "Or try an AI tool, and have something on screen by the afternoon." | The AI tool card: "Build me a booking app" is typed into a prompt box and an app appears in seconds |
-| 4 | "It looks great in the demo. Then you have to run it." | The app fills the frame and a switch flips to "Live" |
-| 5 | "Something breaks, and nobody knows why. It slows down as you grow. Nobody can find it on Google." | Warnings stack up over the app: "Checkout failed", "Page is slow", "Not on Google" |
-| 6 | "A tool can write code. It can't tell you if it's the right code." | Code streams into an editor; a comment pops up beside it: "Is this right?" |
-| 7 | "That's where QUAICU comes in." | A line from "Agency" to "AI tool"; the QUAICU mark slides to the middle and braces close around it |
+| 1 | "AI made building software cheap. Running it is another story." | The line itself, readable from the first frame: "AI made building software cheap." / "Running it is another story." |
+| 2 | "Type what you want, and you'll have an app by the afternoon." | "Build me a booking app" is typed into a prompt box and an app appears in seconds |
+| 3 | "It looks great in the demo. Then you have to run it." | The app fills the frame and a switch flips to "Live" |
+| 4 | "Something breaks, and nobody knows why. It slows down as you grow. And nobody's sure it's secure." | Warnings stack up over the app: "Checkout failed", "Page is slow", "Security warning" |
+| 5 | "The tool can write code. It can't tell you if it's the right code." | Code streams into an editor; a comment pops up beside it: "Is this right?" |
+| 6 | "An agency can, at agency prices." | An agency quote: line items keep coming and the total keeps climbing (tag `Illustrative`) |
+| 7 | "That's where QUAICU comes in." | A line from "AI tool" to "Agency"; the QUAICU mark slides to the middle and braces close around it |
 | 8 | "We use AI to work faster, so you pay less." | Tasks tick through quickly in a work queue, with a cost meter that stays low |
 | 9 | "And experienced engineers make the calls that matter: how it's built, how it's secured, and how it grows." | Three decision cards, "Architecture", "Security", "Growth", each approved by an engineer |
 | 10 | "We started out in AI governance, so every change is reviewed before it ships, and every decision is written down." | A project record fills in row by row: each change "Reviewed", each decision logged with a name and date |
-| 11 | "Which means your software keeps running long after launch, and nothing about it lives only in one person's head." | The app from scene 4 again, now steady: every check passing, the record still growing beside it |
-| 12 | "QUAICU. Software service that doesn't fade." | End card: logo, "Software service that doesn't fade.", "quaicu.org" |
+| 11 | "Which means your software keeps running long after launch, and nothing about it lives only in one person's head." | The app from scene 3 again, now steady: every check passing, the record still growing beside it |
+| 12 | "QUAICU. Software service that doesn't fade." | End card: logo, "Software service that doesn't fade.", "quaicu.org", and "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026." |
 
 About 150 words, which Kokoro speaks in about 44 seconds. With the scene changes and the end card it lands close to 60 seconds; the final timing follows the recorded voice, as in V01 to V04.
-
-**Alternative opening** (replaces scenes 1 to 3, same visuals): "AI made building software cheap. Running it is another story."
 
 ## 5. Cutdown (4:5, about 16s)
 
 | Voiceover | On screen |
 |---|---|
-| "Agencies cost a lot. AI tools can't tell you if the code is right." | Scenes 1 and 6, shortened |
+| "AI made building software cheap. Running it is another story." | Scene 1, then the warnings from scene 4 |
 | "QUAICU uses AI to work faster, and experienced engineers to make the calls that matter." | Scenes 8 and 9, shortened |
 | "QUAICU. Software service that doesn't fade." | End card |
 
@@ -81,9 +79,9 @@ The Month Twelve engine (`marketing/launch-video`, Zelios style) has text, setti
 3. **First full render** of the 16:9 master with voice and music.
 4. **The rest:** 4:5 version, cutdown, captions and covers.
 
-## 8. Open questions
+## 8. Decisions
 
-1. **Google.** Scene 5 uses "Nobody can find it on Google" as one of the things that goes wrong. Keep it only if SEO is part of what you deliver; otherwise it becomes "It isn't secure."
-2. **Your engineer.** Per your note, there is no "one engineer from day one" line. If you want the relationship manager in at all, one short line fits after scene 9: "One of them is always your point of contact."
-3. **Programme logos.** Not in this draft. They could go on the end card as text: "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026."
-4. **Opening.** The "two options" opening, or the alternative "AI made building software cheap" line.
+1. **No SEO.** Scene 4 says "And nobody's sure it's secure." instead of the Google line.
+2. **No dedicated-engineer line.** The engineers appear in scene 9 only.
+3. **Programmes on the end card**, as text: "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026."
+4. **Opening:** "AI made building software cheap. Running it is another story." The agency comparison moves to scene 6, right after the code line.
