@@ -90,7 +90,7 @@ export const VIDEOS = {
         ],
         say: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can\u2019t match to work."],
       }],
-      ["zt", 8, { bg: "light", enter: "mask", lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", say: ["One is a bad week.", "Three is a pattern."] }],
+      ["zt", 8, { bg: "light", grid: true, enter: "mask", lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", say: ["One is a bad week.", "Three is a pattern."] }],
       END_SAY,
     ],
   },
