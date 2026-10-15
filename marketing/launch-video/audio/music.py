@@ -251,6 +251,15 @@ def boom():
     return fade(np.tanh(1.8 * y) + thump, 0.001, 0.2)
 
 
+def layer(*sigs):
+    """Sum sounds of different lengths (pads the shorter ones)."""
+    n = max(len(x) for x in sigs)
+    out = np.zeros(n)
+    for x in sigs:
+        out[: len(x)] += x
+    return out
+
+
 def blip(f, length=0.09, decay=0.03):
     n = int(length * SR)
     t = secs(n)
@@ -501,12 +510,12 @@ def compose(meta):
         if kind == "tick":
             sfx.add(t0, blip(midi(97), 0.06, 0.012), db(-30), rng.uniform(-0.3, 0.3))
         elif kind == "pass":
-            sfx.add(t0, click(rng, 2200) * 0.6 + blip(midi(85), 0.08, 0.02) * 0.5, db(-27))
+            sfx.add(t0, layer(click(rng, 2200) * 0.6, blip(midi(85), 0.08, 0.02) * 0.5), db(-27))
         elif kind == "approve":
             sfx.add(t0, bell(midi(85), 0.5), db(-27), 0.2)
             sfx.add(t0 + 0.07, bell(midi(92), 0.6), db(-29), 0.2)
         elif kind == "stamp":
-            sfx.add(t0, lp(click(rng, 900, 0.01), 1500) * 2 + blip(80, 0.12, 0.04), db(-22))
+            sfx.add(t0, layer(lp(click(rng, 900, 0.01), 1500) * 2, blip(80, 0.12, 0.04)), db(-22))
         elif kind == "typing":
             m = int(c.get("n", 20))
             cps = float(c.get("cps", 18))

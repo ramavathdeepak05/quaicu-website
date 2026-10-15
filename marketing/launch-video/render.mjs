@@ -99,11 +99,13 @@ const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] }
 // (cached in .work/vo-cache), plan the scene lengths from those measurements,
 // and hand the plan to the page. Without --vo the page's estimate is used.
 const PLANS = {};
+const planDir = (id) => path.join(WORK, "plans", id);
 const voSpeed = +opt("--vo-speed", "1.1");
 function planFor(id) {
   if (PLANS[id] !== undefined) return PLANS[id];
   if (!vo) return (PLANS[id] = null);
-  const dir = path.join(WORK, id);
+  // Kept apart from .work/<id>, which the video step clears before rendering.
+  const dir = planDir(id);
   fs.mkdirSync(dir, { recursive: true });
   const phrases = phrasesOf(VIDEOS[id]);
   fs.writeFileSync(path.join(dir, "phrases.json"), JSON.stringify(phrases, null, 1));
@@ -284,7 +286,7 @@ function mux(video, wav, out, duration) {
 // whenever the voice speaks (sidechain), then the mix goes to mux().
 function addVoice(dir, score, tg, voiceName) {
   const voWav = path.join(dir, "vo.wav");
-  run("python3", [path.join(HERE, "audio", "voice.py"), "--assemble", path.join(dir, "timing.json"), "--out", voWav, "--srt", tg.srt,
+  run("python3", [path.join(HERE, "audio", "voice.py"), "--assemble", path.join(planDir(path.basename(dir)), "timing.json"), "--out", voWav, "--srt", tg.srt,
     "--voice", voiceName, "--speed", String(voSpeed)], { stdio: ["ignore", "inherit", "pipe"] });
   const mix = path.join(dir, "mix.wav");
   run("ffmpeg", [
