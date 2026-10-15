@@ -4,8 +4,8 @@
 // opts: eyebrow, lines [string | {text, dim}], term [string] (prefix "!" for
 //       an error line, "#" for a muted line)
 
-import { h, show, outro, blink } from "../../lib.js";
-import { entryShift, wordLines, scheduleWords, revealWord } from "./common.js";
+import { h, blink } from "../../lib.js";
+import { entryShift, wordLines, scheduleWords, revealWord, pop, exit } from "./common.js";
 
 export default {
   build({ dur, opts }) {
@@ -14,10 +14,12 @@ export default {
     el.append(box);
     const shift = entryShift(opts);
 
+    const panel = h("div", "panel");
+    box.append(panel);
     const eb = h("div", "c-eyebrow", opts.eyebrow);
-    box.append(eb);
+    panel.append(eb);
     const hl = h("div", "hl");
-    box.append(hl);
+    panel.append(hl);
     const words = wordLines(hl, opts.lines);
     const at = scheduleWords(words, 0.25, dur * 0.35);
     const term = h("div", "term");
@@ -28,19 +30,19 @@ export default {
         return `<div><span class="pr">$</span> ${l}</div>`;
       })
       .join("");
-    box.append(term);
+    panel.append(term);
     const lines = [...term.children];
 
     return {
       el,
       update(t) {
         const te = t + shift;
-        show(eb, te, 0, 0.4, 8);
-        eb.style.opacity = blink(t, 1.4) ? 1 : 0.55;
-        words.forEach((w, i) => revealWord(w.el, te, at[i]));
-        show(term, te, 0.6, 0.45, 18);
+        pop(panel, te, 0, { dy: 80, s0: 0.92 });
+        eb.style.opacity = blink(t, 2) ? 1 : 0.5;
+        words.forEach((w, i) => revealWord(w, te, at[i], 99));
+        pop(term, te, 0.5, { dy: 20, s0: 1 });
         lines.forEach((l, i) => (l.style.opacity = te >= 0.7 + i * 0.35 ? 1 : 0));
-        outro(el, t, dur, 0.28);
+        exit(el, t, dur);
       },
       cues: () => [{ t: 0.05, type: "alert" }, { t: 1.2, type: "alert" }],
     };

@@ -1,11 +1,12 @@
-// Kinetic type: one to three lines revealed word by word. White lines first,
-// then dim (grey) lines after a pause, like the launch video's tension scene.
+// Kinetic type: lines that pop in word by word on springs. Words wrapped in
+// *asterisks* get a green block that draws in behind them after the line
+// lands. Dim lines are grey.
 //
 // opts: lines [string | {text, dim}], size "xl" | "l" | "m", align "center",
 //       eyebrow, source, caption, badge ({ k1, k2 } boxed series badge)
 
-import { h, outro, show, prog, ease, backOut, clamp } from "../../lib.js";
-import { entryShift, extras, wordLines, scheduleWords, revealWord } from "./common.js";
+import { h } from "../../lib.js";
+import { entryShift, extras, wordLines, scheduleWords, revealWord, pop, exit } from "./common.js";
 
 export default {
   build({ dur, opts }) {
@@ -21,35 +22,38 @@ export default {
       return {
         el,
         update(t) {
-          const te = t + shift;
-          const p = clamp((te - 0.1) / 0.6);
-          b.style.opacity = clamp(p * 2);
-          b.style.transform = `scale(${0.86 + 0.14 * backOut(p, 1.5)})`;
-          tick(t, te);
-          outro(el, t, dur, 0.28);
+          pop(b, t + shift, 0.05, { dy: 0, s0: 0.7, f: 2.2 });
+          tick(t, t + shift);
+          exit(el, t, dur);
         },
-        cues: () => [{ t: 0.1, type: "chime" }],
+        cues: () => [{ t: 0.05, type: "chime" }],
       };
     }
 
     const eb = opts.eyebrow ? h("div", "c-eyebrow", opts.eyebrow) : null;
     if (eb) box.append(eb);
     const words = wordLines(box, opts.lines);
-    const at = scheduleWords(words, eb ? 0.3 : 0.12, Math.max(0.6, dur * 0.45));
+    const at = scheduleWords(words, eb ? 0.2 : 0.05, Math.max(0.5, dur * 0.35));
+    const last = at[at.length - 1] || 0;
+    const hlAt = Math.min(dur - 0.5, last + 0.3);
 
     return {
       el,
       update(t) {
         const te = t + shift;
-        if (eb) show(eb, te, 0.05, 0.5, 10);
-        words.forEach((w, i) => revealWord(w.el, te, at[i]));
-        tick(t, te, Math.min(dur * 0.5, at[at.length - 1] + 0.4));
-        outro(el, t, dur, 0.28);
+        if (eb) pop(eb, te, 0, { dy: 20, s0: 1 });
+        words.forEach((w, i) => revealWord(w, te, at[i], opts.first ? Math.max(0.35, hlAt - shift) + shift : hlAt));
+        tick(t, te, Math.min(dur * 0.5, last + 0.4));
+        exit(el, t, dur);
       },
       cues: () => {
-        if (opts.first) return [];
-        const lines = [...new Set(words.map((w) => w.line))];
-        return lines.map((li) => ({ t: at[words.findIndex((w) => w.line === li)], type: "phrase" }));
+        const c = [];
+        if (!opts.first) {
+          const lines = [...new Set(words.map((w) => w.line))];
+          lines.forEach((li) => c.push({ t: at[words.findIndex((w) => w.line === li)], type: "phrase" }));
+        }
+        if (words.some((w) => w.mk)) c.push({ t: opts.first ? 0.35 : hlAt, type: "pass" });
+        return c;
       },
     };
   },

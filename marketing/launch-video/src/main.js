@@ -13,6 +13,7 @@ import { buildChrome } from "./chrome.js";
 import { VIDEOS } from "./campaign/videos.js";
 import { CAMPAIGN_SCENES } from "./campaign/scenes/index.js";
 import { buildCampaignChrome } from "./campaign/chrome.js";
+import { spring } from "./campaign/scenes/common.js";
 
 export const DIMS = { "16x9": [1920, 1080], "9x16": [1080, 1920], "4x5": [1080, 1350] };
 
@@ -30,7 +31,7 @@ function campaignCut(id) {
   const v = VIDEOS[id];
   if (!v) return null;
   const scenes = v.scenes.map(([name, beats, opts = {}], i) => {
-    const section = opts.section || (name === "endcard" ? "outro" : i === 0 ? "tension" : "lift");
+    const section = opts.section || (name === "endcard" ? "outro" : i === 0 ? "lift" : "drive");
     return [name, beats, { ...opts, first: i === 0, section }];
   });
   return { format: "4x5", scenes, num: v.badge || id.replace(/^V/, "") };
@@ -63,8 +64,17 @@ async function main() {
     const dur = beats * BEAT;
     if (!REGISTRY[name]) throw new Error("Unknown scene " + name);
     const scene = REGISTRY[name].build({ ...ctxBase, dur, opts });
-    scene.el.style.display = "none";
-    root.append(scene.el);
+    // Campaign scenes sit inside a camera layer that punches in on each cut
+    // and keeps pushing in slowly while the scene holds.
+    if (videoId) {
+      const cam = document.createElement("div");
+      cam.className = "cam";
+      cam.append(scene.el);
+      scene.cam = cam;
+    }
+    const holder = scene.cam || scene.el;
+    holder.style.display = "none";
+    root.append(holder);
     timeline.push({ name, start, dur, scene, section: opts.section, opts });
     start += dur;
   }
@@ -96,8 +106,15 @@ async function main() {
     for (const s of timeline) {
       const lt = t - s.start;
       const on = lt >= 0 && lt < s.dur;
-      s.scene.el.style.display = on ? "" : "none";
-      if (on) s.scene.update(lt);
+      (s.scene.cam || s.scene.el).style.display = on ? "" : "none";
+      if (on) {
+        s.scene.update(lt);
+        if (s.scene.cam) {
+          const punch = s.start > 0 ? 0.07 * (1 - spring(lt, 0, 1.6, 0.75)) : 0;
+          const push = 0.035 * (lt / s.dur);
+          s.scene.cam.style.transform = `scale(${1 + punch + push})`;
+        }
+      }
     }
     chrome.update(t);
   };

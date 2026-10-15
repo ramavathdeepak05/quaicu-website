@@ -12,11 +12,11 @@
 //   checks    [string] for the reprise
 //   labels    { grey, green } line labels
 
-import { h, show, outro, prog, ease, clamp, ICON } from "../../lib.js";
-import { entryShift, extras } from "./common.js";
+import { h, prog, ease, clamp, ICON } from "../../lib.js";
+import { entryShift, extras, pop, exit, spring } from "./common.js";
 
 const NS = "http://www.w3.org/2000/svg";
-const W = 888, X0 = 34, X1 = 836, Y0 = 30;
+const W = 900, X0 = 20, X1 = 880, Y0 = 30;
 
 const svgEl = (tag, attrs = {}, text) => {
   const e = document.createElementNS(NS, tag);
@@ -58,6 +58,10 @@ export default {
     chart.append(svg);
 
     // Axes and month ticks.
+    for (let k = 1; k <= 3; k++) {
+      const gy = Y1 - (k / 4) * (Y1 - Y0);
+      svg.append(svgEl("line", { class: "gl", x1: X0, y1: gy, x2: X1, y2: gy }));
+    }
     svg.append(svgEl("line", { class: "ax", x1: X0, y1: Y1, x2: X1, y2: Y1 }));
     for (let m = 1; m <= 12; m++) svg.append(svgEl("line", { class: "tk", x1: x(m), y1: Y1, x2: x(m), y2: Y1 + 12 }));
     svg.append(svgEl("text", { class: "ml", x: X0, y: Y1 + 50 }, "MONTH 1"));
@@ -81,17 +85,20 @@ export default {
       for (const c of opts.callouts || []) {
         const g = svgEl("g");
         const cy = y(greyF(c.m));
-        g.append(svgEl("circle", { class: "dot", cx: x(c.m), cy, r: 10 }));
-        g.append(svgEl("text", { class: "co", x: x(c.m), y: cy - 30, "text-anchor": "middle" }, c.text));
+        g.append(svgEl("rect", { class: "dot", x: x(c.m) - 11, y: cy - 11, width: 22, height: 22 }));
+        const tw = c.text.length * 18 + 36;
+        g.append(svgEl("rect", { class: "co-bg", x: x(c.m) - tw / 2, y: cy - 98, width: tw, height: 56 }));
+        g.append(svgEl("text", { class: "co", x: x(c.m), y: cy - 59, "text-anchor": "middle" }, c.text));
+        g.style.transformOrigin = `${x(c.m)}px ${cy}px`;
         svg.append(g);
         calls.push({ g, m: c.m });
       }
     }
-    const glow = svgEl("path", { class: "gglow", d: path(greenF) });
+    const ph = svgEl("line", { class: "ph", x1: X0, y1: Y0, x2: X0, y2: Y1 });
     const green = svgEl("path", { class: "green", d: path(greenF) });
-    const gdot = svgEl("circle", { class: "gdot", r: 12, cx: x(1), cy: y(greenF(1)) });
-    const greenLbl = svgEl("text", { class: "lbl g", x: X1, y: y(greenF(12)) - 30, "text-anchor": "end" }, labels.green);
-    svg.append(glow, green, gdot, greenLbl);
+    const gdot = svgEl("rect", { class: "gdot", width: 30, height: 30, x: x(1) - 15, y: y(greenF(1)) - 15 });
+    const greenLbl = svgEl("text", { class: "lbl g", x: X1, y: y(greenF(12)) - 34, "text-anchor": "end" }, labels.green);
+    svg.append(ph, green, gdot, greenLbl);
 
     const caption = opts.caption ? h("div", "c-caption", opts.caption) : null;
     if (caption) el.append(caption);
@@ -108,9 +115,9 @@ export default {
 
     const T = {
       grey: 0.5,
-      greyD: Math.min(5, dur * 0.4),
+      greyD: Math.min(3.6, dur * 0.3),
       green: opts.greenAt != null ? opts.greenAt : reprise ? 0.5 : dur * 0.45,
-      greenD: reprise ? 2.2 : 1.8,
+      greenD: reprise ? 1.6 : 1.2,
     };
     T.cap = T.green + T.greenD + 0.2;
     T.checks = T.green + T.greenD * 0.6;
@@ -122,7 +129,7 @@ export default {
       update(t) {
         const te = t + shift;
         if (!lens) lens = { g: grey ? grey.getTotalLength() : 0, n: green.getTotalLength() };
-        show(chart, te, 0.05, 0.5, 20);
+        pop(chart, te, 0, { dy: 60, s0: 0.96 });
 
         if (grey) {
           const pg = prog(te, T.grey, T.greyD, ease.inOut);
@@ -130,30 +137,36 @@ export default {
           grey.style.strokeDashoffset = lens.g * (1 - pg);
           greyLbl.style.opacity = prog(te, T.grey + T.greyD - 0.2, 0.4);
           const mNow = 1 + 11 * pg;
-          for (const c of calls) c.g.style.opacity = clamp((mNow - c.m) / 0.6);
+          for (const c of calls) {
+            const tc = T.grey + T.greyD * ((c.m - 1) / 11);
+            c.g.style.opacity = te >= tc ? 1 : 0;
+            c.g.style.transform = `scale(${0.6 + 0.4 * spring(te, tc, 3, 0.5)})`;
+          }
+          // Playhead follows the grey line while it draws.
+          ph.setAttribute("x1", x(mNow)); ph.setAttribute("x2", x(mNow));
+          ph.style.opacity = pg > 0 && pg < 1 ? 1 : 0;
         }
         const pn = prog(t, T.green, T.greenD, ease.inOut);
         green.style.strokeDasharray = lens.n;
         green.style.strokeDashoffset = lens.n * (1 - pn);
-        glow.style.strokeDasharray = lens.n;
-        glow.style.strokeDashoffset = lens.n * (1 - pn);
         const pt = green.getPointAtLength(lens.n * pn);
-        gdot.setAttribute("cx", pt.x);
-        gdot.setAttribute("cy", pt.y);
+        gdot.setAttribute("x", pt.x - 15);
+        gdot.setAttribute("y", pt.y - 15);
         gdot.style.opacity = t >= T.green ? 1 : 0;
         greenLbl.style.opacity = prog(t, T.green + T.greenD - 0.3, 0.4);
         if (grey && t >= T.green) grey.style.opacity = 1 - 0.45 * prog(t, T.green, 0.8);
 
-        if (caption) show(caption, t, T.cap, 0.5, 14);
-        checks.forEach((e, i) => show(e, t, T.checks + i * ckGap, 0.45, 16));
+        if (caption) pop(caption, t, T.cap, { dy: 50 });
+        checks.forEach((e, i) => pop(e, t, T.checks + i * ckGap, { dx: 100, dy: 0, s0: 1 }));
         tick(t, te);
-        outro(el, t, dur, 0.28);
+        exit(el, t, dur);
       },
       cues: () => [
         ...(grey && !opts.first ? [{ t: T.grey, type: "stream", dur: T.greyD }] : []),
         ...calls.map((c) => ({ t: T.grey + T.greyD * ((c.m - 1) / 11), type: "block" })),
         { t: T.green, type: "swell" },
-        { t: T.green + T.greenD, type: "chime" },
+        { t: T.green + T.greenD, type: "stamp" },
+        ...(caption ? [{ t: T.cap, type: "phrase" }] : []),
         ...checks.map((_, i) => ({ t: T.checks + i * ckGap, type: "tick" })),
       ],
     };

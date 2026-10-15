@@ -1,19 +1,23 @@
-// Checklist: a title, then items arriving one at a time with a tick (or a
-// number). Everything stays on screen so the last frame can be screenshot.
+// Checklist: a title, then items that slide in as cards on the beat. A
+// cursor travels to each card and clicks it, and the box fills green. Items
+// stay on screen so the last frame can be screenshot.
 //
 // opts: title, items [string], numbered, start (first number), caption, source,
-//       voItems [string] (voiceover: one line per item, timed to the item)
+//       voItems [string] (voiceover: one line per item, timed to the item),
+//       cursor (default true)
 // opts.ladder: { head, tone "alert", steps [string | {text, sub}] } draws the
-//   steps as a descending ladder joined by arrows that light up in turn.
+//   steps as a descending ladder joined by lines that fill in turn.
 
-import { h, show, outro, prog, ease, backOut, clamp, ICON } from "../../lib.js";
-import { entryShift, extras } from "./common.js";
+import { h, clamp, ICON } from "../../lib.js";
+import { entryShift, extras, pop, exit, snap, spring } from "./common.js";
+
+const CURSOR = '<svg viewBox="0 0 24 24"><path d="M4 2.5l15 9.2-6.6 1.5 3.9 7.3-2.8 1.5-3.9-7.3L4.9 19z" fill="#0a0a0a" stroke="#fafaf7" stroke-width="1.4" stroke-linejoin="round"/></svg>';
 
 export default {
   build({ dur, opts }) {
     if (opts.ladder) return ladder({ dur, opts });
     const items = opts.items;
-    const dense = items.length > 4 || items.some((s) => s.length > 34);
+    const dense = items.length > 4 || items.some((s) => s.length > 30);
     const el = h("div", `scene c c-list${dense ? " dense" : ""}`);
     const box = h("div", "c-box");
     el.append(box);
@@ -33,31 +37,56 @@ export default {
       list.append(r);
       return { r, mark, txt, ic: mark.querySelector(".ic") };
     });
+    const useCursor = opts.cursor !== false;
+    const cursor = h("div", "c-cursor", CURSOR);
+    const ring = h("div", "c-ring");
+    if (useCursor) list.append(ring, cursor);
 
-    // Leave about a third of the scene to read the full list.
-    const t0 = title ? 0.55 : 0.2;
-    const gap = clamp((dur * 0.62 - t0) / items.length, 0.45, 2.2);
+    // Items arrive on the beat; leave about a quarter of the scene to read.
+    const t0 = title ? 0.5 : 0.25;
+    const gap = Math.max(0.5, snap(clamp((dur * 0.74 - t0) / items.length, 0.5, 2.2)));
     const at = items.map((_, i) => t0 + i * gap);
+    const click = at.map((a) => a + Math.min(0.5, gap * 0.6));
 
+    let pos = null;
     return {
       el,
       update(t) {
         const te = t + shift;
-        if (title) show(title, te, 0.05, 0.55, 18);
+        if (title) pop(title, te, 0, { dy: 50 });
         rows.forEach((o, i) => {
-          show(o.r, te, at[i], 0.45, 26);
-          const pm = clamp((te - at[i] - 0.12) / 0.35);
-          o.mark.classList.toggle("on", pm > 0);
+          pop(o.r, te, at[i], { dx: 140, dy: 0, s0: 0.98, f: 2.6 });
+          const on = te >= click[i];
+          o.mark.classList.toggle("on", on);
+          o.r.classList.toggle("done", on);
           if (o.ic) {
-            o.ic.style.opacity = clamp(pm * 2);
-            o.ic.style.transform = `scale(${0.5 + 0.5 * backOut(pm, 2)})`;
+            const p = spring(te, click[i], 3, 0.5);
+            o.ic.style.opacity = on ? 1 : 0;
+            o.ic.style.transform = `scale(${0.4 + 0.6 * p})`;
           }
         });
-        tick(t, te, at[at.length - 1] + 0.6);
-        outro(el, t, dur, 0.28);
+        if (useCursor) {
+          if (!pos) pos = rows.map((o) => ({ x: o.mark.offsetLeft + o.mark.offsetWidth * 0.62, y: o.r.offsetTop + o.r.offsetHeight * 0.58 }));
+          // Travel from the previous item to the next, arriving just before the click.
+          let i = 0;
+          while (i < at.length - 1 && te >= at[i + 1]) i++;
+          const from = i > 0 ? pos[i - 1] : { x: pos[0].x + 260, y: pos[0].y + 160 };
+          const p = spring(te, at[i], 2.4, 0.85);
+          const x = from.x + (pos[i].x - from.x) * p;
+          const y = from.y + (pos[i].y - from.y) * p;
+          const press = te >= click[i] && te < click[i] + 0.12 ? 0.86 : 1;
+          cursor.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${press})`;
+          cursor.style.opacity = clamp((te - at[0]) / 0.15) * (1 - clamp((te - (click[at.length - 1] + 0.8)) / 0.3));
+          const rp = clamp((te - click[i]) / 0.4);
+          ring.style.opacity = te >= click[i] ? 1 - rp : 0;
+          ring.style.transform = `translate3d(${pos[i].x}px, ${pos[i].y}px, 0) scale(${0.4 + rp})`;
+        }
+        tick(t, te, click[click.length - 1] + 0.5);
+        exit(el, t, dur);
       },
       cues: () => [
-        ...at.map((a) => ({ t: a + 0.12, type: opts.numbered ? "pass" : "tick" })),
+        ...at.map((a) => ({ t: a, type: "phrase" })),
+        ...click.map((c) => ({ t: c, type: "approve" })),
         // opts.voItems: one narration line per item, spoken as the item lands.
         ...(opts.voItems || []).map((text, i) => ({ t: at[i] + 0.05, type: "vo", text })),
       ],
@@ -91,8 +120,8 @@ function ladder({ dur, opts }) {
     return { st, arrow, fill };
   });
 
-  const t0 = 0.45;
-  const gap = clamp((dur * 0.7 - t0) / steps.length, 0.5, 2.2);
+  const t0 = 0.4;
+  const gap = Math.max(0.5, snap(clamp((dur * 0.72 - t0) / steps.length, 0.5, 2.2)));
   const at = steps.map((_, i) => t0 + i * gap);
   const lamp = head.querySelector(".lamp");
 
@@ -100,22 +129,22 @@ function ladder({ dur, opts }) {
     el,
     update(t) {
       const te = t + shift;
-      show(head, te, 0.05, 0.45, 14);
-      lamp.style.opacity = L.tone === "alert" ? (Math.floor(t * 3) % 2 ? 0.35 : 1) : 1;
+      pop(head, te, 0, { dy: 30, s0: 0.9 });
+      lamp.style.opacity = Math.floor(t * 4) % 2 ? 0.35 : 1;
       steps.forEach((o, i) => {
         if (o.arrow) {
-          show(o.arrow, te, at[i] - 0.3, 0.3, 0);
-          o.fill.style.transform = `scaleY(${prog(te, at[i] - 0.3, 0.35, ease.out)})`;
+          o.arrow.style.opacity = te >= at[i] - 0.25 ? 1 : 0;
+          o.fill.style.transform = `scaleY(${clamp((te - (at[i] - 0.25)) / 0.25)})`;
         }
-        show(o.st, te, at[i], 0.45, 22);
-        o.st.classList.toggle("on", te >= at[i] + 0.15);
+        pop(o.st, te, at[i], { dy: 50, s0: 0.96 });
+        o.st.classList.toggle("on", te >= at[i] + 0.12);
       });
-      tick(t, te, 0.6);
-      outro(el, t, dur, 0.28);
+      tick(t, te, 0.5);
+      exit(el, t, dur);
     },
     cues: () => [
-      ...(L.tone === "alert" ? [{ t: 0.1, type: "alert" }] : []),
-      ...at.map((a, i) => ({ t: a + 0.15, type: i === at.length - 1 ? "approve" : "pass" })),
+      ...(L.tone === "alert" ? [{ t: 0.05, type: "alert" }] : []),
+      ...at.map((a, i) => ({ t: a + 0.12, type: i === at.length - 1 ? "approve" : "pass" })),
     ],
   };
 }

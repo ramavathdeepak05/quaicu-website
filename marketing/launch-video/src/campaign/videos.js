@@ -21,17 +21,19 @@ export const VIDEOS = {
   V01: {
     title: "Agencies are best in month one",
     scenes: [
-      ["kinetic", 8, { lines: ["Most agencies are at their best", { text: "in month one.", dim: true }], vo: "Most agencies are at their best in month one." }],
-      ["slide", 36, {
+      ["kinetic", 6, { lines: ["Most agencies are", "*at their best*", "in month one."], size: "l", vo: "Most agencies are at their best in month one." }],
+      ["slide", 22, {
         callouts: [{ m: 4, text: "New faces" }, { m: 7, text: "Demos stop" }, { m: 10, text: "Dates slip" }],
-        greenAt: 10.5,
-        caption: "Same engineer. Same steps. Every month.",
+        greenAt: 6,
+        caption: "With QUAICU, the line stays flat.",
         vo: [
-          { at: 0.8, text: "Then new faces arrive. The demos stop. The dates slip." },
-          { at: 10.7, text: "With QUAICU, the line stays flat. Same engineer. Same steps. Every month." },
+          { at: 0.3, text: "Then new faces arrive. Demos stop. Dates slip." },
+          { at: 6.1, text: "With QUAICU, the line stays flat." },
         ],
       }],
-      ["kinetic", 8, { lines: ["Judge a vendor", "on month twelve."], size: "xl", vo: "Judge a vendor on month twelve." }],
+      ["kinetic", 8, { lines: ["Same *engineer.*", "Same *steps.*", "Every *month.*"], size: "xl", vo: "Same engineer. Same steps. Every month." }],
+      ["orbit", 8, { center: "Your<br>engineer", ring: "AI AGENT", captions: ["One engineer who stays."], vo: "One engineer who stays, with an AI agent that doesn’t forget." }],
+      ["kinetic", 8, { lines: ["Judge a vendor on", "*month twelve.*"], size: "xl", vo: "Judge a vendor on month twelve." }],
       END_VO,
     ],
   },
@@ -39,16 +41,21 @@ export const VIDEOS = {
   V02: {
     title: "The team that pitched you",
     scenes: [
-      ["myth", 30, {
+      ["myth", 16, {
         myth: "The team that pitched you is the team that stays.",
-        reality: "Senior people win the deal. Then they move to the next one.",
+        reality: "Senior people win the deal. Then they move on to the next one.",
         vo: [
           { at: 0.15, text: "Myth: the team that pitched you is the team that stays." },
-          { at: 5.4, text: "Reality: senior people win the deal, then move on to the next one." },
+          { at: 3.1, text: "Reality: senior people win the deal, then move on to the next one." },
         ],
       }],
-      ["kinetic", 14, { lines: ["Ask who works on it", { text: "in month six.", dim: true }], size: "xl", vo: "So ask who works on it in month six." }],
-      ["kinetic", 8, { lines: ["With us: one forward deployed engineer,", { text: "from week one to month twelve.", dim: true }], size: "m", vo: "With us, one engineer, from week one to month twelve." }],
+      ["kinetic", 6, { lines: ["Month one:", "*the senior team.*"], size: "xl", vo: "Month one: the senior team." }],
+      ["kinetic", 6, { lines: ["Month six:", { text: "whoever is free.", dim: true }], size: "xl", vo: "Month six: whoever is free." }],
+      ["kinetic", 8, { lines: ["So ask who works on it", "in *month six.*"], size: "l", vo: "So ask who works on it in month six." }],
+      ["orbit", 10, {
+        center: "Your<br>engineer", ring: "AI AGENT", captions: ["One forward deployed engineer", "From week one to month twelve"],
+        vo: "With us: one forward deployed engineer, from week one to month twelve.",
+      }],
       END_VO,
     ],
   },
@@ -56,13 +63,13 @@ export const VIDEOS = {
   V03: {
     title: "6 signs your vendor is slipping",
     scenes: [
-      ["kinetic", 6, { lines: ["6 signs your vendor", { text: "is starting to slip", dim: true }], vo: "Six signs your vendor is starting to slip." }],
-      ["checklist", 38, {
+      ["kinetic", 6, { lines: ["6 signs your vendor is", "*starting to slip*"], size: "l", vo: "Six signs your vendor is starting to slip." }],
+      ["checklist", 30, {
         numbered: true,
-        items: ["Status calls, no demos", "A new name every month", "“Next week” for everything", "Replies take a day, not an hour", "Old bugs come back", "Invoices you can’t match to work"],
-        voItems: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can’t match to work."],
+        items: ["Status calls, no demos", "A new name every month", "\u201CNext week\u201D for everything", "Replies take a day, not an hour", "Old bugs come back", "Invoices you can\u2019t match to work"],
+        voItems: ["Status calls, but no demos.", "A new name every month.", "Next week, for everything.", "Replies take a day, not an hour.", "Old bugs come back.", "Invoices you can\u2019t match to work."],
       }],
-      ["kinetic", 8, { lines: ["One is a bad week.", { text: "Three is a pattern.", dim: true }], vo: "One is a bad week. Three is a pattern." }],
+      ["kinetic", 8, { lines: ["One is a bad week.", "*Three is a pattern.*"], size: "l", vo: "One is a bad week. Three is a pattern." }],
       END_VO,
     ],
   },
@@ -70,16 +77,16 @@ export const VIDEOS = {
   V04: {
     title: "Code held hostage",
     scenes: [
-      ["quotecard", 16, {
+      ["quotecard", 10, {
         quote: "Trying to hold my software and code hostage.", attribution: "From a buyer review",
-        vo: [{ at: 0.3, text: "From a real buyer review: trying to hold my software and code hostage." }],
+        vo: [{ at: 0.2, text: "From a real buyer review: trying to hold my software and code hostage." }],
       }],
-      ["kinetic", 8, { lines: ["It happens when the vendor", { text: "owns the accounts.", dim: true }], size: "m", vo: "It happens when the vendor owns the accounts." }],
-      ["checklist", 20, {
+      ["kinetic", 6, { lines: ["It happens when the vendor", "*owns the accounts.*"], size: "l", vo: "It happens when the vendor owns the accounts." }],
+      ["checklist", 18, {
         title: "In your name from day one", items: ["Code repository", "Domain", "Hosting and cloud", "App store accounts"],
-        vo: [{ at: 0.2, text: "Keep the code, the domain, the hosting and the app store accounts in your name, from day one." }],
+        voItems: ["Your code repository.", "Your domain.", "Your hosting and cloud.", "Your app store accounts."],
       }],
-      ["kinetic", 8, { lines: ["Your vendor gets access.", { text: "You keep ownership.", dim: true }], size: "m", vo: "Your vendor gets access. You keep ownership." }],
+      ["kinetic", 8, { lines: ["Your vendor gets access.", "*You keep ownership.*"], size: "l", vo: "Your vendor gets access. You keep ownership." }],
       END_VO,
     ],
   },

@@ -14,7 +14,7 @@
 //          --no-audio, --at 1.5,3.2 (stills at these times),
 //          --allow-fill (render campaign videos that still contain [FILL] placeholders),
 //          --vo (campaign videos: Kokoro voiceover, ducked music, SRT captions; output *-vo.mp4),
-//          --voice af_heart (Kokoro voice for --vo).
+//          --voice af_heart (Kokoro voice for --vo), --vo-speed 1.1 (narration pace).
 //
 // Each frame is a screenshot of the stage after window.seek(t), so frames
 // are exact and the result is the same on every run.
@@ -253,7 +253,7 @@ function mux(video, wav, out, duration) {
 // whenever the voice speaks (sidechain), then the mix goes to mux().
 function addVoice(dir, score, tg, voiceName) {
   const voWav = path.join(dir, "vo.wav");
-  run("python3", [path.join(HERE, "audio", "voice.py"), "--cues", path.join(dir, "cues.json"), "--out", voWav, "--srt", tg.srt, "--voice", voiceName],
+  run("python3", [path.join(HERE, "audio", "voice.py"), "--cues", path.join(dir, "cues.json"), "--out", voWav, "--srt", tg.srt, "--voice", voiceName, "--speed", opt("--vo-speed", "1.1")],
     { stdio: ["ignore", "inherit", "pipe"] });
   const mix = path.join(dir, "mix.wav");
   run("ffmpeg", [

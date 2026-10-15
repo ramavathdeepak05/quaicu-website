@@ -1,12 +1,14 @@
-// Stat drop: a large figure counts up, a one-line label, and a source line.
-// Numbers inside the value ("10–15%", "13 + 9", "40%+") count up together.
+// Stat drop: a huge figure slams in on a spring and counts up, a heavy rule
+// draws under it, then the label. Symbols (%, +, –) are set in green.
 // A value containing "[FILL]" renders as a red dashed placeholder so it can
 // never pass for real data.
 //
 // opts: value, label, source
 
-import { h, show, outro, prog, ease } from "../../lib.js";
-import { entryShift, extras } from "./common.js";
+import { h, clamp, prog, ease } from "../../lib.js";
+import { entryShift, extras, pop, exit } from "./common.js";
+
+const fmt = (s) => s.replace(/([^\d\s.]+)/g, '<span class="acc">$1</span>');
 
 export default {
   build({ dur, opts }) {
@@ -17,19 +19,18 @@ export default {
     const tick = extras(el, opts);
 
     const isFill = /\[FILL/.test(opts.value);
-    const val = h("div", "val" + (isFill ? " fill" : opts.value.length > 6 ? " small" : ""), opts.value);
+    const val = h("div", "val" + (isFill ? " fill" : ""), isFill ? opts.value : fmt(opts.value));
     const bar = h("div", "bar");
     const lbl = h("div", "lbl", opts.label || "");
     box.append(val, bar, lbl);
 
     const parts = opts.value.split(/(\d+(?:\.\d+)?)/);
-    const T = { val: 0.05, count: 1.1, bar: 0.6, lbl: 0.75 };
+    const T = { val: 0.05, count: 0.8, bar: 0.5, lbl: 0.75 };
 
     // Shrink the figure to fit the width, measured once at its final text.
     let fitted = false;
     const fit = () => {
       fitted = true;
-      val.textContent = opts.value;
       const room = box.clientWidth;
       if (val.scrollWidth > room) {
         const fs = parseFloat(getComputedStyle(val).fontSize);
@@ -42,17 +43,17 @@ export default {
       update(t) {
         const te = t + shift;
         if (!fitted) fit();
-        show(val, te, T.val, 0.45, 30);
+        pop(val, te, T.val, { dy: 120, s0: 0.8, f: 2.2 });
         if (!isFill) {
           const p = prog(te, T.val, T.count, ease.out);
-          val.textContent = parts.map((s, i) => (i % 2 ? String(Math.round(+s * p)) : s)).join("");
+          val.innerHTML = fmt(parts.map((s, i) => (i % 2 ? String(Math.round(+s * p)) : s)).join(""));
         }
-        bar.style.transform = `scaleX(${prog(te, T.bar, 0.5, ease.out)})`;
-        show(lbl, te, T.lbl, 0.5, 18);
-        tick(t, te, 1.4);
-        outro(el, t, dur, 0.28);
+        bar.style.transform = `scaleX(${prog(te, T.bar, 0.35, ease.out)})`;
+        pop(lbl, te, T.lbl, { dy: 40 });
+        tick(t, te, 1.2);
+        exit(el, t, dur);
       },
-      cues: () => (opts.first ? [] : [{ t: T.val, type: "swell" }, { t: T.val + T.count, type: "stamp" }]),
+      cues: () => (opts.first ? [{ t: 0.05, type: "stamp" }] : [{ t: T.val, type: "stamp" }, { t: T.val + T.count, type: "approve" }]),
     };
   },
 };

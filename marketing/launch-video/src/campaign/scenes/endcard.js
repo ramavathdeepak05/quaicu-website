@@ -1,10 +1,11 @@
 // Campaign end card: logo, the line, quaicu.org. Holds still at the end.
 // Registered as "endcard" so the score resolves on it like the launch cuts.
 //
-// opts: lines [string | {text, dim}], url, extra
+// opts: lines [string | {text, dim}] (dim lines are set in green), url, extra
 
-import { h, show, prog, ease, backOut, clamp, LOGO_SRC } from "../../lib.js";
-import { row } from "./common.js";
+import { h, clamp, prog, ease } from "../../lib.js";
+import { row, pop, spring } from "./common.js";
+import { LOGO_SRC } from "../../lib.js";
 
 export default {
   build({ dur, opts }) {
@@ -12,9 +13,9 @@ export default {
     const box = h("div", "c-box");
     el.append(box);
 
-    const logo = h("div", "logo", `<div class="glow"></div><img src="${LOGO_SRC}" alt="">`);
+    const logo = h("div", "logo", `<img src="${LOGO_SRC}" alt="">`);
     box.append(logo);
-    const lines = (opts.lines || ["Software service", { text: "that doesn't fade.", dim: true }]).map(row);
+    const lines = (opts.lines || ["Software service", { text: "that doesn’t fade.", dim: true }]).map(row);
     const lnEls = lines.map((r) => {
       const e = h("div", "ln" + (r.dim ? " dim" : ""), r.text);
       box.append(e);
@@ -26,22 +27,19 @@ export default {
     const extra = opts.extra ? h("div", "extra", opts.extra) : null;
     if (extra) box.append(extra);
     const img = logo.querySelector("img");
-    const glow = logo.querySelector(".glow");
-    const k = clamp(dur / 4, 0.6, 1);
 
     return {
       el,
       update(t) {
-        const pl = clamp((t - 0.05) / 0.6);
-        img.style.opacity = clamp(pl * 3);
-        img.style.transform = `scale(${0.82 + 0.18 * backOut(pl, 1.4)})`;
-        glow.style.opacity = 0.5 + 0.5 * prog(t, 0.05, 1.2, ease.out);
-        lnEls.forEach((e, i) => show(e, t, 0.3 * k + i * 0.15, 0.6, 30));
-        rule.style.transform = `scaleX(${prog(t, 0.9 * k, 0.6, ease.out)})`;
-        show(url, t, 1.1 * k, 0.5, 10);
-        if (extra) show(extra, t, 1.3 * k, 0.5, 8);
+        const pl = spring(t, 0.05, 1.8, 0.45);
+        img.style.opacity = clamp((t - 0.05) / 0.1);
+        img.style.transform = `scale(${0.4 + 0.6 * pl}) rotate(${(1 - pl) * -12}deg)`;
+        lnEls.forEach((e, i) => pop(e, t, 0.3 + i * 0.12, { dy: 60 }));
+        rule.style.transform = `scaleX(${prog(t, 0.75, 0.35, ease.out)})`;
+        pop(url, t, 1.0, { dy: 30, s0: 0.85 });
+        if (extra) pop(extra, t, 1.25, { dy: 10, s0: 1 });
       },
-      cues: () => [{ t: 0, type: "resolve" }, { t: 1.1 * k, type: "cta" }],
+      cues: () => [{ t: 0, type: "resolve" }, { t: 0.05, type: "impact" }, { t: 1.0, type: "cta" }],
     };
   },
 };

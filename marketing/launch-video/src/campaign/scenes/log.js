@@ -3,8 +3,8 @@
 //
 // opts: title, cols [3 labels], rows [{ time, who, what, kind "ai" | "person" | "ship" }], foot
 
-import { h, show, outro, prog, ease, clamp } from "../../lib.js";
-import { entryShift, extras } from "./common.js";
+import { h, prog, ease, clamp } from "../../lib.js";
+import { entryShift, extras, pop, exit, snap } from "./common.js";
 
 export default {
   build({ dur, opts }) {
@@ -30,22 +30,22 @@ export default {
     if (foot) box.append(foot);
 
     const t0 = title ? 0.7 : 0.4;
-    const gap = clamp((dur * 0.65 - t0) / rows.length, 0.45, 2);
+    const gap = Math.max(0.5, snap(clamp((dur * 0.65 - t0) / rows.length, 0.5, 2)));
     const at = rows.map((_, i) => t0 + i * gap);
 
     return {
       el,
       update(t) {
         const te = t + shift;
-        if (title) show(title, te, 0.05, 0.5, 18);
-        show(tbl, te, 0.15, 0.5, 20);
+        if (title) pop(title, te, 0, { dy: 50 });
+        pop(tbl, te, 0.1, { dy: 60, s0: 0.95 });
         rows.forEach((o, i) => {
-          show(o.e, te, at[i], 0.35, 14);
+          pop(o.e, te, at[i], { dx: 80, dy: 0, s0: 1 });
           o.flash.style.opacity = 1 - prog(te, at[i] + 0.2, 0.9, ease.out);
         });
-        if (foot) show(foot, te, at[at.length - 1] + 0.5, 0.5, 8);
+        if (foot) pop(foot, te, at[at.length - 1] + 0.5, { dy: 10, s0: 1 });
         tick(t, te);
-        outro(el, t, dur, 0.28);
+        exit(el, t, dur);
       },
       cues: () => at.map((a) => ({ t: a, type: "stamp" })),
     };
