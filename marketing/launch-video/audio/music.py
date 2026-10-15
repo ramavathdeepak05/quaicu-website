@@ -9,6 +9,10 @@ under the logo. Everything is synthesised here with numpy and scipy (no
 samples), deterministic, and arranged from the video's cue file:
 
   * the drop lands on the second scene's cut (a riser leads into it)
+  * longer videos can name a section per scene (scene "section": intro,
+    build, tension, drive, break): quiet intro, a light build, a darker
+    tension with a heartbeat kick, the full groove, and a breakdown;
+    every "drive" that follows another section gets its own riser
   * drums stop on the end card; a boom, a held chord and a bell flourish
     resolve it, and the reverb tail fades out by the end
   * narration ("vo" cues with t and dur): the bell motif stays out of the
@@ -44,6 +48,9 @@ CHORDS = {
     "V": (44, [60, 63, 68]),   # G#  : B#(C) D# G#
 }
 LOOP = ["I", "vi", "I", "vi", "IV", "vi", "I", "V"]
+# Long-form sections (see compose) and the pad's brightness in each.
+LONG_SECTIONS = {"intro", "build", "tension", "break"}
+PAD_CUTOFF = {"lift": 1500, "intro": 1500, "build": 2200, "tension": 1150, "drive": 3600, "break": 3000}
 SCALE = {1, 3, 5, 6, 8, 10, 0}  # C# major pitch classes: C# D# F F# G# A# B#(C)
 
 
@@ -331,9 +338,32 @@ def compose(meta):
 
     end = next((s for s in scenes if s["name"] == "endcard"), None)
     end_t = end["start"] if end else dur
-    drop_t = scenes[1]["start"] if len(scenes) > 1 and scenes[1]["start"] < end_t else min(BAR, end_t)
-    if drop_t < 1.0:  # too soon for an intro: drop at the first bar line instead
-        drop_t = BAR if BAR < end_t else drop_t
+    # Long form: the scenes name their sections and the drop is the first
+    # "drive". Short form (the campaign videos): intro, then the drop on the
+    # second scene's cut.
+    long_form = any(s.get("section") in LONG_SECTIONS for s in scenes)
+    if long_form:
+        drives = [s["start"] for i, s in enumerate(scenes)
+                  if s.get("section") == "drive" and s["start"] < end_t and (i == 0 or scenes[i - 1].get("section") != "drive")]
+        drop_t = drives[0] if drives else min(BAR, end_t)
+        intro_end = next((s["start"] for s in scenes if s.get("section") not in ("intro", "lift")), drop_t)
+    else:
+        drop_t = scenes[1]["start"] if len(scenes) > 1 and scenes[1]["start"] < end_t else min(BAR, end_t)
+        if drop_t < 1.0:  # too soon for an intro: drop at the first bar line instead
+            drop_t = BAR if BAR < end_t else drop_t
+        drives, intro_end = [drop_t], drop_t
+
+    def sec_at(t):
+        if t >= end_t:
+            return "outro"
+        if not long_form:
+            return "lift" if t < drop_t else "drive"
+        cur = scenes[0].get("section", "intro")
+        for sc in scenes:
+            if sc["start"] > t + 1e-6:
+                break
+            cur = sc.get("section", cur)
+        return cur
 
     # Narration spans (seconds), for keeping the bell motif out of the way.
     vo = [(c["t"], c["t"] + c.get("dur", 0.36 * len(c.get("text", "").split()))) for c in cues if c["type"] == "vo"]
@@ -356,7 +386,7 @@ def compose(meta):
         root, notes = chord_at(t0 + 0.01)
         if t0 >= end_t:
             root, notes = CHORDS["I"]
-        cutoff = 1500 if t0 < drop_t else 3600
+        cutoff = PAD_CUTOFF.get(sec_at(t0 + 0.01), 3600)
         length = BAR if t0 + BAR < end_t or t0 >= end_t else end_t - t0
         if t0 >= end_t:
             length = dur - t0
@@ -383,6 +413,7 @@ def compose(meta):
             k += 1
             t += step
             continue
+        sec = sec_at(t)
         if t >= end_t:
             # End card: slower, falling away.
             if k % 2:
@@ -391,9 +422,18 @@ def compose(meta):
                 continue
             vel = 0.8 * np.exp(-(t - end_t) / 1.4)
             bright = 0.3
-        elif t < drop_t:
-            vel = 0.55 + 0.35 * (t / max(drop_t, 0.01))
-            bright = 0.15 + 0.6 * (t / max(drop_t, 0.01))
+        elif sec in ("lift", "intro"):
+            vel = 0.55 + 0.35 * (t / max(intro_end, 0.01))
+            bright = 0.15 + 0.6 * (t / max(intro_end, 0.01))
+        elif sec == "build":
+            vel = 0.72 if k % 4 == 0 else 0.6
+            bright = 0.6
+        elif sec == "tension":
+            vel = 0.5
+            bright = 0.22
+        elif sec == "break":
+            vel = 0.6 if k % 4 == 0 else 0.45
+            bright = 0.5
         else:
             vel = 0.85 if k % 4 == 0 else 0.62
             bright = 0.85
@@ -416,7 +456,7 @@ def compose(meta):
             tt = c0 + beat * BEAT
             if tt >= end_t or tt >= dur:
                 continue
-            if in_vo(tt):
+            if in_vo(tt) or sec_at(tt) == "tension":
                 continue
             b = bell(midi(note), 1.1)
             music.add(tt, b, db(-15), 0.2)
@@ -430,27 +470,50 @@ def compose(meta):
                 music.add(tt, b, db(-13), -0.2 + 0.15 * j)
                 send.add(tt, b, db(-7))
 
-    # --- drums (after the drop, until the end card): half-time groove
+    # --- drums (until the end card): the half-time groove in "drive";
+    # long-form sections get lighter patterns, the intro none
     kicks = []
     k16 = BEAT / 4
-    g = int(np.ceil(drop_t / k16 - 1e-6))
+    g = int(np.ceil(drop_t / k16 - 1e-6)) if not long_form else 0
     while g * k16 < end_t - 0.02:
         tt = g * k16
         pos = g % 16  # 16th within the bar (bar grid from t = 0)
         sw = 0.012 if g % 2 else 0.0  # light swing on off-16ths
-        if pos in (0, 10):
-            kicks.append(tt)
-            drums.add(tt, kick(), db(3))
-        if pos == 8:
-            c = clap(rng)
-            drums.add(tt, c, db(-1.5))
-            send.add(tt, c, db(-12))
-        if pos % 2 == 0:
-            drums.add(tt + sw, hat(rng), db(-16 if pos % 4 == 0 else -12), 0.25)
-        elif pos % 4 == 3:
-            drums.add(tt + sw, shaker(rng), db(-19), -0.3)
-        if pos == 14 and (g // 16) % 2 == 1:
-            drums.add(tt, hat(rng, True), db(-17), 0.3)
+        sec = sec_at(tt)
+        if sec == "drive":
+            if pos in (0, 10):
+                kicks.append(tt)
+                drums.add(tt, kick(), db(3))
+            if pos == 8:
+                c = clap(rng)
+                drums.add(tt, c, db(-1.5))
+                send.add(tt, c, db(-12))
+            if pos % 2 == 0:
+                drums.add(tt + sw, hat(rng), db(-16 if pos % 4 == 0 else -12), 0.25)
+            elif pos % 4 == 3:
+                drums.add(tt + sw, shaker(rng), db(-19), -0.3)
+            if pos == 14 and (g // 16) % 2 == 1:
+                drums.add(tt, hat(rng, True), db(-17), 0.3)
+        elif sec == "build":
+            if pos == 0:
+                kicks.append(tt)
+                drums.add(tt, kick(), db(-1))
+            if pos % 2 == 0:
+                drums.add(tt + sw, hat(rng), db(-19 if pos % 4 == 0 else -16), 0.25)
+            elif pos % 4 == 3:
+                drums.add(tt + sw, shaker(rng), db(-22), -0.3)
+        elif sec == "tension":
+            # A heartbeat and a ticking clock.
+            if pos in (0, 3):
+                kicks.append(tt)
+                drums.add(tt, lp(kick(), 2500), db(0 if pos == 0 else -5))
+            if pos % 4 == 2:
+                drums.add(tt, hp(hat(rng), 6000), db(-21), 0.4)
+        elif sec == "break":
+            if pos % 2 == 1:
+                drums.add(tt + sw, shaker(rng), db(-24), -0.3)
+            if pos == 14 and (g // 16) % 2 == 1:
+                drums.add(tt, hat(rng, True), db(-20), 0.3)
         g += 1
     # Fill into the end card: a short clap roll.
     if end is not None and end_t - drop_t > 2 * BEAT:
@@ -459,17 +522,23 @@ def compose(meta):
             if tt > drop_t:
                 drums.add(tt, clap(rng), db(-15 + 2 * j))
 
-    # --- bass: root on a syncopated pattern, pumped by the kick
+    # --- bass: root on a syncopated pattern in "drive", pumped by the kick;
+    # a held root under "tension" and "break"
     bass_pat = [(0.0, 1.0), (1.5, 0.5), (2.5, 0.5), (3.0, 0.75)]
-    b = int(np.floor(drop_t / BAR))
+    b = int(np.floor(drop_t / BAR)) if not long_form else 0
     while b * BAR < end_t:
         for beat, length in bass_pat:
             tt = b * BAR + beat * BEAT
-            if tt < drop_t - 1e-6 or tt >= end_t:
+            if (not long_form and tt < drop_t - 1e-6) or tt >= end_t:
                 continue
+            sec = sec_at(tt)
             root, _ = chord_at(tt + 0.001)
-            L = min(length * BEAT, end_t - tt)
-            bass.add(tt, bass_note(root, L * 0.92), db(-1.5))
+            if sec == "drive":
+                L = min(length * BEAT, end_t - tt)
+                bass.add(tt, bass_note(root, L * 0.92), db(-1.5))
+            elif sec in ("tension", "break") and beat == 0.0:
+                L = min(BAR, end_t - tt)
+                bass.add(tt, bass_note(root, L * 0.95), db(-6 if sec == "tension" else -4))
         b += 1
     if end is not None:
         bass.add(end_t, bass_note(CHORDS["I"][0], min(2.0, dur - end_t - 0.1)), db(-5))
@@ -485,15 +554,17 @@ def compose(meta):
     music.x *= pump[:, None]
     bass.x *= (0.35 + 0.65 * pump)[:, None]
 
-    # --- transitions: riser into the drop and into the end card, whooshes on cuts
-    rl = min(1.6, drop_t - 0.1)
-    if rl > 0.4:
-        fx.add(drop_t - rl, riser(rng, rl), db(-15))
+    # --- transitions: a riser into each drop and into the end card, whooshes on cuts
+    for d_t in drives:
+        rl = min(1.6, d_t - 0.1)
+        if rl > 0.4:
+            fx.add(d_t - rl, riser(rng, rl), db(-15))
     if end is not None and end_t - drop_t > 2.0:
         fx.add(end_t - 1.3, riser(rng, 1.3), db(-17))
     for s in scenes[1:]:
         fx.add(s["start"] - 0.28, whoosh(rng, 0.55), db(-24), rng.uniform(-0.4, 0.4))
-    fx.add(drop_t, hat(rng, True) * 1.2, db(-16))
+    for d_t in drives:
+        fx.add(d_t, hat(rng, True) * 1.2, db(-16))
     if end is not None:
         fx.add(end_t, noise_sweep(rng, 1.2, 9000, 600, False) * np.exp(-secs(int(1.2 * SR)) / 0.4) * 0.4, db(-18))
 

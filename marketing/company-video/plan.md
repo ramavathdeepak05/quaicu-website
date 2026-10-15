@@ -1,6 +1,6 @@
 # QUAICU company introduction video: plan
 
-Status: **styleframes ready for review** (`styleframes/`). Next: first full render of the 16:9 master.
+Status: **first full render** of the 16:9 master. Styleframes in `styleframes/`.
 
 Build: `node render.mjs --video INTRO --vo` (16:9), `--video INTRO45` (4:5), `--video INTROCUT` (cutdown) from `marketing/launch-video`; data in `src/campaign/company.js`, scenes in `src/campaign/z/company.js`. Output goes to `marketing/launch-video/out/company/`.
 
@@ -51,12 +51,12 @@ All versions: voiceover and music at -14 LUFS, a caption file (`.srt`) and a cov
 | 7 | "That's where QUAICU comes in." | A line from "AI tool" to "Agency"; the QUAICU mark slides to the middle and braces close around it |
 | 8 | "We use AI to work faster, so you pay less." | Tasks tick through quickly in a work queue, with a cost meter that stays low |
 | 9 | "And experienced engineers make the calls that matter: how it's built, how it's secured, and how it grows." | Three decision cards, "Architecture", "Security", "Growth", each approved by an engineer |
-| 10 | "We started out building AI governance technology. That work earned us a place in NASSCOM's DeepTech cohort and NVIDIA Inception, and the support of Google for Startups and T-Hub." | A governance core forms; four programme cards (NASSCOM DeepTech 2026, NVIDIA Inception, Google for Startups, T-Hub) connect to it, each lighting up as it is named |
+| 10 | "We started out building AI governance technology. That work earned us a place in NASSCOM's DeepTech cohort. We're also part of NVIDIA Inception, and supported by Google for Startups and T-Hub." | A governance core forms; four programme cards (NASSCOM DeepTech 2026, NVIDIA Inception, Google for Startups, T-Hub) connect to it, each lighting up as it is named |
 | 10b | "It's also why every change we make is reviewed before it ships, and every decision is written down." | A project record fills in row by row: each change "Reviewed", each decision logged with a name and date |
 | 11 | "Which means your software keeps running long after launch, and nothing about it lives only in one person's head." | The app from scene 3 again, now steady: every check passing, the record still growing beside it |
 | 12 | "QUAICU. Software service that doesn't fade." | End card: logo, "Software service that doesn't fade.", "quaicu.org", and "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026." |
 
-About 175 words, which Kokoro speaks in about 51 seconds. With the scene changes and the end card it lands at about 65 seconds; the final timing follows the recorded voice, as in V01 to V04.
+About 175 words, which Kokoro speaks in about 51 seconds. With the scene changes and the end card it lands at about 60 seconds; the final timing follows the recorded voice, as in V01 to V04.
 
 ## 5. Cutdown (4:5, about 16s)
 
@@ -86,5 +86,5 @@ The Month Twelve engine (`marketing/launch-video`, Zelios style) has text, setti
 
 1. **No SEO.** Scene 4 says "And nobody's sure it's secure." instead of the Google line.
 2. **No dedicated-engineer line.** The engineers appear in scene 9 only.
-3. **Programmes in the story, not just on the end card.** Scene 10 ties them to where they come from: the AI governance technology QUAICU started with is the deep-tech work behind NASSCOM DeepTech and NVIDIA Inception, with support from Google for Startups and T-Hub. The end card repeats them as text: "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026." To confirm with the founders: that the governance work is what earned these places.
+3. **Programmes in the story, not just on the end card.** Scene 10 ties them to where they come from. Confirmed by the founders: QUAICU got into NASSCOM's DeepTech cohort because of its governance capability, so that line is causal; NVIDIA Inception, Google for Startups and T-Hub follow it without a claimed reason. The end card repeats them as text: "Supported by Google for Startups and T-Hub. In NVIDIA Inception and NASSCOM DeepTech 2026."
 4. **Opening:** "AI made building software cheap. Running it is another story." The agency comparison moves to scene 6, right after the code line.

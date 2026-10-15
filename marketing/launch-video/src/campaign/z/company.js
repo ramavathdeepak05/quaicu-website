@@ -24,6 +24,11 @@ export function wordAt(opts, k, word, fallback) {
   const d = opts.voDur && opts.voDur[k] != null ? opts.voDur[k] : letters(text) / 14;
   return opts.voAt[k] + d * (letters(text.slice(0, i)) / Math.max(1, letters(text)));
 }
+// The same, for a word in whichever phrase says it first.
+function wordAtAny(opts, word, fallback) {
+  const k = says(opts).findIndex((p) => p.toLowerCase().includes(word.toLowerCase()));
+  return k < 0 ? fallback : wordAt(opts, k, word, fallback);
+}
 const phraseDur = (opts, k, fallback) => (opts.voDur && opts.voDur[k] != null ? opts.voDur[k] : fallback);
 const pulse = (t, at, d = 0.4) => (t > at && t < at + d ? Math.sin(((t - at) / d) * Math.PI) : 0);
 const root = (fmt, opts, cls, bg) => {
@@ -532,7 +537,7 @@ const zcore = {
     });
     const s = vo(opts, 0, 0.1);
     const fb = (i) => s + 1.6 + i * 0.7;
-    const at = PROGS.map((p, i) => Math.max(s + 0.9 + i * 0.25, wordAt(opts, 1, p.word, fb(i)) - 0.35));
+    const at = PROGS.map((p, i) => Math.max(s + 0.9 + i * 0.25, wordAtAny(opts, p.word, fb(i)) - 0.35));
     const shift = shiftOf(opts);
     let lens = null;
     return {
