@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en" data-mode="light">
+<head>
+  <!-- Consent Mode: analytics stays off until the visitor accepts (banner in assets/site.js) -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500 });
+    try { if (localStorage.getItem('qConsent') === 'granted') gtag('consent', 'update', { analytics_storage: 'granted' }); } catch (e) {}
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NDQ7KG3W');</script>
+  <!-- End Google Tag Manager -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jev Implementation: Ticket Classification and AI Cost Control · QUAICU</title>
+  <meta name="description" content="We implement TypeSafe AI&#x27;s Jev classification model: ticket triage, routing to the right AI model, guardrails and escalation, with a person in the loop." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="canonical" href="https://quaicu.org/jev" />
+  <link rel="preload" as="image" href="/uploads/stock-images/pexels-imvitordiniz-20336862.webp" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="QUAICU" />
+  <meta property="og:url" content="https://quaicu.org/jev" />
+  <meta property="og:title" content="Jev Implementation: Ticket Classification and AI Cost Control" />
+  <meta property="og:description" content="Jev answers classification questions fast and cheaply. We wire it into your helpdesk and AI stack, with confidence thresholds, human review and an audit log." />
+  <meta property="og:image" content="https://quaicu.org/og-card.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="QUAICU: Governed software for accountable business." />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Jev Implementation: Ticket Classification and AI Cost Control" />
+  <meta name="twitter:description" content="Jev answers classification questions fast and cheaply. We wire it into your helpdesk and AI stack, with confidence thresholds, human review and an audit log." />
+  <meta name="twitter:image" content="https://quaicu.org/og-card.png" />
+  <meta name="twitter:image:alt" content="QUAICU: Governed software for accountable business." />
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"QUAICU","item":"https://quaicu.org/"},{"@type":"ListItem","position":2,"name":"Jev implementation","item":"https://quaicu.org/jev"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","@id":"https://quaicu.org/jev#service","name":"Jev implementation","serviceType":"AI classification implementation","description":"We implement TypeSafe AI's Jev classification model: ticket triage, routing to the right AI model, guardrails and escalation, with a person in the loop.","url":"https://quaicu.org/jev","provider":{"@type":"Organization","@id":"https://quaicu.org/#organization","name":"QUAICU Solutions Private Limited","url":"https://quaicu.org/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is Jev?","acceptedAnswer":{"@type":"Answer","text":"Jev is a classification model from TypeSafe AI. Instead of writing text, it answers structured questions about the text you send: yes or no with a probability, a choice from a list of options with a probability for each, or a score on a scale. One call can answer many questions at once."}},{"@type":"Question","name":"What is Jev good for?","acceptedAnswer":{"@type":"Answer","text":"Decisions about text: which team a ticket belongs to, whether a message needs a person, which AI model should handle a request, whether content breaks a policy, or whether a field an AI extracted is likely wrong."}},{"@type":"Question","name":"What can't Jev do?","acceptedAnswer":{"@type":"Answer","text":"It does not write replies, code or summaries. TypeSafe's own documentation says it is weak at counting and exact numbers, that accuracy drops when unrelated material is included, and that score levels should not be read as exact distances. We design around these limits."}},{"@type":"Question","name":"How does Jev reduce AI costs?","acceptedAnswer":{"@type":"Answer","text":"It is priced per input token with no charge for output ($0.042 per million input tokens on TypeSafe's published price list). Used as a first step, it can send simple requests to a cheaper model and only call an expensive model when needed, or check an AI answer before you pay for a second pass."}},{"@type":"Question","name":"How accurate is it on our tickets?","acceptedAnswer":{"@type":"Answer","text":"That depends on your categories and data, so we measure it before go-live: we label a sample of your past tickets, run Jev alongside your current process in shadow mode, and report accuracy per category. Low-confidence results always go to a person."}},{"@type":"Question","name":"Does TypeSafe AI train on our data?","acceptedAnswer":{"@type":"Answer","text":"TypeSafe's privacy policy says it does not train or fine-tune models on customer inputs. Zero data retention is offered to enterprise customers, and Jev is also available through Cloudflare, which lists it with zero data retention. We agree the route with you before any data is sent."}},{"@type":"Question","name":"Which tools can it connect to?","acceptedAnswer":{"@type":"Answer","text":"Any system that can send a webhook or call an API: helpdesks such as Zendesk, Freshdesk, Jira Service Management and ServiceNow, your own apps, and AI gateways such as Cloudflare AI Gateway, Vercel and LiteLLM."}},{"@type":"Question","name":"Is QUAICU affiliated with TypeSafe AI?","acceptedAnswer":{"@type":"Answer","text":"No. Jev is a product of TypeSafe AI. We use it in client work and implement it for teams that want it."}}]}</script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/brand/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#fafaf7" />
+  <link rel="alternate" type="application/rss+xml" title="QUAICU Notes" href="/blog/feed.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <style>
+    .jev-steps { counter-reset: s; }
+    .case-card a { text-decoration: underline; }
+    .wa-btn .wa-ico { width: 18px; height: 18px; margin-right: 8px; flex: none; }
+  </style>
+</head>
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NDQ7KG3W"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <div data-nav-slot></div>
+
+  <section class="page-hero" data-screen-label="01 Hero">
+    <div class="shell">
+      <div class="breadcrumb"><a href="/">QUAICU</a><span class="sep">/</span><span>Jev implementation</span></div>
+      <div class="grid-12">
+        <div class="col-9">
+          <div class="eyebrow"><span class="dot"></span>CAPABILITY · JEV BY TYPESAFE AI</div>
+          <h1 class="h1" style="margin-top: 24px;">Fast, low-cost AI decisions<br/><span class="muted">for your tickets and your AI stack.</span></h1>
+          <p class="lead" style="margin-top: 32px;">We implement Jev, TypeSafe AI's classification model, inside your helpdesk and AI workflows: ticket classification and routing, choosing the right AI model for each request, guardrails and escalation. A person stays in the loop wherever the model isn't sure.</p>
+          <div class="row" style="margin-top: 32px; gap: 12px;">
+            <a class="btn btn--primary btn--lg wa-btn" href="https://wa.me/919848052554" target="_blank" rel="noopener" aria-label="Chat on WhatsApp (opens WhatsApp)"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Chat on WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="atmos atmos--hero" style="background-image: url('/uploads/stock-images/pexels-imvitordiniz-20336862.webp');">
+      <div class="atmos-caption"><span class="dot"></span>CLASSIFY · ROUTE · ESCALATE</div>
+    </div>
+  </section>
+
+  <section data-screen-label="02 What Jev is">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">WHAT JEV IS</div>
+        <div><h2 class="h2">A model that decides,<br/><span class="muted">not one that writes.</span></h2></div>
+      </div>
+      <p class="lead" style="max-width: 64ch; margin-bottom: 40px;">Jev reads text and answers structured questions about it in a single call. It returns probabilities rather than prose, so every decision can be thresholded, logged and checked.</p>
+      <dl class="qa">
+        <div class="qa-row"><dt>Yes or no</dt><dd>The probability that something is true, for example “does this ticket need a person?”</dd></div>
+        <div class="qa-row"><dt>Choice</dt><dd>One option from a list, with a probability for every option, for example which queue a ticket belongs to.</dd></div>
+        <div class="qa-row"><dt>Score</dt><dd>A position on a scale of 2 to 10 levels, for example urgency or sentiment.</dd></div>
+        <div class="qa-row"><dt>Price</dt><dd>$0.042 per million input tokens and no charge for output, on <a href="https://docs.typesafe.ai/models" target="_blank" rel="noopener">TypeSafe's published price list</a>.</dd></div>
+        <div class="qa-row"><dt>What it doesn't do</dt><dd>It doesn't write replies, code or summaries. Where text is needed, we pair it with a language model and let Jev decide when that model is worth calling.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section data-screen-label="03 Uses" class="section--bg" style="background-image: url('/uploads/stock-images/pexels-jakobjin-14452236.webp');">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">HOW CLIENTS USE IT</div>
+        <div><h2 class="h2">Six places Jev<br/><span class="muted">earns its keep.</span></h2></div>
+      </div>
+      <div class="grid-12" style="row-gap: 24px;">
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 01</div>
+            <h3 class="h3" style="margin-top: 12px;">Support ticket classification</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Label every incoming ticket by type, product, urgency and language, and route it to the right queue. Tickets below a confidence threshold go to a person instead of being guessed.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 02</div>
+            <h3 class="h3" style="margin-top: 12px;">AI cost control</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Put Jev in front of your large language models. It decides which requests a small, cheap model can handle and which need a stronger one, or checks an answer before you pay for a second call.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 03</div>
+            <h3 class="h3" style="margin-top: 12px;">Escalation to a person</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Decide when a customer conversation should leave the bot and reach a human agent, based on intent, sentiment and risk.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 04</div>
+            <h3 class="h3" style="margin-top: 12px;">Guardrails and moderation</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Screen user input and AI output against your policies: allow, warn, review or block, with the probability recorded for every decision.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 05</div>
+            <h3 class="h3" style="margin-top: 12px;">DPDP and privacy data mapping</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Flag records, documents and messages that contain personal data, as a first step toward knowing where personal data lives before India's DPDP duties start in May 2027.</p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card" style="height: 100%;">
+            <div class="kicker">USE · 06</div>
+            <h3 class="h3" style="margin-top: 12px;">Inbox and alert triage</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Sort shared inboxes and operations alerts: separate real support requests from noise, group duplicates and tag what needs action.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="04 Implementation">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">HOW WE IMPLEMENT IT</div>
+        <div><h2 class="h2">Enterprise rollout,<br/><span class="muted">step by step.</span></h2></div>
+      </div>
+      <dl class="qa">
+        <div class="qa-row"><dt>Agree the labels</dt><dd>We design the categories with your team, with clear definitions and examples, and decide what a wrong answer costs for each one.</dd></div>
+        <div class="qa-row"><dt>Build a test set</dt><dd>We label a sample of your real tickets or messages as the reference to measure against.</dd></div>
+        <div class="qa-row"><dt>Measure before go-live</dt><dd>Jev runs in shadow mode next to your current process. We report precision and recall for every category, not one average.</dd></div>
+        <div class="qa-row"><dt>Set confidence thresholds</dt><dd>High-confidence results are applied automatically; the rest go to a person. You choose the threshold per category.</dd></div>
+        <div class="qa-row"><dt>Connect your tools</dt><dd>Webhooks from your helpdesk or app send the text; the result comes back as tags, fields or a routing decision.</dd></div>
+        <div class="qa-row"><dt>Log and monitor</dt><dd>Every decision is recorded with its probabilities. We watch accuracy over time and update labels when your products or customers change.</dd></div>
+        <div class="qa-row"><dt>Agree the data route</dt><dd>Direct API or through Cloudflare, data retention, and what text is sent. Personal data is minimised before it leaves your systems.</dd></div>
+      </dl>
+      <p class="muted" style="font-size: 13px; margin-top: 24px;">Our full guide: <a href="/blog/jev-for-enterprise-best-uses-and-how-to-implement/" style="text-decoration: underline;">Jev for enterprise: best uses and how to implement</a>.</p>
+    </div>
+  </section>
+
+  <div class="atmos" style="background-image: url('/uploads/stock-images/pexels-natasha-zoellner-328307832-32892986.webp');">
+    <div class="atmos-caption"><span class="dot"></span>THE MODEL PROPOSES · PEOPLE DECIDE WHEN IT ISN'T SURE</div>
+  </div>
+
+  <section data-screen-label="05 Case studies" class="section--bg" style="background-image: url('/uploads/stock-images/pexels-halil-fatih-cetin-460308764-27164590.webp');">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">PUBLIC CASE STUDIES</div>
+        <div><h2 class="h2">What others have measured.</h2></div>
+      </div>
+      <div class="grid-12" style="row-gap: 24px;">
+        <div class="col-4">
+          <div class="card case-card" style="height: 100%;">
+            <div class="kicker">PUBLIC CASE STUDY · 01</div>
+            <h3 class="h3" style="margin-top: 12px;">Jack &amp; Jill · candidate screening with Jev</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Published by TypeSafe AI. Replacing part of an LLM screening step with Jev cut cost by 88% and median screening time per candidate from 20.3 to 10.3 seconds. The quality change was not statistically significant.</p>
+            <p style="font-size: 13px; margin-top: 12px;"><a href="https://typesafe.ai/blog/jack-jill-jev-case-study" target="_blank" rel="noopener">Read the source ↗</a></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card case-card" style="height: 100%;">
+            <div class="kicker">PUBLIC CASE STUDY · 02</div>
+            <h3 class="h3" style="margin-top: 12px;">Microsoft Azure · DeepTriage incident routing</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Peer-reviewed. An automated classifier that routes incidents to the right team reached 82.9% F1 and has been used in production by thousands of teams since 2017.</p>
+            <p style="font-size: 13px; margin-top: 12px;"><a href="https://arxiv.org/abs/2012.03665" target="_blank" rel="noopener">Read the source ↗</a></p>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="card case-card" style="height: 100%;">
+            <div class="kicker">PUBLIC CASE STUDY · 03</div>
+            <h3 class="h3" style="margin-top: 12px;">Accenture · automated incident assignment</h3>
+            <p class="muted" style="font-size: 14px; margin-top: 12px;">Published by Accenture. Automated classification in ServiceNow assigns about 2,000 of roughly 10,000 daily internal IT incidents without a person.</p>
+            <p style="font-size: 13px; margin-top: 12px;"><a href="https://www.accenture.com/us-en/case-studies/about/improving-efficiency-predictive-intelligence" target="_blank" rel="noopener">Read the source ↗</a></p>
+          </div>
+        </div>
+      </div>
+      <p class="muted" style="font-size: 13px; margin-top: 24px; max-width: 70ch;">These are published results from the companies named, linked to their sources. They are not QUAICU clients or QUAICU results.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="06 FAQ">
+    <div class="shell">
+      <div class="section-head">
+        <div class="kicker">QUESTIONS</div>
+        <div><h2 class="h2">Straight answers.</h2></div>
+      </div>
+      <dl class="qa">
+        <div class="qa-row"><dt>What is Jev?</dt><dd>Jev is a classification model from TypeSafe AI. Instead of writing text, it answers structured questions about the text you send: yes or no with a probability, a choice from a list of options with a probability for each, or a score on a scale. One call can answer many questions at once.</dd></div>
+        <div class="qa-row"><dt>What is Jev good for?</dt><dd>Decisions about text: which team a ticket belongs to, whether a message needs a person, which AI model should handle a request, whether content breaks a policy, or whether a field an AI extracted is likely wrong.</dd></div>
+        <div class="qa-row"><dt>What can't Jev do?</dt><dd>It does not write replies, code or summaries. TypeSafe's own documentation says it is weak at counting and exact numbers, that accuracy drops when unrelated material is included, and that score levels should not be read as exact distances. We design around these limits.</dd></div>
+        <div class="qa-row"><dt>How does Jev reduce AI costs?</dt><dd>It is priced per input token with no charge for output ($0.042 per million input tokens on TypeSafe's published price list). Used as a first step, it can send simple requests to a cheaper model and only call an expensive model when needed, or check an AI answer before you pay for a second pass.</dd></div>
+        <div class="qa-row"><dt>How accurate is it on our tickets?</dt><dd>That depends on your categories and data, so we measure it before go-live: we label a sample of your past tickets, run Jev alongside your current process in shadow mode, and report accuracy per category. Low-confidence results always go to a person.</dd></div>
+        <div class="qa-row"><dt>Does TypeSafe AI train on our data?</dt><dd>TypeSafe's privacy policy says it does not train or fine-tune models on customer inputs. Zero data retention is offered to enterprise customers, and Jev is also available through Cloudflare, which lists it with zero data retention. We agree the route with you before any data is sent.</dd></div>
+        <div class="qa-row"><dt>Which tools can it connect to?</dt><dd>Any system that can send a webhook or call an API: helpdesks such as Zendesk, Freshdesk, Jira Service Management and ServiceNow, your own apps, and AI gateways such as Cloudflare AI Gateway, Vercel and LiteLLM.</dd></div>
+        <div class="qa-row"><dt>Is QUAICU affiliated with TypeSafe AI?</dt><dd>No. Jev is a product of TypeSafe AI. We use it in client work and implement it for teams that want it.</dd></div>
+      </dl>
+      <div class="row" style="margin-top: 48px; gap: 12px;">
+        <a class="btn btn--primary btn--lg wa-btn" href="https://wa.me/919848052554" target="_blank" rel="noopener" aria-label="Talk to us on WhatsApp (opens WhatsApp)"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7a2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>Talk to us on WhatsApp</a>
+      </div>
+      <p class="muted" style="font-size: 12px; margin-top: 32px; max-width: 70ch;">Jev is a product of TypeSafe AI. QUAICU is not affiliated with TypeSafe AI. Product details are taken from TypeSafe AI's public documentation and were last reviewed in October 2026.</p>
+    </div>
+  </section>
+
+  <div data-foot-slot></div>
+  <script src="/assets/nav.js"></script>
+  <script src="/assets/site.js"></script>
+</body>
+</html>
