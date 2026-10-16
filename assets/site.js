@@ -488,6 +488,12 @@
     (window.dataLayer = window.dataLayer || []).push(evt);
   };
 
+  // Clicks on press coverage links (marked data-press="outlet").
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[data-press]") : null;
+    if (a) window.qTrack("press_click", { press_outlet: a.getAttribute("data-press"), page_path: location.pathname });
+  });
+
   // Every link to the contact page counts as an intent signal.
   document.addEventListener("click", function (e) {
     var a = e.target && e.target.closest ? e.target.closest("a[href]") : null;
