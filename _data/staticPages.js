@@ -41,6 +41,7 @@ const pages = [
   { url: "/for/growing-businesses", changefreq: "monthly", priority: 0.8 },
   { url: "/for/product-teams", changefreq: "monthly", priority: 0.7 },
   { url: "/for/regulated-teams", changefreq: "monthly", priority: 0.7 },
+  { url: "/jev", changefreq: "monthly", priority: 0.7 },
   { url: "/company", changefreq: "monthly", priority: 0.7 },
   { url: "/partnerships", changefreq: "monthly", priority: 0.7 },
   { url: "/council", changefreq: "monthly", priority: 0.6 },
